@@ -1,0 +1,38 @@
+.banniere{
+    background-color: white;
+    display: flex;
+    align-items: center;
+  }
+
+  .banniere p{
+    color: #0E8769;
+    font-family: "montserrat", sans-serif;
+    text-align: center;
+  }
+
+.menu-banniere a {
+    color: white;
+    font-size: 23px;
+    margin-bottom: 10px;
+    padding: 14px 16px;
+    font-family: "montserrat", sans-serif;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .menu-banniere a:hover {
+    background-color: white;
+    color: #0E8769;
+  }
+
+  .menu-banniere{
+    background-color: #0E8769;
+    display: flex;
+    
+  }
+
+  h1{
+    color: #0E8769;
+    font-family: "montserrat", sans-serif;
+    text-align: center;
+  }

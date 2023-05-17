@@ -17,16 +17,4 @@
   <a href="index.php">Accueil</a>
   <a href="Challenge.php">Data Challenge</a>
   <a href="Battle.php">Data Battle</a>
-
-				
-<?php if (isset($_SESSION["nom"])) { ?>
-
-		<a href="deconnexion.php">Déconnexion</a>
-
-<?php } else { ?>
-
-		<a href="connexion.php">Connexion</a>
-
-<?php } ?>
-
 </div>
