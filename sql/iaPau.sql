@@ -106,20 +106,37 @@ create table Question (
     intitule TEXT,
 
     idQuestionnaire INTEGER,
-    foreign key fk_Questionnaire(idQuestionnaire) references Questionnaire(idQuestionnaire)
+    foreign key fk_Questionnaire(idQuestionnaire) references Questionnaire(idQuestionnaire) on delete cascade
 );
 
 create table Reponse (
     idReponse INTEGER primary key unique not null auto_increment,
+    note INTEGER,
     reponse TEXT,
-
-
     idEquipe INTEGER,
-    foreign key fk_Equipe(idEquipe) references Equipe(idEquipe),
-
     idQuestion INTEGER,
-    foreign key fk_Question(idQuestion) references Question(idQuestion)
+
+    foreign key fk_Equipe(idEquipe) references Equipe(idEquipe),
+    foreign key fk_Question(idQuestion) references Question(idQuestion) on delete cascade
 );
 
 
+create table Message (
+    idMessage INTEGER primary key unique not null auto_increment,
+    dateEnvoie DATETIME,
+    objet VARCHAR(100),
+    contenu TEXT,
+    idEnvoyeur INTEGER,
 
+    foreign key fk_Envoyeur(idEnvoyeur) references Utilisateur(idUtilisateur) on delete cascade
+);
+
+
+create table MessageDestinataire (
+    idMessage Integer,
+    idDestinataire Integer,
+
+    foreign key fk_Message(idMessage) references Message(idMessage) on delete cascade,
+    foreign key fk_Destinataire(idDestinataire) references Utilisateur(idUtilisateur) on delete cascade,
+    constraint pk_MessageDestinataire primary key (idMessage,idDestinataire)
+);
