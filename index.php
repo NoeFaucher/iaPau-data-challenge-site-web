@@ -1,3 +1,5 @@
-<html>
+<?php 
 
-</html>
+include 'php/accueil.php';
+
+?>

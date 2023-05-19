@@ -1,0 +1,100 @@
+body{
+    margin: 0;
+    background-color: #FAFAFF;
+    font-family:Arial, Helvetica, sans-serif;
+    height: 3000px;
+}
+
+#atriumImg{
+    display: block;
+    width: 100%;
+    opacity: 0.5;
+    overflow: hidden;
+    object-fit: cover;
+    max-height: 50vh;
+    filter: blur(3px);
+    box-sizing: border-box;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+#content{
+    display: flex;
+    position: relative;
+    height: 5%;
+    margin-top: -5px;
+    padding: 1vh;
+    background-color: #4AB7BC;
+    width: 100%;
+    box-sizing: border-box;
+
+}
+
+#content>h1{
+    color:#FAFAFF ;
+    font-size: 4em;
+    margin-left: 25%;
+    top: 0;
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-100%);
+}
+
+#content2{
+    display: inline-block;
+    height: 10%;
+    padding: 1vh;
+    width: 70%;
+    padding: 5vh;
+    font-size: x-large;
+    margin-left: 24%;
+    z-index: 5;
+    text-align: justify;
+    overflow-y: hidden;
+}
+
+
+#logo{
+    display: inline-block;
+    position: absolute;
+    margin-left: -50px; 
+    z-index: 10;
+}
+
+#grad1{
+    display: block;
+    margin-top: 15vh;
+    height: 300px;
+    width: 100%;
+    background: linear-gradient(#FAFAFF, #0e8769);
+}
+
+#grad2{
+    display: block;
+    height: 300px;
+    width: 100%;
+    background: linear-gradient(#0e8769, #FAFAFF);
+}
+
+#content3{
+    display: block;
+    background-color: #0e8769;
+    height: 20%;
+}
+
+#pyr{
+    display: block;
+    width: 100%;
+    opacity: 0.5;
+    overflow: hidden;
+    object-fit: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
