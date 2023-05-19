@@ -1,8 +1,8 @@
 <?php 
     // scores fictifs pour le moment
-    $scorePremier = 81;
-    $scoreSecond = 75;
-    $scoreTroisieme = 67;
+    $scorePremier = 10;
+    $scoreSecond = 9;
+    $scoreTroisieme = 8;
 
     $scoreRelatifSecond = $scoreSecond/$scorePremier;
     $scoreRelatifTroisieme = $scoreTroisieme/$scorePremier;

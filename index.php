@@ -1,7 +1,17 @@
+<?php
+    session_start();
+    $_SESSION["role"] = "admin";
+    if ($_SESSION["role"] == "participant") {
+        $_SESSION["chefEquipe"] = true;
+    }
+    $_SESSION["loggedIn"] = true;
+    $_SESSION["inscritAuDataChallenge"] = true;
+?>
 
 <!DOCTYPE HTML>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="css/general.css" />
         <link rel="stylesheet" type="text/css" href="css/footer.css" />
         <link rel="stylesheet" type="text/css" href="css/podium.css" />
         <link rel="stylesheet" type="text/css" href="css/description-data-challenge.css" />

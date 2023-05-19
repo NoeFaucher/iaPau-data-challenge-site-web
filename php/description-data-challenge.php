@@ -15,12 +15,18 @@
             <span>Organisé par ".$nomEntreprise." - Du ".$dateDebut." au ".$dateFin."</span>
         </div>
         <p id='paragraphe-presentation-data-challenge'>".$presentation."</p>
+    ";
+    if ((isset($_SESSION["loggedIn"])) && ($_SESSION["loggedIn"] == true)) {
+        echo "
         <form id='inscription'>
             <div id='bouton-inscription'>
                 <button type='submit'>Inscrire mon équipe</button>
             </div>
-        </form>
-    </div>
-    ";
+        </form>";
+    }
+    else {
+        echo "<span>Veuillez vous connecter pour vous inscrire à ce data challenge.";
+    }
+    echo "</div>";
 
 ?>

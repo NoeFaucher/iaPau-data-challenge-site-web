@@ -1,9 +1,9 @@
 footer {
+    padding: 1px; /* pourquoi juste avec 1px ça décale autant ? */
     left: 0px; /* coller le footer à gauche */
     bottom: 0px; /* coller le footer en bas */
     background-color: #0E8769; /* couleur de fond */
     width: 100%; /* mettre le footer sur toute la longueur de la page */
-    position: fixed; /* fixation de la position du footer en bas (permet aussi de le mettre collé au bas de la page) */
     text-align: center; /* centrer le texte horizontalement */
     font-family: "Montserrat"; /* police d'écriture */
     font-size: 18px; /* taille de la police d'écriture */
