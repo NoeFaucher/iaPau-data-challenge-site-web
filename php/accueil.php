@@ -20,9 +20,24 @@
             </div>
 
             <div id="grad1"></div>
-            <div id="content3"></div>
-            <div id="grad2"></div>
-            <img id="pyr" src="../img/pyrenee.webp" alt="pyrenee">
+            <div id="content3">
+                <h1>
+                    Vous souhaitez participer à nos data challenges?
+                </h1>
+                
+                <p style="border-bottom-right-radius: 30px;border-bottom-left-radius: 30px; max-width:65%; padding-left: 8vh;">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi debitis cum modi doloremque odio voluptas dolores mollitia possimus alias fuga! Incidunt tempore sint voluptatum ullam iste quam perspiciatis reiciendis quasi voluptatibus voluptate? Eum voluptatum id at qui quos rem, sed earum quia ad, quisquam voluptatibus distinctio ullam labore ex provident dolorum necessitatibus voluptate repellendus velit tempora delectus perspiciatis, assumenda in sequi. Suscipit accusantium natus maxime nobis saepe quis voluptatum officia. Quasi a aspernatur ipsa sapiente sit! Molestiae sapiente fuga tempora facere totam! Exercitationem distinctio eligendi, porro rerum quo impedit eius consequatur aperiam autem odio possimus esse. Hic asperiores exercitationem corrupti.
+                </p>
+                <br>
+                <a href="#" id="btnDataChall">nos data challenges</a>
+                <a href="#" id="btnDataChall">Se connecter</a>
+
+                <a href="#" id="btnDataChall">S'inscrire</a>
+
+
+            
+            </div>
+            <img id="pyr" src="../img/pyrenee.webp" alt="pyrenee" >
 
 
         </body>
