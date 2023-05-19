@@ -2,7 +2,7 @@
     // scores fictifs pour le moment
     $scorePremier = 10;
     $scoreSecond = 9;
-    $scoreTroisieme = 8;
+    $scoreTroisieme = 5;
 
     $scoreRelatifSecond = $scoreSecond/$scorePremier;
     $scoreRelatifTroisieme = $scoreTroisieme/$scorePremier;
@@ -17,7 +17,7 @@
             <div class='barre-score' id='barre-score-second' style='height: calc(".$scoreRelatifSecond."*300px - ".$scoreRelatifTroisieme."*200px + 100px);'></div>
             <div class='infos-score'>
                 <div class='rang'>
-                    <span>2nd</span>
+                    <span>2<sup>nd</sup></span>
                 </div>
                 <div class='nom-equipe'>
                     <span>".$nomSecond."</span>
@@ -31,7 +31,7 @@
             <div class='barre-score' id='barre-score-premier' style='height: calc(300px - ".$scoreRelatifTroisieme."*200px + 100px);'></div>
             <div class='infos-score'>
                 <div class='rang'>
-                    <span>1er</span>
+                    <span>1<sup>er</sup></span>
                 </div>
                 <div class='nom-equipe'>
                     <span>".$nomPremier."</span>
@@ -45,7 +45,7 @@
             <div class='barre-score' id='barre-score-troisieme' style='height: calc(".$scoreRelatifTroisieme."*300px - ".$scoreRelatifTroisieme."*200px + 100px);'></div>
             <div class='infos-score'>
                 <div class='rang'>
-                    <span>3eme</span>
+                    <span>3<sup>eme</sup></span>
                 </div>
                 <div class='nom-equipe'>
                     <span>".$nomTroisieme."</span>

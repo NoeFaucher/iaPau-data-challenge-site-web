@@ -6,6 +6,7 @@
 #acces-equipe #bouton-acces-equipe {
     display: flex;
     justify-content: center;
+    margin-bottom: 50px; /* écart du bouton avec le footer */
 }
 
 #acces-equipe #bouton-acces-equipe button, #bouton-gestion-equipes button {
