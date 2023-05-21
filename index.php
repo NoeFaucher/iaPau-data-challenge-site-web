@@ -56,7 +56,7 @@ Questions :
                 include("php/description-data-challenge.php");
                 echo "</section>";
 
-                // podium (pour les data battle)
+                // podium (pour les data battles)
                 echo "<section>";
                 include("php/podium.php");
                 echo "</section>";
