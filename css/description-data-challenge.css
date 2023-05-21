@@ -1,47 +1,37 @@
-/* description - accessible à tous */
+/***** description de l'évènement - accessible à tous *****/
 
-#presentation-data-challenge {
-    margin: 25px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-#presentation-data-challenge #nom-data-challenge {
-    font-weight: bold;
-    font-size: 40px;
+/* titre de l'évènement - nom du data challenge ou du data battle */
+h3 {
+    margin: 0px;
+    padding: 0px;
+    font-size: 45px;
     margin-bottom: 10px; /* écart entre le titre et le nom de l'entreprise */
 }
 
-#presentation-data-challenge #infos-data-challenge {
+/* informations sur l'évènement - dates de début et de fin, entreprise */
+#infos-data-challenge {
     font-weight: bold;
     font-style: italic;
-    font-size: 22px;
-}
-
-#presentation-data-challenge .paragraphe-presentation-data-challenge {
-    text-align: justify;
-    font-size: 18px;
+    font-size: 25px;
 }
 
 /* cas 1 : l'utilisateur est connecté */
-/* cas 1.1 : l'utilisateur est un participant */
-/* cas 1.1.1 : l'utilisateur est déjà inscrit au data challenge */
+/* cas 1.1.1 : c'est un étudiant qui participe à l'évènement */
 
-#presentation-data-challenge .sous-titre-data-challenge {
-    font-weight: bold;
-    font-size: 22px;
-    border-bottom: 1px solid black;
+#texte-input-lien-gitlab {
+    margin-bottom: 20px; /* écart entre la demandede l'URL GitLab et le bouton pour envoyer le lien */
 }
 
-#presentation-data-challenge #lien-code-gitlab {
-    margin-top: 20px; /* écart entre la demande de l'URL gitlab et le sous-titre "Rendu" */
-    font-size: 18px;
+#lien-code-gitlab {
+    margin-top: 20px; /* écart entre la demande de l'URL GitLab et le sous-titre "Rendu" */
+    font-size: 20px;
     /* les trois lignes ci-dessous permettent d'aligner verticalement les conteneurs "texte URL + input" et "bouton-envoi" */ 
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#presentation-data-challenge #lien-code-gitlab input {
+#lien-code-gitlab input {
     margin-left: 10px; /* écart entre le texte et le "input" */
     padding: 2px;
     padding-left: 5px;
@@ -51,35 +41,16 @@
     font-size: 18px;
 }
 
-#presentation-data-challenge #lien-code-gitlab button {
-    margin-top: 20px;
-    border-radius: 10px;
-    border: 2px solid black;
-    font-size: 20px;
-    color: white;
-    background-color: green;
-    padding: 5px 15px 5px 15px; /* ordre : haut, droite, bas, gauche */
-}
+/* cas 1.2 : l'utilisateur n'est pas inscrit au data challenge */
 
-/* cas 1.1.2 : l'utilisateur n'est pas inscrit au data challenge */
-
-#presentation-data-challenge #inscription #bouton-inscription, #presentation-data-challenge #bouton-inscription-interdit {
+#bouton-inscription, #bouton-inscription-interdit {
     display: flex;
     justify-content: center;
 }
 
-#presentation-data-challenge #inscription button, #presentation-data-challenge #bouton-inscription-interdit button {
-    border-radius: 10px;
-    border: 2px solid black;
-    font-size: 22px;
-    color: white;
-    background-color: green;
-    padding: 5px 15px 5px 15px; /* ordre : haut, droite, bas, gauche */
-}
+/* cas 1.2.2 : l'utilisateur n'est pas le chef de son équipe */
 
-/* cas 1.1.2.2 : l'utilisateur n'est pas le chef de son équipe */
-
-#presentation-data-challenge #bouton-inscription-interdit button {
+#bouton-inscription-interdit button {
     opacity: 90%;
     background-color: rgb(116, 141, 116);
     cursor: not-allowed;
@@ -87,7 +58,7 @@
 
 /* cas 2 : l'utilisateur n'est pas connecté */
 
-#presentation-data-challenge #message-connexion {
+#message-connexion {
     display: flex;
     justify-content: center;
     font-size: 18px;

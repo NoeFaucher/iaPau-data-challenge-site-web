@@ -5,8 +5,6 @@
     align-items: flex-end; /* aligner les sous-conteneurs "place" avec le bas du conteneur "podium" */
     padding-top: 30px;
     padding-bottom: 30px;
-    border-top: 3px solid black;
-    border-bottom: 3px solid black;
     width: 100%; /* pour que ça prenne toute la largeur de la page */
 }
 
@@ -27,40 +25,49 @@
 
 /* barre de score de la première équipe */
 #podium .place #barre-score-premier {
-    background-color: rgb(0, 56, 4);
+    background-color: rgb(228, 195, 9);
 }
 
 /* barre de score de la seconde équipe */
 #podium .place #barre-score-second {
-    background-color: rgb(0, 105, 7);
-    height: 130px;
+    background-color: rgb(192, 192, 192);
 }
 
 /* barre de score de la troisième équipe */
 #podium .place #barre-score-troisieme {
-    background-color: rgb(0, 171, 11);
-    height: 100px;
+    background-color: rgb(205, 127, 50);
 }
 
 /* textes associés aux utilisateurs du podium : place, équipe, etc */
 #podium .place .infos-score {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-align: center;
 }
 
-/* place : 1er, 2ème ou 3ème */
+/* rang : 1er, 2ème ou 3ème */
 #podium .place .infos-score .rang {
     font-weight: bold;
     font-size: 25px;
+}
+
+/* couleurs du rang */
+#podium .place .infos-score .rang #premier {
+    color: rgb(228, 195, 9);
+}
+#podium .place .infos-score .rang #second {
+    color: rgb(192, 192, 192);
+}
+#podium .place .infos-score .rang #troisieme {
+    color: rgb(205, 127, 50);
 }
 
 /* nom de l'équipe */
 #podium .place .infos-score .nom-equipe {
     font-weight: bold;
     font-size: 22px;
+    margin-bottom: 5px;
 }
 
 /* score */
-#podium .place .infos-score .nom-equipe {
-    font-size: 20px;
+#podium .place .infos-score .score {
+    font-size: 19px;
 }
