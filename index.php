@@ -51,7 +51,7 @@ Questions :
         <main>
             <?php
                 
-                // description des data challenges/battle 
+                // description des data challenges/battles
                 echo "<section>";
                 include("php/description-data-challenge.php");
                 echo "</section>";
