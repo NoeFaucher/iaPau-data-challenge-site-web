@@ -18,7 +18,7 @@ create table Utilisateur (
 
 create table DataEvent (
     idDataEvent INTEGER primary key unique not null auto_increment, 
-    typeDataEvent ENUM('DataChalenge','DataBattle'),
+    typeDataEvent ENUM('DataChallenge','DataBattle'),
     dateDebut DATETIME, 
     dateFIN DATETIME,
     dateCreation DATETIME,
