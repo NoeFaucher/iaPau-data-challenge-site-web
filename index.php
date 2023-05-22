@@ -38,7 +38,7 @@ Questions :
         <link rel="stylesheet" type="text/css" href="css/general.css" />
         <link rel="stylesheet" type="text/css" href="css/footer.css" />
         <link rel="stylesheet" type="text/css" href="css/podium.css" />
-        <link rel="stylesheet" type="text/css" href="css/description-data-challenge.css" />
+        <link rel="stylesheet" type="text/css" href="css/description-data.css" />
         <link rel="stylesheet" type="text/css" href="css/acces-equipe.css" />
     </head>
     <body>
@@ -53,7 +53,7 @@ Questions :
                 
                 // description des data challenges/battles
                 echo "<section>";
-                include("php/description-data-challenge.php");
+                include("php/description-data.php");
                 echo "</section>";
 
                 // podium (pour les data battles)

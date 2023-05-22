@@ -16,7 +16,7 @@ h3 {
 }
 
 /* cas 1 : l'utilisateur est connecté */
-/* cas 1.1.1 : c'est un étudiant qui participe à l'évènement */
+/* cas 1.1.1 : c'est un étudiant chef d'équipe qui participe à l'évènement */
 
 #texte-input-lien-gitlab {
     margin-bottom: 20px; /* écart entre la demandede l'URL GitLab et le bouton pour envoyer le lien */

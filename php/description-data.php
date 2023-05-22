@@ -65,8 +65,8 @@
             <p class='paragraphe-presentation'>".$loremIpsum."</p>
             ";
 
-            // cas 1.1.1 : il est en plus étudiant, il peut donc rendre une archive GitLab
-            if ((isset($_SESSION["role"])) && ($_SESSION["role"] == "etudiant")) {
+            // cas 1.1.1 : il est en plus étudiant et chef d'équipe, il peut donc rendre une archive GitLab
+            if (((isset($_SESSION["role"])) && ($_SESSION["role"] == "etudiant")) && ((isset($_SESSION["chefEquipe"])) && ($_SESSION["chefEquipe"] == true))) {
 
                 // partie pour le lien gitlab
                 echo "

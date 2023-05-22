@@ -21,6 +21,7 @@
     height: 80px;
     border-radius: 15px 15px 0px 0px; /* ordre : haut gauche, haut droit, bas droit, bas gauche */
     margin-bottom: 10px; /* écart entre la barre de score et le rang */
+    box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.6); /* ordre : droite, bas,  */
 }
 
 /* barre de score de la première équipe */
