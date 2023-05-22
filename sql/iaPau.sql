@@ -8,7 +8,7 @@ use iaPau;
 -- Utilisateur
 create table Utilisateur (
     idUtilisateur INTEGER primary key unique not null auto_increment, mdp VARCHAR(100),
-    typeUtilisateur ENUM('gestionaire','normal','administrateur'),
+    typeUtilisateur ENUM('gestionnaire','normal','administrateur'),
     nivEtude ENUM('L1','L2','L3','M1','M2','D'),
     nom VARCHAR(100),
     prenom VARCHAR(100),
@@ -18,7 +18,7 @@ create table Utilisateur (
 
 create table DataEvent (
     idDataEvent INTEGER primary key unique not null auto_increment, 
-    typeDataEvent ENUM('DataChalenge','DataBattle'),
+    typeDataEvent ENUM('DataChallenge','DataBattle'),
     dateDebut DATETIME, 
     dateFIN DATETIME,
     dateCreation DATETIME,
