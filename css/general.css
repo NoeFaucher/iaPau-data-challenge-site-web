@@ -23,18 +23,3 @@ main button {
 a {
     text-decoration: none;
 }
-
-/***** classes réutilisées dans plusieurs fichiers différentes *****/
-
-.sous-titre-evenement {
-    font-weight: bold;
-    font-size: 24px;
-    color: rgb(56, 136, 106);
-    border-bottom: 1px solid rgb(56,136,106);
-}
-
-.paragraphe-presentation {
-    text-align: justify;
-    font-size: 20px;
-}
-

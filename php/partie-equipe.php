@@ -15,10 +15,10 @@
     */
 
     // l'utilisateur doit être connecté pour afficher cette section
-    if ((isset($_SESSION["loggedIn"])) && ($_SESSION["loggedIn"] == true)) {
+    if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
 
         // cas 1 : l'utilisateur est un admin ou un gestionnaire
-        if ((isset($_SESSION["role"])) && (($_SESSION["role"] == "admin")) || ($_SESSION["role"] == "gestionnaire")) {
+        if ((isset($_SESSION["typeUtilisateur"])) && (($_SESSION["typeUtilisateur"] == "admin")) || ($_SESSION["typeUtilisateur"] == "gestionnaire")) {
 
             // affichage du titre de la section
             echo "
@@ -78,7 +78,7 @@
 
         // cas 2 : l'utilisateur est un étudiant
         // l'utilisateur doit être un étudiant inscrit à l'évènement pour pouvoir afficher cette section
-        if ((isset($_SESSION["role"])) && ($_SESSION["role"] == "etudiant")) {
+        if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "etudiant")) {
 
             // l'étudiant est inscrit
             if ((isset($_SESSION["inscrit"])) && ($_SESSION["inscrit"] == true)) {
@@ -99,7 +99,7 @@
                 ";
 
                 // l'étudiant est le chef de son équipe et il s'agit d'une data battle
-                if (((isset($_SESSION["chefEquipe"])) && ($_SESSION["chefEquipe"] == true)) && ((isset($_SESSION["typeData"])) && ($_SESSION["typeData"] == "battle"))) {
+                if (((isset($_SESSION["chefEquipe"])) && ($_SESSION["chefEquipe"] == true)) && ((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "battle"))) {
                     
                     // affichage du questionnaire
                     echo "

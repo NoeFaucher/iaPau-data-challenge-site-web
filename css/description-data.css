@@ -43,14 +43,38 @@ h3 {
 
 /* cas 1.2 : l'utilisateur n'est pas inscrit au data challenge */
 
-#bouton-inscription, #bouton-inscription-interdit {
+#bouton-inscription, .bouton-inscription-interdit {
     display: flex;
     justify-content: center;
 }
 
+/* cas 1.2.1.1 : choix du projet data par le chef d'équipe, dans le cas d'une data battle */
+
+#choix-projet-data {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; 
+}
+
+.projet-data {
+    border: 2px solid black;
+    border-radius: 15px;
+    width: 30%;
+    margin: 10px;
+    padding: 15px;
+    text-align: justify;
+}
+
+.titre-projet-data {
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 1px solid rgb(99, 99, 99);
+    padding-bottom: 5px;
+}
+
 /* cas 1.2.2 : l'utilisateur n'est pas le chef de son équipe */
 
-#bouton-inscription-interdit button {
+.bouton-inscription-interdit button {
     opacity: 90%;
     background-color: rgb(116, 141, 116);
     cursor: not-allowed;

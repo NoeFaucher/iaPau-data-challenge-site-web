@@ -17,16 +17,15 @@
     width: 30%;
     border: 2px solid black;
     border-radius: 15px;
-    padding: 10px;
+    padding: 15px;
     margin: 10px;
 }
 
 #liste-equipes .equipe .nom-equipe {
-    font-size: 20px;
     font-weight: bold;
+    font-size: 20px;
     border-bottom: 1px solid rgb(99, 99, 99);
-    padding-bottom: 4px;
-    margin-bottom: 8px;
+    padding-bottom: 5px;
 }
 
 /***** cas 2 : l'utilisateur est un étudiant *****/

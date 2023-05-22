@@ -2,7 +2,7 @@
 
     // le podium ne s'affiche que pour une data battle, pas pour les data challenges
     // il est accessible à tous, même aux utilisateurs non connectés
-    if ($_SESSION["typeData"] == "battle") {
+    if ($_SESSION["typeDataEvent"] == "battle") {
 
         // scores fictifs pour le moment
         $scorePremier = 20;
