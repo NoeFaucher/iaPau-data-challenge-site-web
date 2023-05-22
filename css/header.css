@@ -1,0 +1,62 @@
+.banniere{
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .banniere p {
+    color: #0E8769;
+    font-family: "montserrat", sans-serif;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+.menu-banniere a {
+    color: white;
+    font-size: 23px;
+    padding: 14px 190px 14px;
+    width: 25%;
+    font-family: "montserrat", sans-serif;
+    text-decoration: none;
+  }
+
+  .menu-banniere a:hover {
+    background-color: #13b88f;
+    color: white;
+  }
+
+  .menu-banniere{
+    background-color: #0E8769;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  h1{
+    color: #0E8769;
+    font-family: "montserrat", sans-serif;
+    text-align: center;
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom:0;
+  }
+
+  #Client {
+    position : absolute;
+    top : 30px;
+    right: 10px;
+    height : 60px;
+  }
+
+  #logo {
+    position : absolute;
+    top : 20px;
+    left: 10px;
+    height : 80px;
+  }

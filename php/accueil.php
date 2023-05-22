@@ -11,7 +11,7 @@
 
             <div id="content">
                 <div>
-                    <img id="logo" src="../img/iapau_round.png" alt="logo">
+                    <img id="logoA" src="../img/iapau_round.png" alt="logo">
                 </div>
                 <h1>Courte présentation de l'association...</h1>     
              </div>
