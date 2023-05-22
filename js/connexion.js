@@ -2,7 +2,7 @@ function validateConnexion() {
     const email = document.forms["connexion"]["email_participant"];
     const mdp = document.forms["connexion"]["mot_de_passe_participant"];
 
-    let verification = false;
+    let verification = true;
 
     if (email.value === ""){
         email.classList.remove('form-email');

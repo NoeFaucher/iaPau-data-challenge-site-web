@@ -1,15 +1,22 @@
 <?php
+include("bddData.php");
 
-    include("../php/bddData.php");
-    $cnx = mysqli_connect($serveur,$user,$pass);
-    if (mysqli_connect_errno($cnx)) {
-        echo mysqli_connect_error();
-    };
-    
-    $res_bool = mysqli_select_db($cnx,$bdd);
-    if (!$res_bool) throw new Exception("$bdd database introuvable");
+function connexion($serveur, $bdd, $login, $password) {
+    try {
+        return new PDO( 'mysql:host=' . $serveur . ';dbname=' . $bdd . ';charset=utf8',
+        $login,
+        $password,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+        );
+    }
+    catch (Exception $e){
+        die('Erreur' .$e -> getMessage());
+    }
+}
 
-
+function deconnexion ()  {
+    return null;
+}
 ?>
 
 

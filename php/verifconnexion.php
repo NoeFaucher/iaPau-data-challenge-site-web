@@ -5,9 +5,10 @@ include "../php/verification.php";
 include "../php/bdd.php";
 
 $email= valid($_POST["email_participant"]);
-$mdp = valid($_POST("mot_de_passe_participant"));
+$mdp = valid($_POST["mot_de_passe_participant"]);
 
-if (!empty($email) and !empty($mdp)) {
+$mysqlClient = connexion($serveur, $bdd, $user, $pass);
 
-}
+var_dump($mysqlClient);
 
+?>
