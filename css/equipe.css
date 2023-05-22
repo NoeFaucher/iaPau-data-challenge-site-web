@@ -1,0 +1,19 @@
+.boxEquipe{
+    width: 85%;
+    padding: 1vh;
+    margin: 2vh;
+    margin-left: 5%;
+    border: 1px solid #4AB7BC;
+    font-family: "Montserrat", sans-serif;
+    color: #4AB7BC;
+}
+
+.boxEquipe h2{
+    margin-left: 2vh;
+    width: 10%;
+}
+
+.boxEquipe hr{
+    color: #4AB7BC;
+    border: 1px solid #4AB7BC;
+}

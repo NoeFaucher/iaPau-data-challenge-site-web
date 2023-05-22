@@ -5,12 +5,10 @@
     <link rel="stylesheet" href="../css/equipe.css">
     <title>Gestion d'équipe - IA Pau</title>
 </head>
-<body>
-    <p>Page équipe</p>
     <?php
     include 'bdd.php';
     $_SESSION["idUtilisateur"] = 1;
-    $test = 3;
+    $test = 2;
 
         if ($test == 1) {
 
@@ -40,22 +38,18 @@
         
 
         while($ligne = mysqli_fetch_assoc($resultat)){
-            echo $ligne["idEquipe"].' et '. $ligne["nomEquipe"].'<br>';
+            echo "<div class='boxEquipe'>";
+            echo '<h2>'.$ligne["nomEquipe"].'</h2>';
+            echo "</div>";
 
         }
 
-    /*
-    "SELECT Equipe.idEquipe, nomEquipe 
-    FROM DataEvent INNER JOIN Equipe 
-    on Equipe.idDataEvent=DataEvent.idDataEvent 
-    and DataEvent.idDataEvent = any 
-        (SELECT idDataEvent 
-        FROM DataEvent INNER JOIN Utilisateur 
-        on Utilisateur.idUtilisateur = DataEvent.idDataEvent 
-        and DataEvent.idGestionnaire = 2);"
-    */
-
 
     ?>
+    
+    <div class="boxEquipe">
+        <h2> Team test</h2>
+        <hr>
+    </div>
 </body>
 </html>
