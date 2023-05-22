@@ -1,6 +1,6 @@
 <?php
 
-include("header.php");
+include("css/header.php");
 
 include 'php/accueil.php';
 
