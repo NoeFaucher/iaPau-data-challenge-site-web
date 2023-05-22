@@ -8,37 +8,41 @@
 <body>
     <p>Page équipe</p>
     <?php
-    $_SESSION["typeUtilisateur"] = 'gestionnaire';
-    $_SESSION["idUtilisateur"] = 2;
+    include 'bdd.php';
+    $_SESSION["idUtilisateur"] = 1;
+    $test = 3;
 
+        if ($test == 1) {
 
-
-    switch ($_SESSION["typeUtilisateur"]) {
-        case 'administrateur':
-            $req = 'SELECT idDataEvent FROM DataEvent';
-            break;
-
-        case 'gestionnaire':
             $req = 'SELECT Equipe.idEquipe, nomEquipe 
             FROM DataEvent INNER JOIN Equipe 
             on Equipe.idDataEvent=DataEvent.idDataEvent 
             and DataEvent.idDataEvent = any 
-                (SELECT idDataEvent 
-                FROM DataEvent INNER JOIN Utilisateur 
-                on Utilisateur.idUtilisateur = DataEvent.idDataEvent 
-                and DataEvent.idGestionnaire = '.$_SESSION["idUtilisateur"].');';
+            (SELECT idDataEvent 
+            FROM DataEvent INNER JOIN Utilisateur 
+            on Utilisateur.idUtilisateur = DataEvent.idDataEvent 
+            and DataEvent.idGestionnaire = '.$_SESSION["idUtilisateur"].');';
+        }elseif ($test == 2) {
 
-        
-            break;
+            $req = 'SELECT Equipe.idEquipe, nomEquipe 
+            FROM DataEvent INNER JOIN Equipe 
+            on Equipe.idDataEvent=DataEvent.idDataEvent;';
+        }else {
 
-        case 'normal':
-            
-            break;
+            $req = 'SELECT Equipe.idEquipe, nomEquipe
+            FROM UtilisateurAppartientEquipe INNER JOIN Equipe
+            on UtilisateurAppartientEquipe.idEquipe = Equipe.idEquipe
+            and UtilisateurAppartientEquipe.idUtilisateur = '.$_SESSION["idUtilisateur"].';';
+        }
     
-        default:
-            header("Location: ../index.php?error=1");
-            break;
-    }
+            
+        $resultat = mysqli_query($cnx,$req);
+        
+
+        while($ligne = mysqli_fetch_assoc($resultat)){
+            echo $ligne["idEquipe"].' et '. $ligne["nomEquipe"].'<br>';
+
+        }
 
     /*
     "SELECT Equipe.idEquipe, nomEquipe 

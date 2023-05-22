@@ -8,7 +8,7 @@ VALUES
 -- Insert sample data into DataEvent table
 INSERT INTO DataEvent (typeDataEvent, dateDebut, dateFIN, dateCreation, descript, entreprise, titre, idGestionnaire)
 VALUES
-    ('DataChallenge', '2023-06-01 09:00:00', '2023-06-05 18:00:00', '2023-05-01 14:30:00', 'Description 1', 'Company A', 'Event 1', 1),
+    ('DataChallenge', '2023-06-01 09:00:00', '2023-06-05 18:00:00', '2023-05-01 14:30:00', 'Description 1', 'Company A', 'Event 1', 2),
     ('DataBattle', '2023-07-10 10:00:00', '2023-07-15 17:00:00', '2023-06-10 16:45:00', 'Description 2', 'Company B', 'Event 2', 2);
 
 -- Insert sample data into Equipe table
