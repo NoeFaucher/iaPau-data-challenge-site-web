@@ -43,7 +43,6 @@ body{
 
 #content2{
     display: inline-block;
-    height: 10%;
     padding: 1vh;
     width: 70%;
     padding: 5vh;
@@ -59,12 +58,13 @@ body{
     position: absolute;
     margin-left: -50px; 
     width: auto ;
+    max-width: 30%;
     z-index: 10;
 }
 
 #grad1{
     display: block;
-    margin-top: 15vh;
+    margin-top: 5vh;
     height: 300px;
     width: 100%;
     background: linear-gradient(#FAFAFF, #0e8769);

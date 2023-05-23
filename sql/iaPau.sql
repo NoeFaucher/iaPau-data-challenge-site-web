@@ -35,6 +35,8 @@ create table Equipe (
     idEquipe INTEGER primary key unique not null auto_increment,
     nomEquipe VARCHAR(100),
     idDataEvent Integer,
+    idChefEquipe Integer,
+    foreign key fk_ChefEquipe(idChefEquipe) references Utilisateur(idUtilisateur),
     foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent) on delete cascade
 );
 
