@@ -1,7 +1,6 @@
 <?php
     session_start();
     include("./php/header.php");
-    include("./css/menu-vert.css");
 
 // l'utilisateur est connecté
 if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
@@ -12,6 +11,7 @@ if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
         //peut modifier le data Battle s'il est le sien
         if((isset($_SESSION["idGestionnaire"])) && ($_SESSION["idGestionnaire"] == "gestionaire")){
 
+            //c'est un data battle
             if((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "DataBattle")){
 
             // affichage de la liste des battles dont il est proprietaire
@@ -24,7 +24,7 @@ if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
                 echo "<p>Date de fin : {$event['dateFIN']}</p>";
                 echo "<p>Description : {$event['descript']}</p>";
                 echo "<button><a title='DataBattle' href='description-data-challenge.php'>Acces au dataBattle</a></button>";
-                echo "<button><a title='ModifB' href='modifBattle.php'>Modifier le battle</a></button>";
+                echo "<button><a title='ModifU' onclick='info(\"{$DataEvent['titre']}\", \"{$DataEvent['nomEntreprise']}\", \"{$DataEvent['dateDebut']}\", \"{$DataEvent['dateFIN']}\", \"{$DataEvent['descript']}\")'>Modifier le battle</a></button>";
                 echo "</li>";
             }
 
@@ -49,8 +49,8 @@ if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
             echo "<p>Date de fin : {$event['dateFIN']}</p>";
             echo "<p>Description : {$event['descript']}</p>";
             echo "<button><a title='DataBattle' href='description-data-challenge.php'>Acces au dataBattle</a></button>";
-            echo "<button><a title='ModifB' href='modifBattle.php'>Modifier le battle</a></button>";
-            echo "<button><a title='SupprB' onclick='supprimerBattle()'>Supprimer le battle</a></button>";
+            echo "<button><a title='ModifU' onclick='info(\"{$DataEvent['titre']}\", \"{$DataEvent['nomEntreprise']}\", \"{$DataEvent['dateDebut']}\", \"{$DataEvent['dateFIN']}\", \"{$DataEvent['descript']}\")'>Modifier le battle</a></button>";
+            echo "<button><a title='SupprB' onclick='supprimerBattle(\"{$DataEvent['titre']}\", \"{$DataEvent['nomEntreprise']}\", \"{$DataEvent['dateDebut']}\", \"{$DataEvent['dateFIN']}\", \"{$DataEvent['descript']}\")'>Supprimer le battle</a></button>";
             echo "</li>";
         }
 
@@ -86,6 +86,54 @@ if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
         }
     }
 }
+
+?>
+
+<script>
+
+function supprimerBattle(titre, dateDebut, dateFIN, descript){
+
+const event = {
+    titre: titre,
+    dateDebut: dateDebut,
+    dateFIN: dateFIN,
+    descript: descript,
+}
+
+fetch("./php/supprimerEvent.php", {
+    body: JSON.stringify(event),
+    method: "POST",
+    headers: new Headers({
+        "Content-Type": "application/json"
+    })
+});
+
+}
+
+
+function info(titre,nomEntreprise, dateDebut, dateFIN, descript){
+
+    const event = {
+        titre: titre,
+        nomEntreprise: nomEntreprise,
+        dateDebut: dateDebut,
+        dateFIN: dateFIN,
+        descript: descript,
+    }
+
+    fetch("./php/modifUtilisateur.php", {
+        body: JSON.stringify(event),
+        method: "POST",
+        headers: new Headers({
+            "Content-Type": "application/json"
+        })
+    });
+}
+
+</script>
+
+
+<?php
 
 include("./php/footer.php");
 

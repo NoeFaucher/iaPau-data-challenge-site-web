@@ -1,10 +1,7 @@
 <?php
     session_start();
     include("./php/header.php");
-    include("./css/menu-vert.css");
-
-    // l'utilisateur doit être connecté pour afficher cette section
-    if ((isset($_SESSION["loggedIn"])) && ($_SESSION["loggedIn"] == true)) {
+     
 
         echo "<div class='menu-vert'>";
         echo "<h2>{$_SESSION['prenom']} {$_SESSION['nom']}</h2>";
@@ -41,8 +38,6 @@
 
             echo "</ul>";
             echo "</div>";
-
-    }
 
 
     if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "etudiant")) {

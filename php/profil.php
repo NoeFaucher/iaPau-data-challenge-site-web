@@ -1,7 +1,8 @@
 <?php
     session_start();
     include("./php/header.php");
-    include("./css/menu-vert.css");
+    
+
 
     // l'utilisateur doit être connecté pour afficher cette section
     if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
@@ -25,7 +26,7 @@
             // l'utilisateur est un admin
             if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "administrateur")) {
                 echo "<li><a title='Utilisateurs' href='utilisateurs.php'>Utilisateurs</a></li>";
-                echo "<li><a title='Equipe(s)' href='partie-quipe.php'>Equipe(s)</a></li>";
+                echo "<li><a title='Equipe(s)' href='partie-equipe.php'>Equipe(s)</a></li>";
                 echo "<li><a title='Challenge' href='challenge.php'>Challenge</a></li>";
                 echo "<li><a title='Battle' href='battle.php'>Battle</a></li>";
                 echo "<li><a title='Ressource' href='ressource.php'>Ressource</a></li>";

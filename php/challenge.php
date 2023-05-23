@@ -1,7 +1,6 @@
 <?php
     session_start();
     include("./php/header.php");
-    include("./css/menu-vert.css");
 
 // l'utilisateur est connecté
 if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
@@ -24,7 +23,7 @@ if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
                 echo "<p>Date de fin : {$event['dateFIN']}</p>";
                 echo "<p>Description : {$event['descript']}</p>";
                 echo "<button><a title='DataChallenge' href='description-data-challenge.php'>Acces au dataChallenge</a></button>";
-                echo "<button><a title='ModifC' href='modifChallenge.php'>Modifier le challenge</a></button>";
+                echo "<button><a title='ModifU' onclick='info(\"{$DataEvent['titre']}\", \"{$DataEvent['nomEntreprise']}\", \"{$DataEvent['dateDebut']}\", \"{$DataEvent['dateFIN']}\", \"{$DataEvent['descript']}\")'>Modifier le challenge</a></button>";
                 echo "</li>";
             }
 
@@ -49,8 +48,8 @@ if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
             echo "<p>Date de fin : {$event['dateFIN']}</p>";
             echo "<p>Description : {$event['descript']}</p>";
             echo "<button><a title='DataChallenge' href='description-data-challenge.php'>Acces au dataChallenge</a></button>";
-            echo "<button><a title='ModifC' href='modifChallenge.php'>Modifier le challenge</a></button>";
-            echo "<button><a title='SupprC' onclick='supprimerChallenge()'>Supprimer le challenge</a></button>";
+            echo "<button><a title='ModifU' onclick='info(\"{$DataEvent['titre']}\", \"{$DataEvent['nomEntreprise']}\", \"{$DataEvent['dateDebut']}\", \"{$DataEvent['dateFIN']}\", \"{$DataEvent['descript']}\")'>Modifier le challenge</a></button>";
+            echo "<button><a title='SupprC' onclick='supprimerChallenge(\"{$DataEvent['titre']}\", \"{$DataEvent['nomEntreprise']}\", \"{$DataEvent['dateDebut']}\", \"{$DataEvent['dateFIN']}\", \"{$DataEvent['descript']}\")'>Supprimer le challenge</a></button>";
             echo "</li>";
         }
 
@@ -86,6 +85,55 @@ if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
         }
     }
 }
+
+?>
+
+<script>
+
+function supprimerChallenge(titre, dateDebut, dateFIN, descript){
+
+const event = {
+    titre: titre,
+    dateDebut: dateDebut,
+    dateFIN: dateFIN,
+    descript: descript,
+}
+
+fetch("./php/supprimerEvent.php", {
+    body: JSON.stringify(event),
+    method: "POST",
+    headers: new Headers({
+        "Content-Type": "application/json"
+    })
+});
+
+}
+
+
+function info(titre, dateDebut, dateFIN, descript){
+
+const event = {
+    titre: titre,
+    dateDebut: dateDebut,
+    dateFIN: dateFIN,
+    descript: descript,
+}
+
+fetch("./php/modifUtilisateur.php", {
+    body: JSON.stringify(event),
+    method: "POST",
+    headers: new Headers({
+        "Content-Type": "application/json"
+    })
+});
+
+}
+
+
+</script>
+
+
+<?php
 
 include("./php/footer.php");
 
