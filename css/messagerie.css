@@ -1,0 +1,101 @@
+/* Style pour le conteneur des messages */
+.message-conteneur {
+    display: flex;
+    flex-direction: column;
+
+    overflow: scroll;
+
+    border: 2px solid black;
+    padding: 5px²;
+
+    height: 50em;
+    max-height: 100%;
+}
+
+
+/* Style pour un message */
+.message {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+
+  background-color: lightblue;
+}
+
+.message-conteneur .message:nth-child(odd){
+    background-color: lightcyan;
+}
+
+.message p {
+  margin: 5px 0;
+}
+
+.message p span {
+  font-weight: bold;
+}
+
+.message .envoyeur {
+  color: #333;
+}
+
+.message .objet {
+  color: #666;
+}
+
+.message .date {
+  color: #999;
+  font-style: italic;
+}
+
+.message .contenu {
+  font-weight: bold;
+}
+
+
+
+/* Style pour le form de la messagerie */
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="submit"] {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+#destinataire-selectionne span {
+  cursor: url("/img/Cross.cur"),pointer;
+  text-decoration: underline;
+  user-select: none;
+
+}
+
+.gestion-destinataire input[type="button"] {
+  margin: 3px;
+}

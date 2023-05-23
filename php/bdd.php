@@ -7,8 +7,8 @@
         echo mysqli_connect_error();
     };
     
-    $res_bool = mysqli_select_db($cnx,$bdd_name);
-    if (!$res_bool) throw new Exception("$bdd_name database introuvable");
+    $res_bool = mysqli_select_db($cnx,$bdd);
+    if (!$res_bool) throw new Exception("$bdd database introuvable");
 
 
 ?>
