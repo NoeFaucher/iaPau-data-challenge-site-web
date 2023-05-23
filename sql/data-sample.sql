@@ -2,8 +2,12 @@
 INSERT INTO Utilisateur (mdp, typeUtilisateur, nivEtude, nom, prenom, ecole, ville)
 VALUES
     ('password1', 'normal', 'M1', 'John', 'Doe', 'University of Example', 'City A'),
-    ('password2', 'gestionnaire', 'L3', 'Jane', 'Smith', 'College of Sample', 'City B'),
-    ('password3', 'administrateur', 'D', 'Admin', 'User', 'Admin School', 'City C');
+    ('password2', 'normal', 'M1', 'fab', 'Doe', 'University of Example', 'City A'),
+    ('password3', 'normal', 'M1', 'swag', 'Doe', 'University of Example', 'City A'),
+    ('password4', 'normal', 'M1', 'oué', 'Doe', 'University of Example', 'City A'),
+    ('password5', 'normal', 'M1', 'yes', 'Doe', 'University of Example', 'City A'),
+    ('password6', 'gestionnaire', 'L3', 'Jane', 'Smith', 'College of Sample', 'City B'),
+    ('password7', 'administrateur', 'D', 'Admin', 'User', 'Admin School', 'City C');
 
 -- Insert sample data into DataEvent table
 INSERT INTO DataEvent (typeDataEvent, dateDebut, dateFIN, dateCreation, descript, entreprise, titre, idGestionnaire)
@@ -12,19 +16,18 @@ VALUES
     ('DataBattle', '2023-07-10 10:00:00', '2023-07-15 17:00:00', '2023-06-10 16:45:00', 'Description 2', 'Company B', 'Event 2', 2);
 
 -- Insert sample data into Equipe table
-INSERT INTO Equipe (nomEquipe, idDataEvent)
+INSERT INTO Equipe (nomEquipe, idDataEvent, idChefEquipe)
 VALUES
-    ('Team A', 1),
-    ('Team B', 2),
-    ('Team C', 2);
+    ('Team A', 1,1),
+    ('Team B', 2,2),
+    ('Team C', 2,3);
 
 -- Insert sample data into UtilisateurAppartientEquipe table
 INSERT INTO UtilisateurAppartientEquipe (idUtilisateur, idEquipe)
 VALUES
-    (1, 1),
+    (1, 2),
     (2, 1),
-    (2, 2),
-    (3, 3);
+    (3, 2);
 
 -- Insert sample data into Ressource table
 INSERT INTO Ressource (lien, dateAjout)
