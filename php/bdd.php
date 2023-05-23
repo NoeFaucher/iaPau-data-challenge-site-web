@@ -1,11 +1,11 @@
 <?php
 include("bddData.php");
 
-function connexion($serveur, $bdd, $login, $password) {
+function connexion($serveur,$bdd,$user,$pass) {
     try {
         return new PDO( 'mysql:host=' . $serveur . ';dbname=' . $bdd . ';charset=utf8',
-        $login,
-        $password,
+        $user,
+        $pass,
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
         );
     }
@@ -18,6 +18,33 @@ function deconnexion ()  {
     return null;
 }
 
+function setFromRequest($mysqlClient,$request) {
+    try {
+        $statement = $mysqlClient->prepare($request);
+        $statement->execute();
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+
+function getLastInsertId($mysqlClient) {
+    return $mysqlClient->lastInsertId();
+}
+
+function getAllFromRequest($mysqlClient,$request) {
+
+    try {
+        $statement = $mysqlClient->prepare($request);
+        $statement->execute();
+        $tableau = $statement->fetchAll();
+        return $tableau;
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+}
 
 function getUtilisateur($mysqlClient) {
     $sqlQuery = 'SELECT * FROM Utilisateur';
@@ -48,6 +75,10 @@ function getUtilisateurByEmail($mysqlClient,$utilisateurEmail) {
     }
 
 }
+
+
+
+
 
 ?>
 

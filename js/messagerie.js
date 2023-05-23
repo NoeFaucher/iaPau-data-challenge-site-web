@@ -26,6 +26,8 @@ const ajouterDestinataire = () => {
 
             document.getElementById("destinataire-selectionne").appendChild(newEllSpan);
             document.getElementById("destinataire-selectionne").innerHTML += " ";
+            
+            currentSelect.value = "";
         }
     }
 
@@ -62,6 +64,7 @@ window.onload = () => {
         if (e.isComposing || e.key === "Enter") {
             e.preventDefault();
             ajouterDestinataire();
+
         }
     });
 
