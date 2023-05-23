@@ -48,22 +48,24 @@ public class Serveur {
         /** 
          * Generate simple response html page
          * @param httpExchange
-         * @param requestParamVaue
+         * @param requestParamValue
          */
         private void handleResponse(HttpExchange httpExchange, String requestParamValue)  throws  IOException {
             OutputStream outputStream = httpExchange.getResponseBody();
-            StringBuilder htmlBuilder = new StringBuilder();
-            htmlBuilder.append("<html>")
-                    .append("<body>")
-                    .append("<h1>")
-                    .append("Hello ")
-                    .append(requestParamValue)
-                    .append("</h1>")
-                    .append("</body>")
-                    .append("</html>");
+            // StringBuilder htmlBuilder = new StringBuilder();
+            // htmlBuilder.append("<html>")
+            //         .append("<body>")
+            //         .append("<h1>")
+            //         .append("Hello ")
+            //         .append(requestParamValue)
+            //         .append("</h1>")
+            //         .append("</body>")
+            //         .append("</html>");
             // encode HTML content
-            String htmlResponse = htmlBuilder.toString();
+            // String htmlResponse = htmlBuilder.toString();
+            String htmlResponse = "test";
             // this line is a must
+            LOGGER.info(" handler");
             httpExchange.sendResponseHeaders(200, htmlResponse.length());
             outputStream.write(htmlResponse.getBytes());
             outputStream.flush();
