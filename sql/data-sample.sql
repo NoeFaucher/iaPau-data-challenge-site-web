@@ -1,9 +1,9 @@
 -- Insert sample data into Utilisateur table
-INSERT INTO Utilisateur (mdp, typeUtilisateur, nivEtude, nom, prenom, ecole, ville)
+INSERT INTO Utilisateur (email, mdp, typeUtilisateur, nivEtude, nom, prenom, ecole, ville)
 VALUES
-    ('password1', 'normal', 'M1', 'John', 'Doe', 'University of Example', 'City A'),
-    ('password2', 'normal', 'L3', 'Jane', 'Smith', 'College of Sample', 'City B'),
-    ('password3', 'administrateur', 'D', 'Admin', 'User', 'Admin School', 'City C');
+    ('admin@a.a' , 'password1', 'normal', 'M1', 'John', 'Doe', 'University of Example', 'City A'),
+    ('a@a.a', '$2y$10$fZcyBrAKr2bCUmMsviCZteTYI6aVIKm1C5jzeGS70XOZFze8ETjBG', 'gestionnaire', 'L3', 'Jane', 'Smith', 'College of Sample', 'City B'),
+    ('b@b.b','password3', 'administrateur', 'D', 'Admin', 'User', 'Admin School', 'City C');
 
 -- Insert sample data into DataEvent table
 INSERT INTO DataEvent (typeDataEvent, dateDebut, dateFIN, dateCreation, descript, entreprise, titre, idGestionnaire)
