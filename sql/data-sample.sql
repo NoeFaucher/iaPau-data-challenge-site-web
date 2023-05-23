@@ -1,4 +1,4 @@
- -- Insert sample data into Utilisateur table
+-- Insert sample data into Utilisateur table
 INSERT INTO Utilisateur (email, mdp, typeUtilisateur, nivEtude, nom, prenom, ecole, ville)
 VALUES
     ('admin@a.a' , 'password1', 'normal', 'M1', 'John', 'Doe', 'University of Example', 'City A'),
@@ -8,15 +8,15 @@ VALUES
 -- Insert sample data into DataEvent table
 INSERT INTO DataEvent (typeDataEvent, dateDebut, dateFIN, dateCreation, descript, entreprise, titre, idGestionnaire)
 VALUES
-    ('DataChallenge', '2023-06-01 09:00:00', '2023-06-05 18:00:00', '2023-05-01 14:30:00', 'Description 1', 'Company A', 'Event 1', 2),
-    ('DataBattle', '2023-07-10 10:00:00', '2023-07-15 17:00:00', '2023-06-10 16:45:00', 'Description 2', 'Company B', 'Event 2', 2);
+    ('DataChallenge', '2023-06-01 09:00:00', '2023-06-05 18:00:00', '2023-05-01 14:30:00', 'Description 1', 'Company A', 'Event 1', 1),
+    ('DataBattle', '2023-07-10 10:00:00', '2023-07-15 17:00:00', '2023-06-10 16:45:00', 'Description 2', 'Company B', 'Event 2', 1);
 
 -- Insert sample data into Equipe table
 INSERT INTO Equipe (nomEquipe, idDataEvent)
 VALUES
     ('Team A', 1),
     ('Team B', 2),
-    ('Team C', 2);
+    ('Team C', 1);
 
 -- Insert sample data into UtilisateurAppartientEquipe table
 INSERT INTO UtilisateurAppartientEquipe (idUtilisateur, idEquipe)
@@ -77,10 +77,10 @@ VALUES
     (5, 'Answer 3', 2, 3);
 
 -- Insert sample data into Message table
-INSERT INTO Message (dateEnvoie, objet, contenu, idEnvoyeur)
+INSERT INTO Message (dateEnvoi, objet, contenu, idEnvoyeur)
 VALUES
-    ('2023-05-15 11:30:00', 'Message 1', 'Content of message 1', 1),
-    ('2023-05-20 09:15:00', 'Message 2', 'Content of message 2', 2);
+    ('2023-05-15 11:30:00', 'Message 1', 'Content of message 1: dakndaindajdjadknkandkadnakdnakndkand', 1),
+    ('2023-05-20 09:15:00', 'Message 2', 'Content of message 2 : dadadaddadas', 2);
 
 -- Insert sample data into MessageDestinataire table
 INSERT INTO MessageDestinataire (idMessage, idDestinataire)

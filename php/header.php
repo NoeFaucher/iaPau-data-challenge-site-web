@@ -1,5 +1,5 @@
 <head>
-	<link rel="stylesheet" href="../css/header.css" />
+	<link rel="stylesheet" type="text/css" href="../css/header.css" />
 	<meta charset="utf-8">
 	<script src="../js/header.js"></script>
     <title>IA PAU</title>
@@ -12,7 +12,7 @@
   	<p>L'intelligence artificielle vue des Pyrénées</p>
   </div>
 
-  <a href="connexion/connexion.php"> <img id="Client" src="../img/Client.png" alt="Client"/> </a>
+  <a href="connexion.php"> <img id="Client" src="../img/Client.png" alt="Client"/> </a>
 
 </div>
 
