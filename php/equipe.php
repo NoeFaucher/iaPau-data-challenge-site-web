@@ -11,12 +11,12 @@
             <?php
             include 'bdd.php';
             
-            $_SESSION["idUtilisateur"] = 1;
-            $test = 3;
+            $_SESSION["idUtilisateur"] = 7;
+            $test = 2;
 
                 if ($test == 1) {
 
-                    $req = 'SELECT Equipe.idEquipe, nomEquipe 
+                    $req = 'SELECT Equipe.idEquipe, nomEquipe, DataEvent.id, DataEvent.titre
                     FROM DataEvent INNER JOIN Equipe 
                     on Equipe.idDataEvent=DataEvent.idDataEvent 
                     and DataEvent.idDataEvent = any 
@@ -26,12 +26,12 @@
                     and DataEvent.idGestionnaire = '.$_SESSION["idUtilisateur"].');';
                 }elseif ($test == 2) {
 
-                    $req = 'SELECT Equipe.idEquipe, nomEquipe 
+                    $req = 'SELECT Equipe.idEquipe, nomEquipe, DataEvent.idDataEvent, DataEvent.titre
                     FROM DataEvent INNER JOIN Equipe 
                     on Equipe.idDataEvent=DataEvent.idDataEvent;';
                 }else {
 
-                    $req = 'SELECT Equipe.idEquipe, nomEquipe
+                    $req = 'SELECT Equipe.idEquipe, nomEquipe, DataEvent.id, DataEvent.titre
                     FROM UtilisateurAppartientEquipe INNER JOIN Equipe
                     on UtilisateurAppartientEquipe.idEquipe = Equipe.idEquipe
                     and UtilisateurAppartientEquipe.idUtilisateur = '.$_SESSION["idUtilisateur"].';';
@@ -46,7 +46,6 @@
 
                 while($ligne = mysqli_fetch_assoc($resultat)){
                     /*Requête pour récupérer tout les util qui :
-                    - n'ont pas d'équipe
                     - n'est pas l'util connecté
                     - n'est pas admin ou gestio
                     - n'est pas dans une equipe du data challenge de l'equipe en question
@@ -55,12 +54,9 @@
                     $req2 = 
                     "SELECT U.nom, U.prenom, U.idUtilisateur
                     FROM Utilisateur U
-                    LEFT JOIN UtilisateurAppartientEquipe UAE ON U.idUtilisateur = UAE.idUtilisateur
-                    LEFT JOIN Equipe E ON UAE.idEquipe = E.idEquipe
-                    LEFT JOIN DataEvent DE ON E.idDataEvent = DE.idDataEvent
-                    WHERE (E.idDataEvent <> 1 OR E.idDataEvent IS NULL)
-                    AND (U.typeUtilisateur <> 'gestionnaire' AND U.typeUtilisateur <> 'administrateur' 
-                    AND U.idUtilisateur <> ".$_SESSION["idUtilisateur"].");
+                    WHERE U.typeUtilisateur <> 'gestionnaire' 
+                    AND U.typeUtilisateur <> 'administrateur' 
+                    AND U.idUtilisateur <> ".$_SESSION["idUtilisateur"].";
                     ";
 
                     $resultat2 = mysqli_query($cnx,$req2) or die ("Problème req :$req2");
@@ -83,7 +79,7 @@
                     echo 
                     "<div class='boxEquipe'>
                     <div class='entete' onclick='extend(this)' value='1'>
-                        <h2>".$ligne["nomEquipe"]."</h2>
+                        <h2>".$ligne["nomEquipe"]." | ". $ligne["titre"] ."</h2>
                         <hr>  
                     </div>
                     ";

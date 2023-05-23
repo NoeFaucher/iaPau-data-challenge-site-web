@@ -3,7 +3,7 @@ INSERT INTO Utilisateur (mdp, typeUtilisateur, nivEtude, nom, prenom, ecole, vil
 VALUES
     ('password1', 'normal', 'M1', 'John', 'Doe', 'University of Example', 'City A'),
     ('password2', 'normal', 'M1', 'fab', 'Doe', 'University of Example', 'City A'),
-    ('password3', 'normal', 'M1', 'swag', 'Doe', 'University of Example', 'City A'),
+    ('password3', 'normal', 'M1', 'Swag', 'Doe', 'University of Example', 'City A'),
     ('password4', 'normal', 'M1', 'oué', 'Doe', 'University of Example', 'City A'),
     ('password5', 'normal', 'M1', 'yes', 'Doe', 'University of Example', 'City A'),
     ('password6', 'gestionnaire', 'L3', 'Jane', 'Smith', 'College of Sample', 'City B'),
@@ -27,7 +27,9 @@ INSERT INTO UtilisateurAppartientEquipe (idUtilisateur, idEquipe)
 VALUES
     (1, 2),
     (2, 1),
-    (3, 2);
+    (3, 2),
+    (5, 2);
+
 
 -- Insert sample data into Ressource table
 INSERT INTO Ressource (lien, dateAjout)
