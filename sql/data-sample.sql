@@ -77,10 +77,10 @@ VALUES
     (5, 'Answer 3', 2, 3);
 
 -- Insert sample data into Message table
-INSERT INTO Message (dateEnvoie, objet, contenu, idEnvoyeur)
+INSERT INTO Message (dateEnvoi, objet, contenu, idEnvoyeur)
 VALUES
-    ('2023-05-15 11:30:00', 'Message 1', 'Content of message 1', 1),
-    ('2023-05-20 09:15:00', 'Message 2', 'Content of message 2', 2);
+    ('2023-05-15 11:30:00', 'Message 1', 'Content of message 1: dakndaindajdjadknkandkadnakdnakndkand', 1),
+    ('2023-05-20 09:15:00', 'Message 2', 'Content of message 2 : dadadaddadas', 2);
 
 -- Insert sample data into MessageDestinataire table
 INSERT INTO MessageDestinataire (idMessage, idDestinataire)

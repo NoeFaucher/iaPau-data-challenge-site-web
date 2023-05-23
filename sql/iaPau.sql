@@ -123,7 +123,7 @@ create table Reponse (
 
 create table Message (
     idMessage INTEGER primary key unique not null auto_increment,
-    dateEnvoie DATETIME,
+    dateEnvoi DATETIME,
     objet VARCHAR(100),
     contenu TEXT,
     idEnvoyeur INTEGER,
