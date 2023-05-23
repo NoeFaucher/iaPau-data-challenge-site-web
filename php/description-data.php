@@ -18,20 +18,16 @@
     ";
 
     /*
-    - présentation, accessible à tous 
+    ----- droits -----
     - cas 1 : l'utilisateur est connecté
-        - cas 1.1 : il participe à l'évènement ou il est gestionnaire ou admin
-            -->  affichage des consignes et conseils
-            - cas 1.1.1 : il est étudiant 
-                --> affichage de la section "rendu"
-        - cas 1.2 : il ne participe pas mais est étudiant
-            - cas 1.2.1 : il est chef d'équipe
-                --> affichage du bouton "inscrire mon équipe"
-                ///// choix du projet data (un pour un data battle, plusieurs pour un projet data)
-            - cas 1.2.2 : il n'est pas chef d'équipe
-                --> affichage du bouton "inscrire mon équipe" GRISÉ
-                ///// la même chose mais grisé
-        - cas 1.3 : il est admin ou gestionnaire --> pas fait, inutile pour cette section
+        - cas 1.1 : il est inscrit à l'évènement OU il est gestionnaire/admin 
+            --> accès aux données, consignes et conseils
+            - cas 1.1.1 : il est chef d'équipe
+                --> accès à la section "rendu"
+        - cas 1.2 : il n'est pas inscrit à l'évènement mais est étudiant, il peut donc s'inscrire en créant une équipe
+            - cas 1.2.1 : l'évènement est un data challenge --> plusieurs projets data
+            - cas 1.2.2 : l'évènement est une data battle --> un seul projet data
+            --> renvoi vers un form pour créer une équipe
     - cas 2 : l'utilisateur n'est pas connecté
         --> message "vous n'êtes pas connecté"
     */
@@ -39,8 +35,7 @@
     // cas 1 : l'utilisateur est connecté
     if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
 
-        // cas 1.1 : il participe à l'évènement ou il est gestionnaire ou admin
-        // affichage des consignes et conseils pour l'évènement correspondant
+        // cas 1.1 : l'utilisateur est inscrit à l'évènement OU il est gestionnaire/admin
         if ((((isset($_SESSION["inscrit"])) && ($_SESSION["inscrit"]) == true)) || ((isset($_SESSION["typeUtilisateur"])) && (($_SESSION["typeUtilisateur"] == "admin") || ($_SESSION["typeUtilisateur"] == "gestionnaire")))) {
             
             // partie données
@@ -67,8 +62,9 @@
             <p class='paragraphe-presentation'>".$loremIpsum."</p>
             ";
 
-            // cas 1.1.1 : il est en plus étudiant et chef d'équipe, il peut donc rendre une archive GitLab
-            if (((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "etudiant")) && ((isset($_SESSION["chefEquipe"])) && ($_SESSION["chefEquipe"] == true))) {
+            // cas 1.1.1 : l'utilisateur est étudiant et chef d'équipe, il peut donc rendre une archive GitLab
+            // note : chefEquipe => etudiant donc pas besoin de vérifier qu'il est étudiant
+            if ((isset($_SESSION["chefEquipe"])) && ($_SESSION["chefEquipe"] == true)) {
 
                 // partie pour le lien gitlab
                 echo "
@@ -89,116 +85,59 @@
 
         }
 
-        // cas 1.2 : l'utilisateur est un étudiant mais il n'est pas inscrit à l'évènement
-        if (((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "etudiant")) && ((isset($_SESSION["inscrit"])) && ($_SESSION["inscrit"] == false))) {
-            
-            // cas 1.2.1 : l'utilisateur est le chef de son équipe
-            // choix du projet data
-            if ((isset($_SESSION["chefEquipe"])) && ($_SESSION["chefEquipe"] == true)) {
+        // cas 1.2 : l'utilisateur n'est pas inscrit à l'évènement mais est étudiant
+        // il peut donc s'inscrire en créant une équipe et en devenant chef d'équipe
+        else if ((isset($_SESSION["inscrit"])) && ($_SESSION["inscrit"] == false) && (isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "etudiant")) {
 
-                // cas 1.2.1.1 : l'évènement est une data battle
-                if ((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "battle")) {
+            // cas 1.2.1 : l'évènement est un data challenge
+            if ((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "battle")) {
 
-                    echo "
-                        <div class='sous-titre-evenement'>
-                            <span>Choix du projet data</span>
-                        </div>
-                        <p class='paragraphe-presentation'>".$loremIpsum."</p>
-                    ";
+                echo "
+                    <div class='sous-titre-evenement'>
+                        <span>Projet data associé</span>
+                    </div>
+                    <p class='paragraphe-presentation'>".$loremIpsum."</p>
+                ";
 
-                    echo "<form id='choix-projet-data'>";
-                    for ($i=1; $i<6; $i++) {
-                        echo "
-                            <div class='projet-data'>
-                                <div class='titre-projet-data'>
-                                    <span>Projet data ".$i."</span>
-                                </div>
-                                <p>".$loremIpsum."</p>
-                                <div id='bouton-inscription'>
-                                    <button type='submit'>Choisir ce projet data</button>
-                                </div>
-                            </div>
-                        ";
-                    }
-                    echo "</form>";
-                
-                }
-
-                // cas 1.2.1.2 : l'évènement est un data challenge
-                else if ((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "challenge")) {
-
-                    echo "
-                        <div class='sous-titre-evenement'>
-                            <span>Projet data associé</span>
-                        </div>
-                        <p class='paragraphe-presentation'>".$loremIpsum."</p>
-                    ";
-
-                    echo "
-                    <form id='choix-projet-data'>
-                        <div id='bouton-inscription'>
-                            <button type='submit'>Inscrire mon équipe à ce projet data</button>
-                        </div>
-                    </form>
-                    ";
-
-                }
+                echo "
+                <form id='choix-projet-data'>
+                    <div id='bouton-inscription'>
+                        <button type='submit'>Inscrire mon équipe à ce projet data</button>
+                    </div>
+                </form>
+                ";
 
             }
 
-            // cas 1.2.2 : l'utilisateur n'est pas le chef de son équipe
-            // tout pareil mais avec des boutons grisés
-            if ((isset($_SESSION["chefEquipe"])) && ($_SESSION["chefEquipe"] == false)) {
+            // cas 1.2.2 : l'évènement est une data battle
+            else if ((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "challenge")) {
 
-                // cas 1.2.1.1 : l'évènement est une data battle
-                if ((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "battle")) {
+                echo "
+                    <div class='sous-titre-evenement'>
+                        <span>Choix du projet data</span>
+                    </div>
+                    <p class='paragraphe-presentation'>".$loremIpsum."</p>
+                ";
 
+                echo "<form id='choix-projet-data'>";
+                for ($i=1; $i<6; $i++) {
                     echo "
-                        <div class='sous-titre-evenement'>
-                            <span>Choix du projet data</span>
-                        </div>
-                        <p class='paragraphe-presentation'>".$loremIpsum."</p>
-                    ";
-
-                    echo "<form id='choix-projet-data'>";
-                    for ($i=1; $i<5; $i++) {
-                        echo "
-                            <div class='projet-data'>
-                                <div class='titre-projet-data'>
-                                    <span>Projet data ".$i."</span>
-                                </div>
-                                <p>".$loremIpsum."</p>
-                                <div class='bouton-inscription-interdit'>
-                                    <button type='submit'>Choisir ce projet data</button>
-                                </div>
+                        <div class='projet-data'>
+                            <div class='titre-projet-data'>
+                                <span>Projet data ".$i."</span>
                             </div>
-                        ";
-                    }
-                    echo "</form>";
-                
-                }
-
-                // cas 1.2.1.2 : l'évènement est un data challenge
-                else if ((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "challenge")) {
-
-                    echo "
-                        <div class='sous-titre-evenement'>
-                            <span>Projet data associé</span>
+                            <p>".$loremIpsum."</p>
+                            <div id='bouton-inscription'>
+                                <button type='submit'>M'inscrire à ce projet data</button>
+                            </div>
                         </div>
-                        <p class='paragraphe-presentation'>".$loremIpsum."</p>
                     ";
-
-                    echo "
-                    <form id='choix-projet-data'>
-                        <div class='bouton-inscription-interdit'>
-                            <button type='submit'>Inscrire mon équipe à ce projet data</button>
-                        </div>
-                    </form>
-                    ";
-
                 }
+                echo "</form>";
             }
+
         }
+
     }
     
     // cas 2 : l'utilisateur n'est pas connecté

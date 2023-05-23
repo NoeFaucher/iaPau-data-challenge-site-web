@@ -103,7 +103,7 @@
                     
                     // affichage du questionnaire
                     echo "
-                    <div id='questionnaire'>
+                    <div class='questionnaire'>
                         <form method='POST'>
                     ";
                     for ($i=0; $i<5; $i++) {

@@ -7,7 +7,7 @@
     $_SESSION["estConnecte"] = true;
     $_SESSION["typeUtilisateur"] = "etudiant";
     if ($_SESSION["typeUtilisateur"] == "etudiant") {
-        $_SESSION["inscrit"] = true;
+        $_SESSION["inscrit"] = false;
         $_SESSION["chefEquipe"] = true;
     }
 

@@ -1,0 +1,31 @@
+#inscription-projet-data p {
+    font-size: 20px;
+}
+
+.question {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+
+.question label {
+    font-size: 20px;
+    margin: 20px;
+}
+
+.question input {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 500px;
+    height: 30px;
+    font-size: 20px;
+    padding: 3px;
+    padding-left: 7px;
+}
+
+#bouton-envoi-inscription-projet-data {
+    display: flex;
+    justify-content: center;
+}

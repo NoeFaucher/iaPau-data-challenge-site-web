@@ -28,6 +28,10 @@
     padding-bottom: 5px;
 }
 
+#liste-equipes .equipe .rang {
+    margin-top: 5px;
+}
+
 /***** cas 2 : l'utilisateur est un étudiant *****/
 
 /*  conteneur du bouton pour accéder au profil de son équipe */
@@ -38,7 +42,7 @@
 
 /***** questionnaire (pour les data battle, que si l'utilisateur est chef d'équipe) *****/
 
-#questionnaire {
+.questionnaire {
     display: flex;
     justify-content: center;
 }
