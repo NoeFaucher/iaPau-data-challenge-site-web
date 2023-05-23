@@ -1,15 +1,53 @@
 <?php
-    
-    include("bddData.php");
-    
-    $cnx = mysqli_connect($serveur,$user,$pass);
-    if (mysqli_connect_errno()) {
-        echo mysqli_connect_error();
-    };
-    
-    $res_bool = mysqli_select_db($cnx,$bdd);
-    if (!$res_bool) throw new Exception("$bdd database introuvable");
+include("bddData.php");
 
+function connexion($serveur, $bdd, $login, $password) {
+    try {
+        return new PDO( 'mysql:host=' . $serveur . ';dbname=' . $bdd . ';charset=utf8',
+        $login,
+        $password,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+        );
+    }
+    catch (Exception $e){
+        die('Erreur' .$e -> getMessage());
+    }
+}
+
+function deconnexion ()  {
+    return null;
+}
+
+
+function getUtilisateur($mysqlClient) {
+    $sqlQuery = 'SELECT * FROM Utilisateur';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute();
+        $tableau = $statement->fetchAll();
+        return $tableau;
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+
+function getUtilisateurByEmail($mysqlClient,$utilisateurEmail) {
+    $sqlQuery = 'SELECT * FROM Utilisateur WHERE email = :email';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute([
+            'email' => $utilisateurEmail,
+        ]);
+        $tableau = $statement->fetchAll();
+        return $tableau[0];
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
 
 ?>
 

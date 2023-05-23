@@ -1,7 +1,7 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="../css/header.css" />
 	<meta charset="utf-8">
-	<script src="header.js"></script>
+	<script src="../js/header.js"></script>
     <title>IA PAU</title>
 </head>
 

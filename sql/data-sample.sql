@@ -1,13 +1,9 @@
 -- Insert sample data into Utilisateur table
-INSERT INTO Utilisateur (mdp, typeUtilisateur, nivEtude, nom, prenom, ecole, ville)
+INSERT INTO Utilisateur (email, mdp, typeUtilisateur, nivEtude, nom, prenom, ecole, ville)
 VALUES
-    ('password1', 'normal', 'M1', 'John', 'Doe', 'University of Example', 'City A'),
-    ('password2', 'normal', 'M1', 'fab', 'Doe', 'University of Example', 'City A'),
-    ('password3', 'normal', 'M1', 'Swag', 'Doe', 'University of Example', 'City A'),
-    ('password4', 'normal', 'M1', 'oué', 'Doe', 'University of Example', 'City A'),
-    ('password5', 'normal', 'M1', 'yes', 'Doe', 'University of Example', 'City A'),
-    ('password6', 'gestionnaire', 'L3', 'Jane', 'Smith', 'College of Sample', 'City B'),
-    ('password7', 'administrateur', 'D', 'Admin', 'User', 'Admin School', 'City C');
+    ('admin@a.a' , 'password1', 'normal', 'M1', 'John', 'Doe', 'University of Example', 'City A'),
+    ('a@a.a', '$2y$10$fZcyBrAKr2bCUmMsviCZteTYI6aVIKm1C5jzeGS70XOZFze8ETjBG', 'gestionnaire', 'L3', 'Jane', 'Smith', 'College of Sample', 'City B'),
+    ('b@b.b','password3', 'administrateur', 'D', 'Admin', 'User', 'Admin School', 'City C');
 
 -- Insert sample data into DataEvent table
 INSERT INTO DataEvent (typeDataEvent, dateDebut, dateFIN, dateCreation, descript, entreprise, titre, idGestionnaire)
@@ -25,11 +21,10 @@ VALUES
 -- Insert sample data into UtilisateurAppartientEquipe table
 INSERT INTO UtilisateurAppartientEquipe (idUtilisateur, idEquipe)
 VALUES
-    (1, 2),
+    (1, 1),
     (2, 1),
-    (3, 2),
-    (5, 2);
-
+    (2, 2),
+    (3, 3);
 
 -- Insert sample data into Ressource table
 INSERT INTO Ressource (lien, dateAjout)
@@ -82,10 +77,10 @@ VALUES
     (5, 'Answer 3', 2, 3);
 
 -- Insert sample data into Message table
-INSERT INTO Message (dateEnvoie, objet, contenu, idEnvoyeur)
+INSERT INTO Message (dateEnvoi, objet, contenu, idEnvoyeur)
 VALUES
-    ('2023-05-15 11:30:00', 'Message 1', 'Content of message 1', 1),
-    ('2023-05-20 09:15:00', 'Message 2', 'Content of message 2', 2);
+    ('2023-05-15 11:30:00', 'Message 1', 'Content of message 1: dakndaindajdjadknkandkadnakdnakndkand', 1),
+    ('2023-05-20 09:15:00', 'Message 2', 'Content of message 2 : dadadaddadas', 2);
 
 -- Insert sample data into MessageDestinataire table
 INSERT INTO MessageDestinataire (idMessage, idDestinataire)
