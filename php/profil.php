@@ -1,15 +1,17 @@
 <?php
-    session_start();
-    include("../php/header.php");
-    
+include("header.php");
+?>
+<?php
     $nom = 'sacha';
     $prenom = 'gru';
     $typeUtilisateur = 'normal';
-    
+    echo("test");
 
 
-    // l'utilisateur doit être connecté pour afficher cette section
+
+// l'utilisateur doit être connecté pour afficher cette section
     if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
+        echo("test");
 
         echo "<div class='menu-vert'>";
         echo "<h2>{$_SESSION['prenom']} {$_SESSION['nom']}</h2>";
@@ -49,5 +51,5 @@
 
         }        
 
-    include("../php/footer.php");
+    include("footer.php");
 ?>

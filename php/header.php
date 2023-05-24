@@ -13,8 +13,8 @@ include ("varSession.inc.php");
             <p>L'intelligence artificielle vue des Pyrénées</p>
         </div>
         <div id="profilHeader">
-            <?php if ($_SESSION["estconnecte"]) { echo($_SESSION["prenom"] . " " . $_SESSION["nom"]);} ?>
-            <a href=<?php if ($_SESSION["estconnecte"]) {echo("/php/profil.php");} else { echo("/php/connexion/connexion.php");}?>> <img id="Client" src="/img/Client.png" alt="Client"/> </a>
+            <?php if ($_SESSION["estConnecte"]) { echo($_SESSION["prenom"] . " " . $_SESSION["nom"]);} ?>
+            <a href=<?php if ($_SESSION["estConnecte"]) {echo("/php/profil.php");} else { echo("/php/connexion/connexion.php");}?>> <img id="Client" src="/img/Client.png" alt="Client"/> </a>
         </div>
     </div>
 
