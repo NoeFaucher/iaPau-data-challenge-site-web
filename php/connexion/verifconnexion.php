@@ -4,6 +4,13 @@ include "../varSession.inc.php";
 include "../verification.php";
 include "../bdd.php";
 
+$_SESSION["POST"] = NULL;
+$_SESSION["estconnecte"] = false;
+$_SESSION["idUtilisateur"] = NULL;
+$_SESSION["email"] = NULL;
+$_SESSION["typeUtilisateur"] = NULL;
+$_SESSION["nom"] = NULL;
+$_SESSION["prenom"] = NULL;
 $email= valid($_POST["email_participant"]);
 $mdp = valid($_POST["mot_de_passe_participant"]);
 
