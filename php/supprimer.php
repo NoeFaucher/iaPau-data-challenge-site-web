@@ -17,6 +17,6 @@ $result = $conn->query($sql);
 
 $conn->close();
 
-header('Location: utilisateurs.php');
+header('Location: ../php/utilisateurs.php');
 
 ?>

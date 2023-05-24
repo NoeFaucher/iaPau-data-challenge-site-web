@@ -18,9 +18,9 @@ $result = $conn->query($sql);
 $conn->close();
 
 if($type = 'DataChallenge'){
-    header('Location: challenge.php');
+    header('Location: ../php/challenge.php');
 }else{
-    header('Location: battle.php');
+    header('Location: ../php/battle.php');
 }
 
 ?>

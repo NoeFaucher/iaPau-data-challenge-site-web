@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include("./php/header.php");
+    include("../php/header.php");
 
 // l'utilisateur est connecté
 if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
@@ -22,7 +22,7 @@ if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
                 echo "<p>Date de debut : {$event['dateDebut']}</p>";
                 echo "<p>Date de fin : {$event['dateFIN']}</p>";
                 echo "<p>Description : {$event['descript']}</p>";
-                echo "<button><a title='DataChallenge' href='description-data-challenge.php'>Acces au dataChallenge</a></button>";
+                echo "<button><a title='DataChallenge' href='../php/description-data-challenge.php'>Acces au dataChallenge</a></button>";
                 echo "<button><a title='ModifU' onclick='info(\"{$DataEvent['titre']}\", \"{$DataEvent['nomEntreprise']}\", \"{$DataEvent['dateDebut']}\", \"{$DataEvent['dateFIN']}\", \"{$DataEvent['descript']}\")'>Modifier le challenge</a></button>";
                 echo "</li>";
             }
@@ -47,7 +47,7 @@ if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
             echo "<p>Date de debut : {$event['dateDebut']}</p>";
             echo "<p>Date de fin : {$event['dateFIN']}</p>";
             echo "<p>Description : {$event['descript']}</p>";
-            echo "<button><a title='DataChallenge' href='description-data-challenge.php'>Acces au dataChallenge</a></button>";
+            echo "<button><a title='DataChallenge' href='../php/description-data-challenge.php'>Acces au dataChallenge</a></button>";
             echo "<button><a title='ModifU' onclick='info(\"{$DataEvent['titre']}\", \"{$DataEvent['nomEntreprise']}\", \"{$DataEvent['dateDebut']}\", \"{$DataEvent['dateFIN']}\", \"{$DataEvent['descript']}\")'>Modifier le challenge</a></button>";
             echo "<button><a title='SupprC' onclick='supprimerChallenge(\"{$DataEvent['titre']}\", \"{$DataEvent['nomEntreprise']}\", \"{$DataEvent['dateDebut']}\", \"{$DataEvent['dateFIN']}\", \"{$DataEvent['descript']}\")'>Supprimer le challenge</a></button>";
             echo "</li>";
@@ -75,7 +75,7 @@ if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
                 echo "<p>Date de debut : {$event['dateDebut']}</p>";
                 echo "<p>Date de fin : {$event['dateFIN']}</p>";
                 echo "<p>Description : {$event['descript']}</p>";
-                echo "<button><a title='DataChallenge' href='description-data-challenge.php'>Acces au dataChallenge</a></button>";
+                echo "<button><a title='DataChallenge' href='../php/description-data-challenge.php'>Acces au dataChallenge</a></button>";
                 echo "</li>";
             }
 
@@ -99,7 +99,7 @@ const event = {
     descript: descript,
 }
 
-fetch("./php/supprimerEvent.php", {
+fetch("../php/supprimerEvent.php", {
     body: JSON.stringify(event),
     method: "POST",
     headers: new Headers({
@@ -119,7 +119,7 @@ const event = {
     descript: descript,
 }
 
-fetch("./php/modifUtilisateur.php", {
+fetch("../php/modifUtilisateur.php", {
     body: JSON.stringify(event),
     method: "POST",
     headers: new Headers({
@@ -135,6 +135,6 @@ fetch("./php/modifUtilisateur.php", {
 
 <?php
 
-include("./php/footer.php");
+include("../php/footer.php");
 
 ?>

@@ -1,19 +1,18 @@
 <?php
     session_start();
-    include("./php/header.php");
-    include("./css/menu-vert.css");
+    include("../php/header.php");
 
 
         echo "<div class='menu-vert'>";
         echo "<h2>{$_SESSION['prenom']} {$_SESSION['nom']}</h2>";
         echo "<ul>";
 
-        echo "<li><a title='Utilisateurs' href='utilisateurs.php'>Utilisateurs</a></li>";
-        echo "<li><a title='Equipe(s)' href='partie-quipe.php'>Equipe(s)</a></li>";
-        echo "<li><a title='Challenge' href='challenge.php'>Challenge</a></li>";
-        echo "<li><a title='Battle' href='battle.php'>Battle</a></li>";
-        echo "<li><a title='Ressource' href='ressource.php'>Ressource</a></li>";
-        echo "<li><a title='Messagerie' href='messagerie.php'>Messagerie</a></li>";
+        echo "<li><a title='Utilisateurs' href='../php/utilisateurs.php'>Utilisateurs</a></li>";
+        echo "<li><a title='Equipe(s)' href='../php/partie-quipe.php'>Equipe(s)</a></li>";
+        echo "<li><a title='Challenge' href='../php/challenge.php'>Challenge</a></li>";
+        echo "<li><a title='Battle' href='../php/battle.php'>Battle</a></li>";
+        echo "<li><a title='Ressource' href='../php/ressource.php'>Ressource</a></li>";
+        echo "<li><a title='Messagerie' href='../php/messagerie.php'>Messagerie</a></li>";
     
         echo "</ul>";
         echo "</div>";
@@ -89,7 +88,7 @@ const utilisateur = {
     ville: ville,
 }
 
-fetch("./php/supprimer.php", {
+fetch("../php/supprimer.php", {
     body: JSON.stringify(utilisateur),
     method: "POST",
     headers: new Headers({
@@ -110,7 +109,7 @@ function info(nom, prenom, email, nivEtude, ecole, ville){
         ville: ville,
     }
 
-    fetch("./php/modifUtilisateur.php", {
+    fetch("../php/modifUtilisateur.php", {
         body: JSON.stringify(utilisateur),
         method: "POST",
         headers: new Headers({
@@ -124,6 +123,6 @@ function info(nom, prenom, email, nivEtude, ecole, ville){
 
 <?php
 
-    include("./php/footer.php");
+    include("../php/footer.php");
 
 ?>
