@@ -16,22 +16,22 @@
         $req = "insert into Message (dateEnvoi,objet,contenu,idEnvoyeur) values
             (now(),\"$objet\",\"$contenu\",$envoyeur);
         ";
+            
+        $cnx = connexion($serveur,$bdd,$user,$pass);
 
-        $result = mysqli_query($cnx,$req) or header("Location: $referer");
+        setFromRequest($cnx,$req);
 
-        $id_message = mysqli_insert_id($cnx);
-
-
+        $id_message = getLastInsertId($cnx);
 
         foreach($destinataires as $id_destinataire) {
             $req = "insert into MessageDestinataire (idMessage,idDestinataire) values
                 ($id_message,$id_destinataire);";
-            $result = mysqli_query($cnx,$req) or header("Location: $referer");
+            setFromRequest($cnx,$req);
         }
 
 
     
-        mysqli_close($cnx);
+        $cnx = deconnexion();
 
         header("Location: $referer");
     }else {

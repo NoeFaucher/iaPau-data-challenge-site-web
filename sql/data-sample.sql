@@ -1,22 +1,22 @@
 -- Insert sample data into Utilisateur table
-INSERT INTO Utilisateur (mdp, typeUtilisateur, nivEtude, nom, prenom, ecole, ville)
+INSERT INTO Utilisateur (email, mdp, typeUtilisateur, nivEtude, nom, prenom, ecole, ville)
 VALUES
-    ('password1', 'normal', 'M1', 'John', 'Doe', 'University of Example', 'City A'),
-    ('password2', 'normal', 'L3', 'Jane', 'Smith', 'College of Sample', 'City B'),
-    ('password3', 'administrateur', 'D', 'Admin', 'User', 'Admin School', 'City C');
+    ('admin@a.a' , 'password1', 'normal', 'M1', 'John', 'Doe', 'University of Example', 'City A'),
+    ('a@a.a', '$2y$10$fZcyBrAKr2bCUmMsviCZteTYI6aVIKm1C5jzeGS70XOZFze8ETjBG', 'gestionnaire', 'L3', 'Jane', 'Smith', 'College of Sample', 'City B'),
+    ('b@b.b','password3', 'administrateur', 'D', 'Admin', 'User', 'Admin School', 'City C');
 
 -- Insert sample data into DataEvent table
 INSERT INTO DataEvent (typeDataEvent, dateDebut, dateFIN, dateCreation, descript, entreprise, titre, idGestionnaire)
 VALUES
-    ('DataChallenge', '2023-06-01 09:00:00', '2023-06-05 18:00:00', '2023-05-01 14:30:00', 'Description 1', 'Company A', 'Event 1', 1),
-    ('DataBattle', '2023-07-10 10:00:00', '2023-07-15 17:00:00', '2023-06-10 16:45:00', 'Description 2', 'Company B', 'Event 2', 1);
+    ('DataChallenge', '2023-06-01 09:00:00', '2023-06-05 18:00:00', '2023-05-01 14:30:00', 'Description 1', 'Company A', 'Event 1', 2),
+    ('DataBattle', '2023-07-10 10:00:00', '2023-07-15 17:00:00', '2023-06-10 16:45:00', 'Description 2', 'Company B', 'Event 2', 2);
 
 -- Insert sample data into Equipe table
-INSERT INTO Equipe (nomEquipe, idDataEvent)
+INSERT INTO Equipe (nomEquipe, idDataEvent, idChefEquipe)
 VALUES
-    ('Team A', 1),
-    ('Team B', 2),
-    ('Team C', 1);
+    ('Team A', 1,1),
+    ('Team B', 2,2),
+    ('Team C', 2,3);
 
 -- Insert sample data into UtilisateurAppartientEquipe table
 INSERT INTO UtilisateurAppartientEquipe (idUtilisateur, idEquipe)

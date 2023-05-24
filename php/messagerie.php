@@ -21,12 +21,9 @@
 
             $req = "select * from Message inner join Utilisateur on idEnvoyeur = idUtilisateur order by dateEnvoi DESC ";
 
-            $result = mysqli_query($cnx,$req) or die ("Problème req :$req");
+            $cnx = connexion($serveur,$bdd,$user,$pass);
 
-
-
-            
-            $tab = mysqli_fetch_all($result,MYSQLI_ASSOC);
+            $tab = getAllFromRequest($cnx,$req);
 
 
 
@@ -37,10 +34,9 @@
                 $nomEnvoyeur = $msg["nom"] ." ". $msg["prenom"];
                 
                 $req = "select * from MessageDestinataire inner join Utilisateur on idUtilisateur = idDestinataire where idMessage = ".$msg["idMessage"].";";
-                $result = mysqli_query($cnx,$req) or die ("Problème req :$req");
 
-                $rowsReceveur = mysqli_fetch_all($result,MYSQLI_ASSOC);
-                $numrow = mysqli_num_rows($result);
+                $rowsReceveur = getAllFromRequest($cnx,$req);
+                $numrow = count($rowsReceveur);
                 
                 $receveurs = ""; 
                 for($i=0;$i<$numrow;$i++) {
@@ -67,7 +63,6 @@
 
             }
 
-            mysqli_close($cnx);
         ?>
 
 
@@ -85,16 +80,15 @@
             <input type="text" id="input-current-destinataire" name="list-destinataire" list="destinataires-list" autocomplete="on" >
             <datalist id="destinataires-list">
                 <?php
-                    include("bdd.php");
 
                     $req = "select nom,prenom,idUtilisateur from Utilisateur;";
 
-                    $result = mysqli_query($cnx,$req) or die ("Problème req :$req");
+
 
 
 
                     // $numrow = mysqli_num_rows($result);
-                    $tab = mysqli_fetch_all($result,MYSQLI_ASSOC);
+                    $tab = getAllFromRequest($cnx,$req);
 
 
                     foreach($tab as $util) {
@@ -104,7 +98,7 @@
                     }
                     
                 
-                    mysqli_close($cnx);
+                    $cnx = deconnexion();
                 ?>
             </datalist>
             <input type="button" value="Ajouter destinataire" onclick="ajouterDestinataire()">

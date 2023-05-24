@@ -7,8 +7,10 @@ use iaPau;
 
 -- Utilisateur
 create table Utilisateur (
-    idUtilisateur INTEGER primary key unique not null auto_increment, mdp VARCHAR(100),
-    typeUtilisateur ENUM('gestionaire','normal','administrateur'),
+    idUtilisateur INTEGER primary key unique not null auto_increment,
+    email VARCHAR(100),
+    mdp VARCHAR(319),
+    typeUtilisateur ENUM('gestionnaire','normal','administrateur'),
     nivEtude ENUM('L1','L2','L3','M1','M2','D'),
     nom VARCHAR(100),
     prenom VARCHAR(100),
@@ -33,6 +35,8 @@ create table Equipe (
     idEquipe INTEGER primary key unique not null auto_increment,
     nomEquipe VARCHAR(100),
     idDataEvent Integer,
+    idChefEquipe Integer,
+    foreign key fk_ChefEquipe(idChefEquipe) references Utilisateur(idUtilisateur),
     foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent) on delete cascade
 );
 
