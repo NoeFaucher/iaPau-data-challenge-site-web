@@ -29,13 +29,13 @@
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi debitis cum modi doloremque odio voluptas dolores mollitia possimus alias fuga! Incidunt tempore sint voluptatum ullam iste quam perspiciatis reiciendis quasi voluptatibus voluptate? Eum voluptatum id at qui quos rem, sed earum quia ad, quisquam voluptatibus distinctio ullam labore ex provident dolorum necessitatibus voluptate repellendus velit tempora delectus perspiciatis, assumenda in sequi. Suscipit accusantium natus maxime nobis saepe quis voluptatum officia. Quasi a aspernatur ipsa sapiente sit! Molestiae sapiente fuga tempora facere totam! Exercitationem distinctio eligendi, porro rerum quo impedit eius consequatur aperiam autem odio possimus esse. Hic asperiores exercitationem corrupti.
                 </p>
                 <br>
-                <a href="#" id="btnDataChall">nos data challenges</a>
-                <a href="#" id="btnDataChall">Se connecter</a>
-
-                <a href="#" id="btnDataChall">S'inscrire</a>
-
-
-            
+                <a href="/php/liste-data-events.php?typeDataEvent=challenge" id="btnDataChall">nos data challenges</a>
+                <?php if($_SESSION["estconnecte"]) : ?>
+                    <a href="/php/connexion/deconnexion.php" id="btnDataChall">Déconnexion</a>
+                <?php else: ?>
+                    <a href="/php/connexion/connexion.php" id="btnDataChall">Se connecter</a>
+                    <a href="/php/connexion/inscription.php" id="btnDataChall">S'inscrire</a>
+                <?php endif ?>
             </div>
             <img id="pyr" src="/img/pyrenee.webp" alt="pyrenee" >
 
