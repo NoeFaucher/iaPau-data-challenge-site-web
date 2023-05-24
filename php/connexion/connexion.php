@@ -1,6 +1,12 @@
 <?php
 include ("../varSession.inc.php");
 $validform = true;
+
+if ($_SESSION["estconnecte"]){
+    header("Location: ../../index.php");
+}
+
+
 if (!$_SESSION["estconnecte"]){
     if (isset($_SESSION["validation"])){
         if(!$_SESSION["validation"]){
@@ -22,7 +28,6 @@ if (!$_SESSION["estconnecte"]){
     <main>
 
         <p>Connectez-vous !</p>
-        <?php if($_SESSION["estconnecte"]){echo("Actuellement connecté avec : " . $_SESSION["prenom"] ." ". $_SESSION["nom"]);} ?>
         <form method="POST" class="form" id="connexion" action="verifconnexion.php" onsubmit="return validateConnexion()">
             <div class="champ">
                 <label for="email" id="email">
@@ -41,13 +46,13 @@ if (!$_SESSION["estconnecte"]){
                 >
             </div>
             <div class="champ">
-                <label for="mot-de-passe" id="mot-de-passe" class="form-mdp">
+                <label for="mot-de-passe" id="mot-de-passe">
                     Mot de passe :
                 </label>
                 <input type="password" name="mot_de_passe_participant"
                     <?php
                     if($validform) {
-                        echo("class='form-email'");
+                        echo("class='form-mdp'");
                     } else {
                         echo("class='error'");
                         echo("value=" . $_SESSION["POST"]["mot_de_passe_participant"]);
@@ -57,6 +62,7 @@ if (!$_SESSION["estconnecte"]){
             </div>
             <button type="submit" class="form-submit" value="Connexion">Connexion</button>
         </form>
+        <button class="button-inscription"><a href="inscription.php">S'inscrire</a></button>
     </main>
     <?php include "../footer.php"; ?>
 </body>
