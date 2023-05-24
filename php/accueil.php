@@ -2,16 +2,16 @@
 <html
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="../css/accueil.css">
+        <link rel="stylesheet" href="/css/accueil.css">
         <title>Accueil - IA Pau</title>
     </head>
         <body>
-            <img id="atriumImg" src="../img/atrium.JPG" alt="atrium">
+            <img id="atriumImg" src="/img/atrium.JPG" alt="atrium">
 
 
             <div id="content">
                 <div>
-                    <img id="logoA" src="../img/iapau_round.png" alt="logo">
+                    <img id="logoA" src="/img/iapau_round.png" alt="logo">
                 </div>
                 <h1>Courte présentation de l'association...</h1>     
              </div>
@@ -37,7 +37,7 @@
 
             
             </div>
-            <img id="pyr" src="../img/pyrenee.webp" alt="pyrenee" >
+            <img id="pyr" src="/img/pyrenee.webp" alt="pyrenee" >
 
 
         </body>
