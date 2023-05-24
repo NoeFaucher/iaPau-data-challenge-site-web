@@ -2,12 +2,12 @@
 include ("../varSession.inc.php");
 $validform = true;
 
-if ($_SESSION["estconnecte"]){
+if ($_SESSION["estConnecte"]){
     header("Location: ../../index.php");
 }
 
 
-if (!$_SESSION["estconnecte"]){
+if (!$_SESSION["estConnecte"]){
     if (isset($_SESSION["validation"])){
         if(!$_SESSION["validation"]){
             $validform = false;

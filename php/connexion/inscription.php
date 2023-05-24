@@ -1,7 +1,7 @@
 <?php
 include ("../varSession.inc.php");
 
-if ($_SESSION["estconnecte"]){
+if ($_SESSION["estConnecte"]){
     header("Location: ../../index.php");
 }
 

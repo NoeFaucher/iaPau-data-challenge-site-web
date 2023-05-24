@@ -1,7 +1,7 @@
 <?php
 session_start();
 $_SESSION["POST"] = NULL;
-$_SESSION["estconnecte"] = false;
+$_SESSION["estConnecte"] = false;
 $_SESSION["idUtilisateur"] = NULL;
 $_SESSION["email"] = NULL;
 $_SESSION["typeUtilisateur"] = NULL;

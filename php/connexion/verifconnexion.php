@@ -5,7 +5,7 @@ include "../verification.php";
 include "../bdd.php";
 
 $_SESSION["POST"] = NULL;
-$_SESSION["estconnecte"] = false;
+$_SESSION["estConnecte"] = false;
 $_SESSION["idUtilisateur"] = NULL;
 $_SESSION["email"] = NULL;
 $_SESSION["typeUtilisateur"] = NULL;
@@ -25,7 +25,7 @@ if (!empty($email) and !empty($mdp)){
     $verifUtilisateur = getUtilisateurByEmail($mysqlClient,$email);
 
     if ((count($verifUtilisateur) != 0) and (password_verify($mdp,$verifUtilisateur["mdp"]))){
-        $_SESSION["estconnecte"] = true;
+        $_SESSION["estConnecte"] = true;
         $_SESSION["idUtilisateur"] = $verifUtilisateur["idUtilisateur"];
         $_SESSION["email"] = $verifUtilisateur["email"];
         $_SESSION["typeUtilisateur"] = $verifUtilisateur["typeUtilisateur"];
@@ -34,7 +34,7 @@ if (!empty($email) and !empty($mdp)){
     }
 }
 
-if ($_SESSION["estconnecte"]){
+if ($_SESSION["estConnecte"]){
     header("Location: ../../index.php");
     exit();
 }else{
