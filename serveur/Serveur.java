@@ -9,12 +9,22 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
+import verificationCode.VerificateurCodePython;
+
+
+
+
+
 public class Serveur {
     // logger pour trace
     private static final Logger LOGGER = Logger.getLogger( Serveur.class.getName() );
     private static final String SERVEUR = "localhost"; // url de base du service
     private static final int PORT = 8001; // port serveur
     private static final String URL = "/test"; // url de base du service
+    
+    /** 
+     * @param args
+     */
     // boucle principale qui lance le serveur sur le port 8001, à l'url test
     public static void main(String[] args) {
         HttpServer server = null;
@@ -52,18 +62,18 @@ public class Serveur {
          */
         private void handleResponse(HttpExchange httpExchange, String requestParamValue)  throws  IOException {
             OutputStream outputStream = httpExchange.getResponseBody();
-            // StringBuilder htmlBuilder = new StringBuilder();
-            // htmlBuilder.append("<html>")
-            //         .append("<body>")
-            //         .append("<h1>")
-            //         .append("Hello ")
-            //         .append(requestParamValue)
-            //         .append("</h1>")
-            //         .append("</body>")
-            //         .append("</html>");
+            StringBuilder htmlBuilder = new StringBuilder();
+            htmlBuilder.append("<html>")
+                    .append("<body>")
+                    .append("<h1>")
+                    .append("Hello ")
+                    .append(requestParamValue)
+                    .append("</h1>")
+                    .append("</body>")
+                    .append("</html>");
             // encode HTML content
-            // String htmlResponse = htmlBuilder.toString();
-            String htmlResponse = "test";
+            String htmlResponse = htmlBuilder.toString();
+            // String htmlResponse = "test";
             // this line is a must
             LOGGER.info(" handler");
             httpExchange.sendResponseHeaders(200, htmlResponse.length());

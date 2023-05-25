@@ -21,23 +21,43 @@ function getXHR() {
 
 
 function execution() {
+
+
+    // const request = new Request("localhost:8001/test?a=a");
+
+    // fetch(request)
+    //     .then((response) => {
+    //         if (response.status === 200) {
+    //         return response.json();
+    //         } else {
+    //         throw new Error("Something went wrong on API server!");
+    //         }
+    //     })
+    //     .then((response) => console.debug(response))
+    //     .catch((error) => {
+    //         console.error(error)
+    //     });
+
+
+
+
+
+
+
+
     var xhr = getXHR();
-    console.log("lancement");
 
     // On définit que l'on va faire à chq changement d'état
     xhr.onreadystatechange = function() {
         // On ne fait quelque chose que si on a tout reç̧u
         // et que le serveur est ok
-        console.log("stage change : " + xhr.status);
-        console.log("ready state : " + xhr.readyState);
-        console.log("responseTExt : " + this.responseText);
 
         if (xhr.readyState == 4 && xhr.status == 200){
             console.log("a" + this.responseText);
         }
     }
     // cas de la mé́thode get
-    xhr.open("GET","/test?a=1",true) ;
+    xhr.open("GET","/serveur/test.php",true) ;
     xhr.send();
 }
 
