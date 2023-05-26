@@ -17,7 +17,6 @@ VALUES
     ('DataBattle', '2023-09-05', '2023-09-15', '2023-08-20', 'Data battle description 2', 'Company D', 'Data Battle 2', 4),
     ('DataChallenge', '2023-10-01', '2023-10-10', '2023-09-15', 'Data challenge description 3', 'Company E', 'Data Challenge 3', 3),
     ('DataBattle', '2023-11-15', '2023-11-25', '2023-10-01', 'Data battle description 3', 'Company F', 'Data Battle 3', 4);
-
 -- Ressource
 INSERT INTO Ressource (lien, dateAjout)
 VALUES

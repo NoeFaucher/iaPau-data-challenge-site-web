@@ -26,3 +26,4 @@ include ("varSession.inc.php");
         <a href="/php/liste-data-events.php?typeDataEvent=battle">Data Battle</a>
     </div>
 </header>
+

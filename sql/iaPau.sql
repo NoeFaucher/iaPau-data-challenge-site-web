@@ -132,7 +132,7 @@ create table Reponse (
     idEquipe INTEGER,
     idQuestion INTEGER,
 
-    foreign key fk_Equipe(idEquipe) references Equipe(idEquipe),
+    foreign key fk_Equipe(idEquipe) references Equipe(idEquipe) on delete cascade,
     foreign key fk_Question(idQuestion) references Question(idQuestion) on delete cascade
 );
 

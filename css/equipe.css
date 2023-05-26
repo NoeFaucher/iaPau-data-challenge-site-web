@@ -72,7 +72,7 @@ body{
     padding: 2vh;
 }
 
-#searchInp {
+.searchInp {
     background-position: 10px 12px; 
     background-repeat: no-repeat; 
     margin: 2vh ;
@@ -84,26 +84,3 @@ body{
     margin-bottom: 12px; 
   }
   
-  #list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    height: 10vh;
-    overflow: scroll;
-  }
-  
-  #list li a {
-    
-    border: 1px solid #ddd; 
-    margin-top: -1px; 
-    background-color: #f6f6f6; 
-    padding: 12px; 
-    text-decoration: none; 
-    font-size: 18px; 
-    color: #0e8769; 
-    display: block;
-  }
-  
-  #list li a:hover:not(.header) {
-    background-color: #eee; 
-  }
