@@ -32,11 +32,9 @@
     */
 
     // cas 1 : l'utilisateur est connecté
-    if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
-
+    if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {  
         // cas 1.1 : l'utilisateur est inscrit à l'évènement OU il est gestionnaire/admin
         if ((((isset($_SESSION["inscrit"])) && ($_SESSION["inscrit"]) == true)) || ((isset($_SESSION["typeUtilisateur"])) && (($_SESSION["typeUtilisateur"] == "admin") || ($_SESSION["typeUtilisateur"] == "gestionnaire")))) {
-            
             // partie données
             echo "
             <div class='sous-titre-evenement'>
@@ -143,10 +141,10 @@
     else {
         
         // détermination de la fin du message demandant de s'authentifier pour s'inscrire à l'évènement
-        if (isset($_SESSION["typeDataEvent"]) && ($_SESSION["typeDataEvent"] == "challenge")) {
+        if (isset($_SESSION["typeDataEvent"]) && ($_SESSION["typeDataEvent"] == "DataChallenge")) {
             $finMsg = "ce data challenge";
         }
-        else if (isset($_SESSION["typeDataEvent"]) && ($_SESSION["typeDataEvent"] == "battle")) {
+        else if (isset($_SESSION["typeDataEvent"]) && ($_SESSION["typeDataEvent"] == "DataBattle")) {
             $finMsg = "cette data battle";
         }
 
