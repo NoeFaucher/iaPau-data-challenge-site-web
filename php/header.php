@@ -14,7 +14,7 @@ include ("varSession.inc.php");
         </div>
         <div id="profilHeader">
             <?php if ($_SESSION["estConnecte"]) { echo($_SESSION["prenom"] . " " . $_SESSION["nom"]);} ?>
-            <a href=<?php if ($_SESSION["estConnecte"]) {echo("/php/profil.php");} else { echo("/php/connexion/connexion.php");}?>> <img id="Client" src="/img/Client.png" alt="Client"/> </a>
+            <a href=<?php if ($_SESSION["estConnecte"]) {echo("/php/profil/profil.php");} else { echo("/php/connexion/connexion.php");}?>> <img id="Client" src="/img/Client.png" alt="Client"/> </a>
         </div>
     </div>
 
@@ -22,8 +22,8 @@ include ("varSession.inc.php");
 
     <div class="menu-banniere">
         <a href="/index.php">Accueil</a>
-        <a href="/php/liste-data-events.php?typeDataEvent=challenge">Data Challenge</a>
-        <a href="/php/liste-data-events.php?typeDataEvent=battle">Data Battle</a>
+        <a href="/php/dataEvent/liste-data-events.php?typeDataEvent=challenge">Data Challenge</a>
+        <a href="/php/dataEvent/liste-data-events.php?typeDataEvent=battle">Data Battle</a>
     </div>
 </header>
 

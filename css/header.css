@@ -1,3 +1,8 @@
+body{
+  margin: 0;
+  font-family: "montserrat", sans-serif;
+}
+
 .banniere{
     background-color: white;
     display: flex;
@@ -9,7 +14,7 @@
 
   .banniere p {
     color: #0E8769;
-    font-family: "montserrat", sans-serif;
+
     text-align: center;
     margin-top: 0;
     margin-bottom: 10px;
@@ -21,7 +26,6 @@
     font-size: 23px;
     padding: 14px 190px 14px;
     width: 25%;
-    font-family: "montserrat", sans-serif;
     text-decoration: none;
     transition: 0.4s ease;
   }
@@ -39,7 +43,7 @@
     text-align: center;
   }
 
-  h1{
+  .banniere h1{
     color: #0E8769;
     font-family: "montserrat", sans-serif;
     text-align: center;

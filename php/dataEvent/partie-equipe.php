@@ -27,10 +27,8 @@
 
     // l'utilisateur doit être connecté pour afficher cette section
     if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
-
         // cas 1 : l'utilisateur est un admin ou un gestionnaire
         if ((isset($_SESSION["typeUtilisateur"])) && (($_SESSION["typeUtilisateur"] == "admin")) || ($_SESSION["typeUtilisateur"] == "gestionnaire")) {
-
             // affichage du titre de la section
             echo "
             <div class='sous-titre-evenement'>
