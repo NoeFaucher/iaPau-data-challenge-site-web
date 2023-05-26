@@ -15,7 +15,7 @@ main button {
     border: 2px solid black;
     font-size: 22px;
     color: white;
-    background-color: rgb(56,136,106);
+    background-color: rgb(56, 136, 106);
     padding: 5px 15px 5px 15px; /* ordre : haut, droite, bas, gauche */
     margin-bottom: 10px;
 }

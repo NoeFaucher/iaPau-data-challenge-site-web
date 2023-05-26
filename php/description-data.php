@@ -1,11 +1,10 @@
 <?php 
 
-    // variables temporaires pour l'instant
-    $nomDataChallenge = "Data ".$_SESSION["typeDataEvent"]." d'exemple";
-    $nomEntreprise = "Entreprise";
-    $dateDebut = "22 mai 2023";
-    $dateFin = "3 juin 2023";
-    $presentation = $loremIpsum;
+    $nomDataChallenge = $resultatDataEvent["titre"];
+    $nomEntreprise = $resultatDataEvent["entreprise"];
+    $dateDebut = $resultatDataEvent["dateDebut"];
+    $dateFin = $resultatDataEvent["dateFIN"];
+    $presentation = $resultatDataEvent["descript"];
 
     // description du data challenge - accessible à tous
     echo "
@@ -89,28 +88,28 @@
         // il peut donc s'inscrire en créant une équipe et en devenant chef d'équipe
         else if ((isset($_SESSION["inscrit"])) && ($_SESSION["inscrit"] == false) && (isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "etudiant")) {
 
-            // cas 1.2.1 : l'évènement est un data challenge
-            if ((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "battle")) {
-
+            // cas 1.2.1 : l'évènement est une data battle
+            if ((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "DataBattle")) {
+                
                 echo "
                     <div class='sous-titre-evenement'>
-                        <span>Projet data associé</span>
+                        <span>Projet data associé - ".$resultatProjetsData[0]["titreProjetData"]."</span>
                     </div>
-                    <p class='paragraphe-presentation'>".$loremIpsum."</p>
+                    <p class='paragraphe-presentation'>".$resultatProjetsData[0]["descriptProjet"]."</p>
                 ";
 
                 echo "
-                <form id='choix-projet-data'>
+                <div id='choix-projet-data'>
                     <div id='bouton-inscription'>
-                        <button type='submit'>Inscrire mon équipe à ce projet data</button>
+                        <button type='button'><a href='../php/inscription-projet-data.php?idProjetData=".$resultatProjetsData[0]["idProjetData"]."'>M'inscrire à ce projet data</a></button>
                     </div>
-                </form>
+                </div>
                 ";
 
             }
 
-            // cas 1.2.2 : l'évènement est une data battle
-            else if ((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "challenge")) {
+            // cas 1.2.2 : l'évènement est une data challenge
+            else if ((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "DataChallenge")) {
 
                 echo "
                     <div class='sous-titre-evenement'>
@@ -119,21 +118,21 @@
                     <p class='paragraphe-presentation'>".$loremIpsum."</p>
                 ";
 
-                echo "<form id='choix-projet-data'>";
-                for ($i=1; $i<6; $i++) {
+                echo "<div id='choix-projet-data'>";
+                foreach ($resultatProjetsData as $projetData) {
                     echo "
                         <div class='projet-data'>
                             <div class='titre-projet-data'>
-                                <span>Projet data ".$i."</span>
+                                <span>".$projetData["titreProjetData"]."</span>
                             </div>
-                            <p>".$loremIpsum."</p>
+                            <p>".$projetData["descriptProjet"]."</p>
                             <div id='bouton-inscription'>
-                                <button type='submit'>M'inscrire à ce projet data</button>
+                                <button type='button'><a href='../php/inscription-projet-data.php?idProjetData=".$i."'>M'inscrire à ce projet data</a></button>
                             </div>
                         </div>
                     ";
                 }
-                echo "</form>";
+                echo "</div>";
             }
 
         }

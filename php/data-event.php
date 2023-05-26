@@ -1,15 +1,53 @@
 <?php
 
     session_start();
+    include("../php/bdd.php");
+
+    // variables temporaires
+    $_SESSION["estConnecte"] = true; // partie de Marc-Antoine
+    $_SESSION["idUtilisateur"] = 2; // partie de Marc-Antoine
+    $_SESSION["typeUtilisateur"] = "etudiant"; // partie de Marc-Antoine
+    if ($_SESSION["typeUtilisateur"] == "etudiant") {
+        $_SESSION["inscrit"] = false; // faire la requête lorsque la BDD sera refaite
+    }
     $loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
-    $_SESSION["typeDataEvent"] = $_GET["typeDataEvent"];
-    $_SESSION["estConnecte"] = true;
-    $_SESSION["typeUtilisateur"] = "etudiant";
-    if ($_SESSION["typeUtilisateur"] == "etudiant") {
-        $_SESSION["inscrit"] = false;
+    // récupération de l'id du data event
+    $idDataEvent = $_GET["idDataEvent"];
+
+    // connexion
+    $conn = connexion($serveur, $bdd, $user, $pass);
+
+    // récupération des informations liées au data event voulu
+    $requeteDataEvent = "SELECT * FROM DataEvent WHERE idDataEvent=".$idDataEvent.";";
+    $resultatDataEvent = getAllFromRequest($conn, $requeteDataEvent)[0]; // on peut mettre "[0]" car il n'y en aura toujours qu'un seul
+    $_SESSION["typeDataEvent"] = $resultatDataEvent["typeDataEvent"];
+
+    // récupération des utilisateurs inscrits au data challenge
+    /* ---------- À FAIRE ---------- */
+    $requeteInscrits = "SELECT * FROM Table;";
+    /* ----------------------------- */
+
+    // récupération des chefs d'équipe pour voir si l'utilisateur en est un
+    $requeteChefsEquipe = "SELECT idChefEquipe FROM Equipe WHERE idChefEquipe=".$_SESSION["idUtilisateur"].";";
+    $resultatChefsEquipe = getAllFromRequest($conn, $requeteChefsEquipe);
+    if (!empty($resultatChefsEquipe)) {
         $_SESSION["chefEquipe"] = true;
     }
+    else {
+        $_SESSION["chefEquipe"] = false;
+    }
+    
+    // récupération des projets data associés au data battle/challenge
+    $requeteProjetsData = "SELECT * FROM ProjetData WHERE idDataEvent=".$idDataEvent.";";
+    $resultatProjetsData = getAllFromRequest($conn, $requeteProjetsData);
+
+    // récupération du classement pour le podium (que les trois premières équipes)
+    $requeteScoresEquipes = "SELECT nomEquipe, SUM(note) AS score FROM Reponse NATURAL JOIN Equipe GROUP BY idEquipe ORDER BY score DESC LIMIT 3;";
+    $resultatScoresEquipes = getAllFromRequest($conn, $requeteScoresEquipes);
+
+    // déconnexion
+    $conn = deconnexion();
 
 ?>
 
@@ -44,10 +82,9 @@ Questions :
         <link rel="stylesheet" type="text/css" href="../css/description-data.css" />
         <link rel="stylesheet" type="text/css" href="../css/partie-equipe.css" />
         <link rel="stylesheet" type="text/css" href="../css/data-event.css" />
-        <script src="../js/header.js"></script>
     </head>
     <body>
-        <?php 
+        <?php
             include("header.php");
         ?>
         <!-- main -->

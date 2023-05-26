@@ -4,7 +4,6 @@ create database iaPau;
 
 use iaPau;
 
-
 -- Utilisateur
 create table Utilisateur (
     idUtilisateur INTEGER primary key unique not null auto_increment,
@@ -31,24 +30,6 @@ create table DataEvent (
     foreign key fk_Gestionnaire(idGestionnaire) references Utilisateur(idUtilisateur)
 );
 
-create table Equipe (
-    idEquipe INTEGER primary key unique not null auto_increment,
-    nomEquipe VARCHAR(100),
-    idDataEvent Integer,
-    idChefEquipe Integer,
-    foreign key fk_ChefEquipe(idChefEquipe) references Utilisateur(idUtilisateur),
-    foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent) on delete cascade
-);
-
-create table  UtilisateurAppartientEquipe (
-    idUtilisateur INTEGER,
-    idEquipe INTEGER,
-    constraint pk_AppartientEquipe primary key (idUtilisateur,idEquipe),
-    foreign key fk_Utilisateur(idUtilisateur) references Utilisateur(idUtilisateur),
-    foreign key fk_Equipe(idEquipe) references Equipe(idEquipe) on delete cascade
-);
-
-
 create table Ressource (
     idRessource INTEGER primary key unique not null auto_increment,
     lien VARCHAR(1000),
@@ -66,13 +47,43 @@ create table RessourceAppartientDataEvent (
 create table ProjetData (
     idProjetData INTEGER primary key unique not null auto_increment,
     idDataEvent INTEGER,
+    titreProjetData TEXT,
     descriptProjet TEXT,
     idImage INTEGER,
-
 
     foreign key fk_image(idImage) references Ressource(idRessource),
     foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent)
 );
+
+create table Equipe (
+    idEquipe INTEGER primary key unique not null auto_increment,
+    nomEquipe VARCHAR(100),
+    idProjetData INTEGER,
+    idChefEquipe INTEGER,
+
+
+
+    foreign key fk_ChefEquipe(idChefEquipe) references Utilisateur(idUtilisateur),
+    foreign key fk_DataEvent(idProjetData) references ProjetData(idProjetData) on delete cascade
+);
+
+create table Rendu (
+    idRendu INTEGER primary key unique not null auto_increment,
+    dateRendu DATETIME,
+    idEquipe INTEGER,
+
+    foreign key fk_Equipe(idEquipe) references Equipe(idEquipe)
+);
+
+create table  UtilisateurAppartientEquipe (
+    idUtilisateur INTEGER,
+    idEquipe INTEGER,
+    constraint pk_AppartientEquipe primary key (idUtilisateur,idEquipe),
+    foreign key fk_Utilisateur(idUtilisateur) references Utilisateur(idUtilisateur),
+    foreign key fk_Equipe(idEquipe) references Equipe(idEquipe) on delete cascade
+);
+
+
 
 create table RessourceAppartientProjetData (
     idProjetData INTEGER,
@@ -144,3 +155,4 @@ create table MessageDestinataire (
     foreign key fk_Destinataire(idDestinataire) references Utilisateur(idUtilisateur) on delete cascade,
     constraint pk_MessageDestinataire primary key (idMessage,idDestinataire)
 );
+
