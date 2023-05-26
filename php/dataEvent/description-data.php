@@ -69,13 +69,15 @@
                     <span>Rendu</span>
                 </div>
                 <p class='paragraphe-presentation'>".$loremIpsum."</p>
-                <form method='POST' id='lien-code-gitlab'>
+                <div id='lien-code-gitlab'>
                     <div id='texte-input-lien-gitlab'>
                         <label for='nom'>Lien d'hébergement de votre code :</label>
-                        <input type='text' name='lien_code_gitlab' placeholder='Veuillez entrer un lien GitLab...' required>
+                        <input type='text' name='lien_code_gitlab' placeholder='Veuillez entrer un lien vers un fichier raw (GitLab ou GitHub)...' required>
                     </div>
-                    <button type='submit'>Envoyer</button>
-                </form>
+                    <input type=\"button\" onclick=\"\" value=\"Envoyer\">
+
+                    <a href=\"\" >Consulter mes résultats</a>
+                </div>
                 ";
 
             }
@@ -157,3 +159,4 @@
     }
 
 ?>
+
