@@ -1,5 +1,6 @@
 <?php
 include ("../varSession.inc.php");
+
 $validform = true;
 
 if ($_SESSION["estConnecte"]){
@@ -33,36 +34,40 @@ if (!$_SESSION["estConnecte"]){
                 <label for="email" id="email">
                     Email :
                 </label>
-                <input type="email" name="email_participant"
-                    <?php
-                    if($validform) {
-                        echo("class='form-email'");
-                        echo("value=" . $_SESSION["email"]);
-                    } else {
-                        echo("class='error'");
-                        echo("value=" . $_SESSION["POST"]["email_participant"]);
-                    }
-                    ?>
-                >
+                <label>
+                    <input type="email" name="email_participant"
+                        <?php
+                        if($validform) {
+                            echo("class='form-email'");
+                            echo("value=" . $_SESSION["email"]);
+                        } else {
+                            echo("class='error'");
+                            echo("value=" . $_SESSION["POST"]["email_participant"]);
+                        }
+                        ?>
+                    >
+                </label>
             </div>
             <div class="champ">
                 <label for="mot-de-passe" id="mot-de-passe">
                     Mot de passe :
                 </label>
-                <input type="password" name="mot_de_passe_participant"
-                    <?php
-                    if($validform) {
-                        echo("class='form-mdp'");
-                    } else {
-                        echo("class='error'");
-                        echo("value=" . $_SESSION["POST"]["mot_de_passe_participant"]);
-                    }
-                    ?>
-                >
+                <label>
+                    <input type="password" name="mot_de_passe_participant"
+                        <?php
+                        if($validform) {
+                            echo("class='form-mdp'");
+                        } else {
+                            echo("class='error'");
+                            echo("value=" . $_SESSION["POST"]["mot_de_passe_participant"]);
+                        }
+                        ?>
+                    >
+                </label>
             </div>
             <button type="submit" class="form-submit" value="Connexion">Connexion</button>
         </form>
-        <button class="button-inscription"><a href="inscription.php">S'inscrire</a></button>
+        <button class="button-inscription"><a href="/php/connexion/inscription.php">S'inscrire</a></button>
     </main>
     <?php include "../footer.php"; ?>
 </body>
