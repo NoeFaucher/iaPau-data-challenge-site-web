@@ -145,16 +145,146 @@ VALUES
     ('2023-05-25 10:00:00', 'Message 2', 'Message content 2', 2),
     ('2023-05-25 11:00:00', 'Message 3', 'Message content 3', 3),
     ('2023-05-25 12:00:00', 'Message 4', 'Message content 4', 4),
-    ('2023-05-25 13:00:00', 'Message 5', 'Message content 5', 5),
-    ('2023-05-25 14:00:00', 'Message 6', 'Message content 6', 6);
+    ('2023-05-25 13:00:00', 'Meinclude("bddData.php");
 
--- MessageDestinataire
-INSERT INTO MessageDestinataire (idMessage, idDestinataire)
-VALUES
-    (1, 2),
-    (1, 3),
-    (2, 3),
-    (2, 4),
-    (3, 4),
-    (3, 5);
+function connexion($serveur,$bdd,$user,$pass) {
+    try {
+        return new PDO( 'mysql:host=' . $serveur . ';dbname=' . $bdd . ';charset=utf8',
+        $user,
+        $pass,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+        );
+    }
+    catch (Exception $e){
+        die('Erreur' .$e -> getMessage());
+    }
+}
 
+function deconnexion ()  {
+    return null;
+}
+
+function setFromRequest($mysqlClient,$request) {
+    try {
+        $statement = $mysqlClient->prepare($request);
+        $statement->execute();
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+
+function getLastInsertId($mysqlClient) {
+    return $mysqlClient->lastInsertId();
+}include("bddData.php");
+
+function connexion($serveur,$bdd,$user,$pass) {
+    try {
+        return new PDO( 'mysql:host=' . $serveur . ';dbname=' . $bdd . ';charset=utf8',
+        $user,
+        $pass,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+        );
+    }
+    catch (Exception $e){
+        die('Erreur' .$e -> getMessage());
+    }
+}
+
+function deconnexion ()  {
+    return null;
+}
+
+function setFromRequest($mysqlClient,$request) {
+    try {
+        $statement = $mysqlClient->prepare($request);
+        $statement->execute();
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+
+function getLastInsertId($mysqlClient) {
+    return $mysqlClient->lastInsertId();
+}
+
+function getAllFromRequest($mysqlClient,$request) {
+
+    try {
+        $statement = $mysqlClient->prepare($request);
+        $statement->execute();
+        $tableau = $statement->fetchAll();
+        return $tableau;
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+}
+
+function getUtilisateur($mysqlClient) {
+    $sqlQuery = 'SELECT * FROM Utilisateur';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute();
+        $tableau = $statement->fetchAll();
+        return $tableau;
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+
+function getUtilisateurByEmail($mysqlClient,$utilisateurEmail) {
+    $sqlQuery = 'SELECT * FROM Utilisateur WHERE email = :email';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute([
+            'email' => $utilisateurEmail,
+        ]);
+        $tableau = $statement->fetchAll();
+        return $tableau[0];
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+}
+
+function getUtilisateur($mysqlClient) {
+    $sqlQuery = 'SELECT * FROM Utilisateur';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute();
+        $tableau = $statement->fetchAll();
+        return $tableau;
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+
+function getUtilisateurByEmail($mysqlClient,$utilisateurEmail) {
+    $sqlQuery = 'SELECT * FROM Utilisateur WHERE email = :email';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute([
+            'email' => $utilisateurEmail,
+        ]);
+        $tableau = $statement->fetchAll();
+        return $tableau[0];
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}

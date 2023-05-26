@@ -4,8 +4,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    paddING: 20px;
   }
 
   .banniere p {
@@ -15,6 +14,7 @@
     margin-top: 0;
     margin-bottom: 10px;
   }
+
 
 .menu-banniere a {
     color: white;
@@ -48,11 +48,17 @@
     margin-bottom:0;
   }
 
+  #profilHeader {
+      position: absolute;
+      display: flex;
+      right: 10px;
+      align-items: center;
+  }
+
   #Client {
-    position : absolute;
     top : 30px;
-    right: 10px;
     height : 60px;
+    padding: 10px;
   }
 
   #logo {
