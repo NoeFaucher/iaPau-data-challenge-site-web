@@ -59,3 +59,43 @@
     left: 10px;
     height : 80px;
   }
+
+  ul {
+    list-style: none;
+  }
+
+  .menu-vert {
+    width: 25%;
+    background-color: #0E8769;
+    height: 100%;
+    border-right: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: flex-start;
+
+   gap:3em;
+   
+}
+
+.menu-vert a{
+text-decoration: none;
+color:white;
+font-family: "montserrat", sans-serif;
+padding: 14px 30px 14px;
+}
+
+.menu-vert a:hover {
+    background-color: #13b88f;
+    color: white;
+  }
+
+h2{
+    color: black;
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-family: "montserrat", sans-serif; 
+}

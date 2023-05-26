@@ -2,11 +2,6 @@
     session_start();
     include("../php/header.php");
     
-    $nom = 'sacha';
-    $prenom = 'gru';
-    $typeUtilisateur = 'normal';
-    
-
 
     // l'utilisateur doit être connecté pour afficher cette section
     if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
