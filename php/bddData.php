@@ -2,8 +2,8 @@
 
 
     $serveur = "localhost";
-    $user = "noe";
-    $pass = "azerty01234";
+    $user = "leo";
+    $pass = "";
     
     
     $bdd = "iaPau";
