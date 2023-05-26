@@ -33,9 +33,14 @@
 
 
 
-    $get_query = ["blalbla"=> "hello"];
 
+    $link_to_code = "https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py";
 
+    $src_code = callAPI('GET', $link_to_code,[]);
+
+    $get_query = ["src_code" => $src_code];
+
+    
     $get_data = callAPI('GET', 'localhost:8001/test', $get_query);
     
     $response = json_decode($get_data, true);

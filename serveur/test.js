@@ -21,30 +21,6 @@ function getXHR() {
 
 
 function execution() {
-
-
-    // const request = new Request("localhost:8001/test?a=a");
-
-    // fetch(request)
-    //     .then((response) => {
-    //         if (response.status === 200) {
-    //         return response.json();
-    //         } else {
-    //         throw new Error("Something went wrong on API server!");
-    //         }
-    //     })
-    //     .then((response) => console.debug(response))
-    //     .catch((error) => {
-    //         console.error(error)
-    //     });
-
-
-
-
-
-
-
-
     var xhr = getXHR();
 
     // On définit que l'on va faire à chq changement d'état
@@ -53,7 +29,7 @@ function execution() {
         // et que le serveur est ok
 
         if (xhr.readyState == 4 && xhr.status == 200){
-            console.log("a" + this.responseText);
+            console.log(this.responseText);
         }
     }
     // cas de la mé́thode get

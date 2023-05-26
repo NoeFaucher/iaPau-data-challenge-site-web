@@ -2,14 +2,17 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import verificationCode.VerificateurCodePython;
+
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
-
-import verificationCode.VerificateurCodePython;
 
 
 
@@ -48,12 +51,16 @@ public class Serveur {
          * @param httpExchange
          * @return first value
          */
-        private String handleGetRequest(HttpExchange httpExchange) {
-            return httpExchange.getRequestURI()
+        private String handleGetRequest(HttpExchange httpExchange) throws UnsupportedEncodingException{
+            String codedValue = httpExchange.getRequestURI()
                     .toString()
                     .split("\\?")[1]
                     .split("=")[1];
+
+            // decode les valeurs données en paramètre
+            return URLDecoder.decode(codedValue, StandardCharsets.UTF_8.toString());
         }
+
 
         /** 
          * Generate simple response html page
@@ -62,20 +69,12 @@ public class Serveur {
          */
         private void handleResponse(HttpExchange httpExchange, String requestParamValue)  throws  IOException {
             OutputStream outputStream = httpExchange.getResponseBody();
-            StringBuilder htmlBuilder = new StringBuilder();
-            htmlBuilder.append("<html>")
-                    .append("<body>")
-                    .append("<h1>")
-                    .append("Hello ")
-                    .append(requestParamValue)
-                    .append("</h1>")
-                    .append("</body>")
-                    .append("</html>");
-            // encode HTML content
-            String htmlResponse = htmlBuilder.toString();
-            // String htmlResponse = "test";
+
+            String code = requestParamValue;
+            String htmlResponse = (new VerificateurCodePython(code)).jsonResult();
+           
             // this line is a must
-            LOGGER.info(" handler");
+            LOGGER.info("traitement de "+ code);
             httpExchange.sendResponseHeaders(200, htmlResponse.length());
             outputStream.write(htmlResponse.getBytes());
             outputStream.flush();
@@ -88,13 +87,14 @@ public class Serveur {
             LOGGER.info(" Je réponds");
             String requestParamValue=null;
             if("GET".equals(httpExchange.getRequestMethod())) {
-                requestParamValue = handleGetRequest(httpExchange);
+                try {
+                    requestParamValue = handleGetRequest(httpExchange);
+                } catch (UnsupportedEncodingException e) {
+                    return;
+                }
+            }else {
+                return;
             }
-            /* TODO : manage POST REQUEST
-            else if("POST".equals(httpExchange)) {
-                requestParamValue = handlePostRequest(httpExchange);
-            }
-            */
             handleResponse(httpExchange,requestParamValue);
 
         }
