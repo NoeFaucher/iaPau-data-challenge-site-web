@@ -4,7 +4,6 @@ create database iaPau;
 
 use iaPau;
 
-
 -- Utilisateur
 create table Utilisateur (
     idUtilisateur INTEGER primary key unique not null auto_increment,

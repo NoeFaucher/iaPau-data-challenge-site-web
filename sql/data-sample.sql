@@ -11,12 +11,13 @@ VALUES
 -- DataEvent
 INSERT INTO DataEvent (typeDataEvent, dateDebut, dateFIN, dateCreation, descript, entreprise, titre, idGestionnaire)
 VALUES
-    ('DataChallenge', '2023-06-01', '2023-06-10', '2023-05-20', 'Data challenge description 1', 'Company A', 'Data Challenge 1', 3),
-    ('DataBattle', '2023-07-15', '2023-07-25', '2023-06-01', 'Data battle description 1', 'Company B', 'Data Battle 1', 4),
-    ('DataChallenge', '2023-08-10', '2023-08-20', '2023-07-25', 'Data challenge description 2', 'Company C', 'Data Challenge 2', 3),
-    ('DataBattle', '2023-09-05', '2023-09-15', '2023-08-20', 'Data battle description 2', 'Company D', 'Data Battle 2', 4),
-    ('DataChallenge', '2023-10-01', '2023-10-10', '2023-09-15', 'Data challenge description 3', 'Company E', 'Data Challenge 3', 3),
-    ('DataBattle', '2023-11-15', '2023-11-25', '2023-10-01', 'Data battle description 3', 'Company F', 'Data Battle 3', 4);
+    ('DataChallenge', '2023-06-01', '2023-06-10', '2023-05-20', 'Ceci est la description du data challenge n°1, ceci est la description du data challenge n°1, ceci est la description du data challenge n°1, ceci est la description du data challenge n°1, ceci est la description du data challenge n°1', 'Entreprise n°1', 'Data challenge n°1', 3),
+    ('DataBattle', '2023-07-15', '2023-07-25', '2023-06-01', 'Ceci est la description de la data battle n°1, ceci est la description de la data battle n°1, ceci est la description de la data battle n°1, ceci est la description de la data battle n°1, ceci est la description de la data battle n°1', 'Entreprise n°2', 'Data battle n°1', 4),
+    ('DataChallenge', '2023-08-10', '2023-08-20', '2023-07-25', 'Ceci est la description du data challenge n°2, ceci est la description du data challenge n°2, ceci est la description du data challenge n°2, ceci est la description du data challenge n°2, ceci est la description du data challenge n°2', 'Entreprise n°3', 'Data challenge n°2', 3),
+    ('DataBattle', '2023-09-05', '2023-09-15', '2023-08-20', 'Ceci est la description de la data battle n°2, ceci est la description de la data battle n°2, ceci est la description de la data battle n°2, ceci est la description de la data battle n°2, ceci est la description de la data battle n°2', 'Entreprise n°4', 'Data battle n°2', 4),
+    ('DataChallenge', '2023-10-01', '2023-10-10', '2023-09-15', 'Ceci est la description du data challenge n°3, ceci est la description du data challenge n°3, ceci est la description du data challenge n°3, ceci est la description du data challenge n°3, ceci est la description du data challenge n°3', 'Entreprise n°5', 'Data challenge n°3', 3),
+    ('DataBattle', '2023-11-15', '2023-11-25', '2023-10-01', 'Ceci est la description de la data battle n°3, ceci est la description de la data battle n°3, ceci est la description de la data battle n°3, ceci est la description de la data battle n°3, ceci est la description de la data battle n°3', 'Entreprise n°6', 'Data battle n°3', 4);
+    
 -- Ressource
 INSERT INTO Ressource (lien, dateAjout)
 VALUES
@@ -40,22 +41,31 @@ VALUES
 -- ProjetData
 INSERT INTO ProjetData (idDataEvent, titreProjetData, descriptProjet, idImage)
 VALUES
-    (1, 'Project Data 1', 'Project data description 1', 1),
-    (2, 'Project Data 2', 'Project data description 2', 2),
-    (3, 'Project Data 3', 'Project data description 3', 3),
-    (4, 'Project Data 4', 'Project data description 4', 4),
-    (5, 'Project Data 5', 'Project data description 5', 5),
-    (6, 'Project Data 6', 'Project data description 6', 6);
+    (1, 'Projet data n°1', 'Ceci est la description du projet data n°1, ceci est la description du projet data n°1, ceci est la description du projet data n°1, ceci est la description du projet data n°1, ceci est la description du projet data n°1', 1),
+    (3, 'Projet data n°2', 'Ceci est la description du projet data n°2, ceci est la description du projet data n°2, ceci est la description du projet data n°2, ceci est la description du projet data n°2, ceci est la description du projet data n°2', 2),
+    (3, 'Projet data n°3', 'Ceci est la description du projet data n°3, ceci est la description du projet data n°3, ceci est la description du projet data n°3, ceci est la description du projet data n°3, ceci est la description du projet data n°3', 3),
+    (5, 'Projet data n°4', 'Ceci est la description du projet data n°4, ceci est la description du projet data n°4, ceci est la description du projet data n°4, ceci est la description du projet data n°4, ceci est la description du projet data n°4', 4),
+    (5, 'Projet data n°5', 'Ceci est la description du projet data n°5, ceci est la description du projet data n°5, ceci est la description du projet data n°5, ceci est la description du projet data n°5, ceci est la description du projet data n°5', 5),
+    (1, 'Projet data n°6', 'Ceci est la description du projet data n°6, ceci est la description du projet data n°6, ceci est la description du projet data n°6, ceci est la description du projet data n°6, ceci est la description du projet data n°6', 6),
+    (1, 'Projet data n°7', 'Ceci est la description du projet data n°7, ceci est la description du projet data n°7, ceci est la description du projet data n°7, ceci est la description du projet data n°7, ceci est la description du projet data n°7', 6),
+    (1, 'Projet data n°8', 'Ceci est la description du projet data n°8, ceci est la description du projet data n°8, ceci est la description du projet data n°8, ceci est la description du projet data n°8, ceci est la description du projet data n°8', 6),
+    (1, 'Projet data n°9', 'Ceci est la description du projet data n°9, ceci est la description du projet data n°9, ceci est la description du projet data n°9, ceci est la description du projet data n°9, ceci est la description du projet data n°9', 6),
+    (3, 'Projet data n°10', 'Ceci est la description du projet data n°10, ceci est la description du projet data n°10, ceci est la description du projet data n°10, ceci est la description du projet data n°10, ceci est la description du projet data n°10', 6),
+    (5, 'Projet data n°11', 'Ceci est la description du projet data n°11, ceci est la description du projet data n°11, ceci est la description du projet data n°11, ceci est la description du projet data n°11, ceci est la description du projet data n°11', 6),
+    (2, 'Projet data n°12', 'Ceci est la description du projet data n°12, ceci est la description du projet data n°12, ceci est la description du projet data n°12, ceci est la description du projet data n°12, ceci est la description du projet data n°12', 6),
+    (4, 'Projet data n°13', 'Ceci est la description du projet data n°13, ceci est la description du projet data n°13, ceci est la description du projet data n°13, ceci est la description du projet data n°13, ceci est la description du projet data n°13', 6),
+    (6, 'Projet data n°14', 'Ceci est la description du projet data n°14, ceci est la description du projet data n°14, ceci est la description du projet data n°14, ceci est la description du projet data n°14, ceci est la description du projet data n°14', 6),
+    (2, 'Projet data n°15', 'Ceci est la description du projet data n°15, ceci est la description du projet data n°15, ceci est la description du projet data n°15, ceci est la description du projet data n°15, ceci est la description du projet data n°15', 6);
     
 -- Equipe
 INSERT INTO Equipe (nomEquipe, idProjetData, idChefEquipe)
 VALUES
-    ('Team 1', 1, 1),
-    ('Team 2', 2, 2),
-    ('Team 3', 3, 1),
-    ('Team 4', 4, 2),
-    ('Team 5', 5, 1),
-    ('Team 6', 6, 2);
+    ('Équipe n°1', 1, 1),
+    ('Équipe n°2', 2, 2),
+    ('Équipe n°3', 3, 1),
+    ('Équipe n°4', 4, 2),
+    ('Équipe n°5', 5, 1),
+    ('Équipe n°6', 6, 2);
 
 -- Rendu
 INSERT INTO Rendu (dateRendu, idEquipe)
@@ -135,16 +145,146 @@ VALUES
     ('2023-05-25 10:00:00', 'Message 2', 'Message content 2', 2),
     ('2023-05-25 11:00:00', 'Message 3', 'Message content 3', 3),
     ('2023-05-25 12:00:00', 'Message 4', 'Message content 4', 4),
-    ('2023-05-25 13:00:00', 'Message 5', 'Message content 5', 5),
-    ('2023-05-25 14:00:00', 'Message 6', 'Message content 6', 6);
+    ('2023-05-25 13:00:00', 'Meinclude("bddData.php");
 
--- MessageDestinataire
-INSERT INTO MessageDestinataire (idMessage, idDestinataire)
-VALUES
-    (1, 2),
-    (1, 3),
-    (2, 3),
-    (2, 4),
-    (3, 4),
-    (3, 5);
+function connexion($serveur,$bdd,$user,$pass) {
+    try {
+        return new PDO( 'mysql:host=' . $serveur . ';dbname=' . $bdd . ';charset=utf8',
+        $user,
+        $pass,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+        );
+    }
+    catch (Exception $e){
+        die('Erreur' .$e -> getMessage());
+    }
+}
 
+function deconnexion ()  {
+    return null;
+}
+
+function setFromRequest($mysqlClient,$request) {
+    try {
+        $statement = $mysqlClient->prepare($request);
+        $statement->execute();
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+
+function getLastInsertId($mysqlClient) {
+    return $mysqlClient->lastInsertId();
+}include("bddData.php");
+
+function connexion($serveur,$bdd,$user,$pass) {
+    try {
+        return new PDO( 'mysql:host=' . $serveur . ';dbname=' . $bdd . ';charset=utf8',
+        $user,
+        $pass,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+        );
+    }
+    catch (Exception $e){
+        die('Erreur' .$e -> getMessage());
+    }
+}
+
+function deconnexion ()  {
+    return null;
+}
+
+function setFromRequest($mysqlClient,$request) {
+    try {
+        $statement = $mysqlClient->prepare($request);
+        $statement->execute();
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+
+function getLastInsertId($mysqlClient) {
+    return $mysqlClient->lastInsertId();
+}
+
+function getAllFromRequest($mysqlClient,$request) {
+
+    try {
+        $statement = $mysqlClient->prepare($request);
+        $statement->execute();
+        $tableau = $statement->fetchAll();
+        return $tableau;
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+}
+
+function getUtilisateur($mysqlClient) {
+    $sqlQuery = 'SELECT * FROM Utilisateur';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute();
+        $tableau = $statement->fetchAll();
+        return $tableau;
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+
+function getUtilisateurByEmail($mysqlClient,$utilisateurEmail) {
+    $sqlQuery = 'SELECT * FROM Utilisateur WHERE email = :email';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute([
+            'email' => $utilisateurEmail,
+        ]);
+        $tableau = $statement->fetchAll();
+        return $tableau[0];
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+}
+
+function getUtilisateur($mysqlClient) {
+    $sqlQuery = 'SELECT * FROM Utilisateur';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute();
+        $tableau = $statement->fetchAll();
+        return $tableau;
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+
+function getUtilisateurByEmail($mysqlClient,$utilisateurEmail) {
+    $sqlQuery = 'SELECT * FROM Utilisateur WHERE email = :email';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute([
+            'email' => $utilisateurEmail,
+        ]);
+        $tableau = $statement->fetchAll();
+        return $tableau[0];
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
