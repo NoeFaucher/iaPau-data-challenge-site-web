@@ -70,9 +70,13 @@ create table Equipe (
 create table Rendu (
     idRendu INTEGER primary key unique not null auto_increment,
     dateRendu DATETIME,
+    lienRendu TEXT,
+
+    resultatJson TEXT,
+
     idEquipe INTEGER,
 
-    foreign key fk_Equipe(idEquipe) references Equipe(idEquipe)
+    foreign key fk_Equipe(idEquipe) references Equipe(idEquipe) on delete cascade
 );
 
 create table  UtilisateurAppartientEquipe (
