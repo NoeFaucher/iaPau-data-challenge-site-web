@@ -1,4 +1,5 @@
 <?php
+
 include("bddData.php");
 
 function connexion($serveur,$bdd,$user,$pass) {
@@ -76,12 +77,4 @@ function getUtilisateurByEmail($mysqlClient,$utilisateurEmail) {
 
 }
 
-
-
-
-
 ?>
-
-
-
-

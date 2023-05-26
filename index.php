@@ -1,26 +1,26 @@
-<?php
-
-// include 'php/header.php';
-
-// include 'php/accueil.php';
-
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="/serveur/test.js"></script>
-</head>
-<body>
-
-    <button onclick="execution()" >oui</button>    
-
-    <p id="test"></p>
-
-
-
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>IA PAU</title>
+        <link rel="stylesheet" type="text/css" href="css/general.css" />
+        <link rel="stylesheet" type="text/css" href="css/header.css" />
+        <link rel="stylesheet" type="text/css" href="css/footer.css" />        
+        <script src="js/header.js"></script>
+    </head>
+    <body>
+        <?php 
+            include("php/header.php");
+        ?>
+        <main>
+            <?php
+                include("php/accueil.php");
+            ?>
+        </main>
+        <footer>
+            <?php
+                include("php/footer.php");
+            ?>
+        </footer>
+    </body>
 </html>

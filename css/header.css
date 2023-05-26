@@ -1,28 +1,33 @@
+body{
+  margin: 0;
+  font-family: "montserrat", sans-serif;
+}
+
 .banniere{
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    paddING: 20px;
   }
 
   .banniere p {
     color: #0E8769;
-    font-family: "montserrat", sans-serif;
+
     text-align: center;
     margin-top: 0;
     margin-bottom: 10px;
   }
+
 
 .menu-banniere a {
     color: white;
     font-size: 23px;
     padding: 14px 190px 14px;
     width: 25%;
-    font-family: "montserrat", sans-serif;
     text-decoration: none;
+    transition: 0.4s ease;
   }
 
   .menu-banniere a:hover {
@@ -38,7 +43,7 @@
     text-align: center;
   }
 
-  h1{
+  .banniere h1{
     color: #0E8769;
     font-family: "montserrat", sans-serif;
     text-align: center;
@@ -47,11 +52,17 @@
     margin-bottom:0;
   }
 
+  #profilHeader {
+      position: absolute;
+      display: flex;
+      right: 10px;
+      align-items: center;
+  }
+
   #Client {
-    position : absolute;
     top : 30px;
-    right: 10px;
     height : 60px;
+    padding: 10px;
   }
 
   #logo {
