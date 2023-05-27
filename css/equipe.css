@@ -25,7 +25,7 @@ body{
 .boxEquipe h2{
     text-align: left;
     margin-left: 2vh;
-    max-width: 50%;
+    max-width: 70%;
 }
 
 .boxEquipe hr{
@@ -52,7 +52,6 @@ body{
 
 
 .btnStyle{
-
     display: inline-block;
     outline: 0;
     cursor: pointer;

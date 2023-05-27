@@ -21,6 +21,8 @@ function getXHR() {
 function ajouterMembre(elem,idEqu,idUtilConnecte,idDataEv) {
     var xhr = getXHR();
 
+    console.log(elem,idEqu,idUtilConnecte,idDataEv);
+
     var utilEntre = elem.parentNode.querySelector('.searchInp').value;
 
     let dataListOptions = elem.parentNode.querySelector('.dataL').children;
@@ -35,6 +37,7 @@ function ajouterMembre(elem,idEqu,idUtilConnecte,idDataEv) {
     xhr.onreadystatechange = function() {
 
        if (xhr.readyState == 4 && xhr.status == 200){
+        console.log(this.responseText);
         if (this.responseText.includes("done")) {
           var newP = document.createElement("p");
           newP.textContent = utilEntre;

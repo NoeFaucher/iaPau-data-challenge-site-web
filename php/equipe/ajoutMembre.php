@@ -6,7 +6,7 @@ $cnx = connexion($serveur,$bdd,$user,$pass);
 $reqCheck1 =  "SELECT idUtilisateur, Equipe.idEquipe
 from UtilisateurAppartientEquipe UAE
 inner join Equipe on UAE.idEquipe = Equipe.idEquipe
-and Equipe.idDataEvent =  ".$_POST["idDataEv"]."
+and Equipe.idProjetData =  ".$_POST["idDataEv"]."
 and idUtilisateur = ".$_POST["idUtil"]."
 ;";
 
@@ -19,7 +19,7 @@ $number = getAllFromRequest($cnx, $reqCheckNombre);
 
 echo var_dump($number);
 
-if (empty($check1) && ($number[0]["countidUtilisateur"] < 8 )) {
+if (empty($check1) && ($number[0]["count(idUtilisateur)"] < 8 )) {
     $req = "INSERT INTO UtilisateurAppartientEquipe (idUtilisateur, idEquipe) 
     VALUES (".$_POST["idUtil"].", ".$_POST["idEqu"].");";
     echo "done";

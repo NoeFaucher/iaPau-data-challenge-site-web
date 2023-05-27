@@ -3,7 +3,7 @@ INSERT INTO Utilisateur (email, mdp, typeUtilisateur, nivEtude, nom, prenom, eco
 VALUES
     ('user1@example.com', '$2y$10$8WXSr/ew/4Axsmt6r1vuiunm5bBXsx/Lu/r/GNlTijdx8RwmRSsrm', 'normal', 'L1', 'Smith', 'John', 'University A', 'City A'),
     ('user2@example.com', '$2y$10$4uBJHI5.1MeS9IvR.j6QsevXV24qjxwN6Ju10LW.Sm3VH9oKGKKqu', 'normal', 'L2', 'Johnson', 'Emily', 'University B', 'City B'),
-    	('user3@example.com', '$2y$10$Kk5N.OlCwrxobHiKr2my1OaHRETrTMwXMuf2N4EeOEEvXVmfICj7G', 'gestionnaire', 'M1', 'Brown', 'Michael', 'University C', 'City C'),
+    ('user3@example.com', '$2y$10$Kk5N.OlCwrxobHiKr2my1OaHRETrTMwXMuf2N4EeOEEvXVmfICj7G', 'gestionnaire', 'M1', 'Brown', 'Michael', 'University C', 'City C'),
     ('user4@example.com', '$2y$10$wg.PcU/3QagAFBRI9CBsX.pvHQzupr3yFKvlHwfg8/27FwrZq9ZuO', 'gestionnaire', 'L3', 'Davis', 'Sophia', 'University D', 'City D'),
     ('user5@example.com', '$2y$10$hMGftNk7Yt4AqdtgIaloH.XOq4l/igDt3frAUg2qqDR99LYcCt46O', 'administrateur', 'D', 'Miller', 'Oliver', 'University E', 'City E'),
     ('user6@example.com', '$2y$10$VCoaTFJZMUmA24VKp5LYt..NwxPwver9aaKJ/o7Gc/XEYFJFqnuNe', 'normal', 'M2', 'Wilson', 'Emma', 'University F', 'City F');
