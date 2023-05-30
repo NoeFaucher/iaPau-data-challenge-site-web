@@ -103,7 +103,7 @@ if ($inscriptionValide) {
 }
 
 if ($_SESSION["estConnecte)"]){
-    header("Location ../../index.php");
+    header("Location: ../../index.php");
 } else {
     $_SESSION["validation"] = false;
     $_SESSION["POST"] = $_POST;

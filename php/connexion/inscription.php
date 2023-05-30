@@ -75,6 +75,32 @@ if (isset($_SESSION["validation"])){
                     ?>
             </div>
             <div class="champ">
+                <label for="telephone">
+                    Prénom
+                </label><br>
+                <input type="text" name="telephone_participant"
+                    <?php
+                    if ($validform) {
+                        echo("class='form-telephone'");
+                    } else {
+                        if (isset($_SESSION["POST"]["telephone_participant"])) : ?>
+                            value="<?php echo($_SESSION["POST"]["telephone_participant"])?>";
+                        <?php endif;
+                        // affichage erreur
+                        if (isset($_SESSION["invalide"]["telephone"])){
+                            echo("class='error'");
+                        }
+                    }
+                    ?>
+                >
+                <?php
+                // message d'erreur
+                if (isset($_SESSION["invalide"]["telephone"])){
+                    echo("Telephone invalide");
+                }
+                ?>
+            </div>
+            <div class="champ">
                 <label for="email">
                     E-mail
                 </label><br>
