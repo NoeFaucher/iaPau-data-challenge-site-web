@@ -21,7 +21,6 @@ function getXHR() {
 function ajouterMembre(elem,idEqu,idUtilConnecte,idDataEv) {
     var xhr = getXHR();
 
-    console.log(elem,idEqu,idUtilConnecte,idDataEv);
 
     var utilEntre = elem.parentNode.querySelector('.searchInp').value;
 
@@ -37,7 +36,6 @@ function ajouterMembre(elem,idEqu,idUtilConnecte,idDataEv) {
     xhr.onreadystatechange = function() {
 
        if (xhr.readyState == 4 && xhr.status == 200){
-        console.log(this.responseText);
         if (this.responseText.includes("done")) {
           var newP = document.createElement("p");
           newP.textContent = utilEntre;
@@ -49,6 +47,7 @@ function ajouterMembre(elem,idEqu,idUtilConnecte,idDataEv) {
         }else if (this.responseText.includes("Trop")){
           alert("Trop de membre dans cette équipe (8 max).")
         }
+        console.log(this.responseText);
        }
     }
 
@@ -83,8 +82,10 @@ function ajouterMembre(elem,idEqu,idUtilConnecte,idDataEv) {
                 mbr.remove();
               }
             });
-          }else{
+          }else if (this.responseText.includes("chef")){
             alert("L'utilisateur que vous souhaitez supprimer est le chef de l'équipe.");
+          }else if (this.responseText.includes("taille")){
+            alert("La taille minimale de l'équipe est de 3 membres, suppression impossible  ");
           }
        }
     }

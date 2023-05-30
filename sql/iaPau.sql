@@ -20,12 +20,15 @@ create table Utilisateur (
 create table DataEvent (
     idDataEvent INTEGER primary key unique not null auto_increment, 
     typeDataEvent ENUM('DataChallenge','DataBattle'),
-    dateDebut DATETIME, 
+    dateDebut DATETIME,
     dateFIN DATETIME,
     dateCreation DATETIME,
     descript TEXT,
     entreprise VARCHAR(100),
     titre VARCHAR(100),
+    donnees TEXT,
+    consignes TEXT,
+    conseils TEXT,
     idGestionnaire INTEGER,
     foreign key fk_Gestionnaire(idGestionnaire) references Utilisateur(idUtilisateur)
 );
@@ -50,7 +53,6 @@ create table ProjetData (
     titreProjetData TEXT,
     descriptProjet TEXT,
     idImage INTEGER,
-
     foreign key fk_image(idImage) references Ressource(idRessource),
     foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent)
 );
@@ -60,9 +62,6 @@ create table Equipe (
     nomEquipe VARCHAR(100),
     idProjetData INTEGER,
     idChefEquipe INTEGER,
-
-
-
     foreign key fk_ChefEquipe(idChefEquipe) references Utilisateur(idUtilisateur),
     foreign key fk_DataEvent(idProjetData) references ProjetData(idProjetData) on delete cascade
 );
@@ -71,11 +70,8 @@ create table Rendu (
     idRendu INTEGER primary key unique not null auto_increment,
     dateRendu DATETIME,
     lienRendu TEXT,
-
     resultatJson TEXT,
-
     idEquipe INTEGER,
-
     foreign key fk_Equipe(idEquipe) references Equipe(idEquipe) on delete cascade
 );
 
@@ -87,8 +83,6 @@ create table  UtilisateurAppartientEquipe (
     foreign key fk_Equipe(idEquipe) references Equipe(idEquipe) on delete cascade
 );
 
-
-
 create table RessourceAppartientProjetData (
     idProjetData INTEGER,
     idRessource INTEGER,
@@ -97,33 +91,26 @@ create table RessourceAppartientProjetData (
     foreign key fk_Ressource(idRessource) references Ressource(idRessource)
 );
 
-
 create table Contact (
     idContact INTEGER primary key unique not null auto_increment,
     idProjetData INTEGER,
-
     nom VARCHAR(100),
     prenom VARCHAR(100),
     telephone VARCHAR(20),
     email VARCHAR(100),
-
     foreign key fk_ProjetData(idProjetData) references ProjetData(idProjetData) on delete cascade
 );
-
 
 create table Questionnaire (
     idQuestionnaire INTEGER primary key unique not null auto_increment,
     descriptQuestionnaire TEXT,
-
     idDataEvent INTEGER,
-
     foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent)
 );
 
 create table Question (
     idQuestion INTEGER primary key unique not null auto_increment,
     intitule TEXT,
-
     idQuestionnaire INTEGER,
     foreign key fk_Questionnaire(idQuestionnaire) references Questionnaire(idQuestionnaire) on delete cascade
 );
@@ -134,11 +121,9 @@ create table Reponse (
     reponse TEXT,
     idEquipe INTEGER,
     idQuestion INTEGER,
-
     foreign key fk_Equipe(idEquipe) references Equipe(idEquipe) on delete cascade,
     foreign key fk_Question(idQuestion) references Question(idQuestion) on delete cascade
 );
-
 
 create table Message (
     idMessage INTEGER primary key unique not null auto_increment,
@@ -146,15 +131,12 @@ create table Message (
     objet VARCHAR(100),
     contenu TEXT,
     idEnvoyeur INTEGER,
-
     foreign key fk_Envoyeur(idEnvoyeur) references Utilisateur(idUtilisateur) on delete cascade
 );
-
 
 create table MessageDestinataire (
     idMessage Integer,
     idDestinataire Integer,
-
     foreign key fk_Message(idMessage) references Message(idMessage) on delete cascade,
     foreign key fk_Destinataire(idDestinataire) references Utilisateur(idUtilisateur) on delete cascade,
     constraint pk_MessageDestinataire primary key (idMessage,idDestinataire)
