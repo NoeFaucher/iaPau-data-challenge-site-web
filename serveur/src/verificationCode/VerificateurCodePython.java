@@ -157,8 +157,8 @@ public class VerificateurCodePython implements VerificateurCode{
 
         res+=  "\"nbLigne\" : "+ nbLigne+",";
         res+=  "\"nbFonction\" : "+ nbFonction+",";
-        res+=  "\"nbLigneMinFonction\" : "+ nbLigneMaxFonction()+",";
-        res+=  "\"nbLigneMaxFonction\" : "+ nbLigneMinFonction()+",";
+        res+=  "\"nbLigneMinFonction\" : "+ nbLigneMinFonction()+",";
+        res+=  "\"nbLigneMaxFonction\" : "+ nbLigneMaxFonction()+",";
         res+=  "\"nbLigneMoyenFonction\" : "+ nbLigneMoyenFonction();
 
 
