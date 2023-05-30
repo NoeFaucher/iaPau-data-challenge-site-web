@@ -75,6 +75,34 @@ if (isset($_SESSION["validation"])){
                     ?>
             </div>
             <div class="champ">
+                <label for="telephone">
+                    Telephone
+                </label><br>
+                <input type="text" name="telephone_participant"
+                    <?php
+                    if ($validform) {
+                        echo("class='form-email'");
+                    }else {
+                        if (isset($_SESSION["POST"]["telephone_participant"])) : ?>
+                            value="<?php echo($_SESSION["POST"]["telephone_participant"])?>";
+                        <?php endif;
+                        // affichage erreur
+                        if (isset($_SESSION["invalide"]["telephone"]) or isset($_SESSION["indisponible"]["telephone"])){
+                            echo("class='error'");
+                        }
+                    }
+                    ?>
+                >
+                <?php
+                if(isset($_SESSION["invalide"]["telephone"])){
+                    echo("<p class='msgInfo'>Telephone invalide</p>");
+                }
+                if(isset($_SESSION["indisponible"]["telephone"])){
+                    echo("<p class='msgInfo'>Telephone indisponible</p>");
+                }
+                ?>
+            </div>
+            <div class="champ">
                 <label for="email">
                     E-mail
                 </label><br>
@@ -183,9 +211,10 @@ if (isset($_SESSION["validation"])){
                         if ($validform) {
                             echo("class='form-ecole_participant'");
                         } else {
-                            if (isset($_SESSION["POST"]["ecole_participant"])) {
-                                echo("value=" . $_SESSION["POST"]["ecole_participant"]);
-                            }
+                            if (isset($_SESSION["POST"]["ecole_participant"])) : ?>
+                                value="<?php echo($_SESSION["POST"]["ecole_participant"])?>";
+                            <?php endif;
+
                             // affichage erreur
                             if (isset($_SESSION["invalide"]["ecole"])){
                                 echo("class='error'");

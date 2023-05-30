@@ -7,6 +7,7 @@ use iaPau;
 -- Utilisateur
 create table Utilisateur (
     idUtilisateur INTEGER primary key unique not null auto_increment,
+    telephone VARCHAR(100),
     email VARCHAR(100),
     mdp VARCHAR(319),
     typeUtilisateur ENUM('gestionnaire','normal','administrateur'),

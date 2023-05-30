@@ -1,6 +1,7 @@
 function validateInscription() {
     const nom = document.forms["inscription"]["nom_participant"];
     const prenom = document.forms["inscription"]["prenom_participant"];
+    const telephone = document.forms["inscription"]["telephone_participant"];
     const email = document.forms["inscription"]["email_participant"];
     const mdp = document.forms["inscription"]["mot_de_passe_participant"];
     const mdpConfirmation = document.forms["inscription"]["mot_de_passe_confirmation"];
@@ -9,8 +10,7 @@ function validateInscription() {
     const ville = document.forms["inscription"]["ville_participant"];
 
     const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
+    const teleRegExp= /^(0|\+33)[1-9]([-. ]?[0-9]{2}){4}$/;
     let verification = true;
 
     if (nom.value === ""){
@@ -25,6 +25,13 @@ function validateInscription() {
         verification = false;
     } else {
         prenom.classList.remove('error');
+    }
+
+    if ((telephone.value ==="") || (!teleRegExp.test(telephone.value))){
+        telephone.classList.add('error');
+        verification = false;
+    } else {
+        telephone.classList.remove('error');
     }
 
     if ((email.value === "" ) || (!emailRegExp.test(email.value))) {

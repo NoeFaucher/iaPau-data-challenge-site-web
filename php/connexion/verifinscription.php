@@ -17,13 +17,14 @@ $_SESSION["prenom"] = NULL;
 $_SESSION["validation"] = NULL;
 $_SESSION["POST"] = NULL;
 $_SESSION["invalide"] = NULL;
-$_SESSION["indisponible"]["email"] = NULL;
+$_SESSION["indisponible"] = NULL;
 $_SESSION["different"]["mdp"] = NULL;
 
 
 // recuperation des information
 $nom = valid($_POST["nom_participant"]);
 $prenom = valid($_POST["prenom_participant"]);
+$telephone = valid($_POST["telephone_participant"]);
 $email = valid($_POST["email_participant"]);
 $mdp = valid($_POST["mot_de_passe_participant"]);
 $mdpConfirmation = valid($_POST["mot_de_passe_participant"]);
@@ -34,6 +35,7 @@ $ville = valid($_POST["ville_participant"]);
 
 $emailRegExp = '/^[^\s@]+@[^\s@]+\.[^\s@]+$/';
 $mdpRegExp = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/';
+$teleRegExp = '/^(0|\+33)[1-9]([-. ]?[0-9]{2}){4}$/';
 
 $inscriptionValide = true;
 
@@ -47,6 +49,20 @@ if (empty($nom)){
 if (empty($prenom)){
     $inscriptionValide = false;
     $_SESSION["invalide"]["prenom"] = true;
+}
+
+if (preg_match($teleRegExp,$telephone)){
+
+    $verifTel = getUtilisateurByTelephone($mysqlClient,$telephone);
+    if ((isset($verifTel)) && (count($verifTel)) != 0) {
+        var_dump("test");
+        $inscriptionValide = false;
+        $_SESSION["indisponible"]["telephone"] = true;
+    }
+} else {
+    $inscriptionValide = false;
+    $_SESSION["invalide"]["telephone"] = true;
+
 }
 
 if (preg_match($emailRegExp,$email)){
@@ -90,14 +106,19 @@ if (empty($ville)){
 if ($inscriptionValide) {
     $typeUtilisateur = 'normal';
 
-    addUser($mysqlClient,$email,password_hash($mdp,PASSWORD_DEFAULT),$typeUtilisateur,$etude,$nom,$prenom,$ecole,$ville);
+    addUser($mysqlClient,$telephone ,$email, password_hash($mdp, PASSWORD_DEFAULT), $typeUtilisateur, $etude, $nom, $prenom, $ecole, $ville);
     $idUtilisateur = getLastInsertId($mysqlClient);
     $_SESSION["estConnecte"] = true;
+    $_SESSION["telephone"] = $telephone;
     $_SESSION["idUtilisateur"] = $idUtilisateur;
     $_SESSION["email"] = $email;
     $_SESSION["typeUtilisateur"] = $typeUtilisateur;
     $_SESSION["nom"] = $nom;
     $_SESSION["prenom"] = $prenom;
+    $_SESSION["etude"] = $etude;
+    $_SESSION["ecole"] = $ecole;
+    $_SESSION["ville"] = $ville;
+
 }
 
 if ($_SESSION["estConnecte)"]){
