@@ -53,7 +53,7 @@ if (empty($prenom)){
 if (preg_match($emailRegExp,$email)){
 
     $verif = getUtilisateurByEmail($mysqlClient,$email);
-    if ((count($verif)) != 0) {
+    if ((isset($verif)) && (count($verif)) != 0) {
         $inscriptionValide = false;
         $_SESSION["indisponible"]["email"] = true;
     }

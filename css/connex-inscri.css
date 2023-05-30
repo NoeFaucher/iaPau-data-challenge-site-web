@@ -1,4 +1,6 @@
-
+html{
+    background-color: #0E8769;
+}
 
 .error {
     border: 2px solid #D8000C;
@@ -7,9 +9,8 @@
 
 main{
     text-align: center;
-    color: #FAFAFF;
+    color: hsl(240, 100%, 99%);
     width: 100%;
-    height: 100%;
     background-image :linear-gradient(0deg, #0E8769, #4ab7bc);
 }
 

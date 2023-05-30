@@ -21,13 +21,11 @@ if (isset($_SESSION["validation"])){
 <body>
     <?php include "../header.php"; ?>
     <main>
-        <p>Inscrivez-vous !</p>
         <form method="POST" class="form" id="inscription" action="verifinscription.php" onsubmit="return validateInscription()">
+        <h1 id="connexTitle">Inscrivez-vous !</h1>
             <div class="champ">
-                <label for="nom">
-                    Nom :
-                </label>
-                <label>
+                <label for="nom">Nom</label><br>
+
                     <input type="text" name="nom_participant"
                         <?php
                         if ($validform) {
@@ -49,13 +47,11 @@ if (isset($_SESSION["validation"])){
                         echo("Nom invalide");
                     }
                     ?>
-                </label>
             </div>
             <div class="champ">
                 <label for="prenom">
-                    Prénom :
-                </label>
-                <label>
+                    Prénom
+                </label><br>
                     <input type="text" name="prenom_participant"
                         <?php
                         if ($validform) {
@@ -77,18 +73,16 @@ if (isset($_SESSION["validation"])){
                         echo("Prenom invalide");
                     }
                     ?>
-                </label>
             </div>
             <div class="champ">
                 <label for="email">
-                    E-mail :
-                </label>
-                <label>
+                    E-mail
+                </label><br>
                     <input type="email" name="email_participant" id="email"
                         <?php
                         if ($validform) {
                             echo("class='form-email'");
-                        } else {
+                        }else {
                             if (isset($_SESSION["POST"]["email_participant"])) : ?>
                                 value="<?php echo($_SESSION["POST"]["email_participant"])?>";
                             <?php endif;
@@ -107,13 +101,12 @@ if (isset($_SESSION["validation"])){
                         echo("Adresse mail indisponible");
                     }
                     ?>
-                </label>
+
             </div>
             <div class="champ">
                 <label for="mot-de-passe" id="mot_de_passe" >
-                    Mot de passe :
-                </label>
-                <label>
+                    Mot de passe
+                </label><br>
                     <input type="password" name="mot_de_passe_participant"
                         <?php
                         if ($validform) {
@@ -138,13 +131,11 @@ if (isset($_SESSION["validation"])){
                         echo("Different de mot de passe confirmation");
                     }
                     ?>
-                </label>
             </div>
             <div class="champ">
                 <label for="mot-de-passe" id="mot_de_passe">
-                    Mot de passe confirmation:
-                </label>
-                <label>
+                    Confirmation du mot de passe
+                </label><br>
                     <input type="password" name="mot_de_passe_confirmation"
                         <?php
                         if ($validform) {
@@ -160,12 +151,11 @@ if (isset($_SESSION["validation"])){
                         }
                         ?>
                     >
-                </label>
             </div>
             <div class="champ">
                 <label for="niveau-etude">
-                    Niveau d'étude :
-                </label>
+                    Niveau d'étude
+                </label><br>
                 <select id="niveau-etude" name="niveau_etude_participant"
                     <?php
                     if ($validform) {
@@ -187,9 +177,8 @@ if (isset($_SESSION["validation"])){
             </div>
             <div class="champ">
                 <label for="ecole" id="ecole">
-                    École :
-                </label>
-                <label>
+                    École
+                </label><br>
                     <input type="text" name="ecole_participant"
                         <?php
                         if ($validform) {
@@ -211,13 +200,11 @@ if (isset($_SESSION["validation"])){
                         echo("Ecole invalide");
                     }
                     ?>
-                </label>
             </div>
             <div class="champ">
                 <label for="ville" id="ville">
-                    Ville :
-                </label>
-                <label>
+                    Ville
+                </label><br>
                     <input type="text" name="ville_participant"
                         <?php
                         if ($validform) {
@@ -239,7 +226,6 @@ if (isset($_SESSION["validation"])){
                         echo("Ville invalide");
                     }
                     ?>
-                </label>
             </div>
             <button type="submit" class="form-submit">S'inscrire</button><br>
             <a href="connexion.php" id="inscri">J'ai déjà un compte
