@@ -74,22 +74,38 @@ function getUtilisateurByEmail($mysqlClient,$utilisateurEmail) {
     catch(Exception $e) {
         die('Erreur : ' . $e->getMessage());
     }
+}
+
+function getUtilisateurByTelephone($mysqlClient,$utilisateurTelephone) {
+    $sqlQuery = 'SELECT * FROM Utilisateur WHERE telephone = :telephone';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute([
+            'telephone' => $utilisateurTelephone,
+        ]);
+        $tableau = $statement->fetchAll();
+        return $tableau[0];
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
 
 }
 
-function addUser($mysqlClient,$email,$mdp,$typeUtilisateur,$etude,$nom,$prenom,$ecole,$ville) {
+function addUser($mysqlClient,$telephone,$email,$mdp,$typeUtilisateur,$etude,$nom,$prenom,$ecole,$ville) {
     try {
-        $sqlQuery = 'INSERT INTO Utilisateur (email,mdp,typeUtilisateur,nivEtude,nom,prenom,ecole,ville) VALUES (:email,:mdp,:typeUtilisateur,:nivEtude,:nom,:prenom,:ecole,:ville)';
+        $sqlQuery = 'INSERT INTO Utilisateur(telephone,email,mdp,typeUtilisateur,nivEtude,nom,prenom,ecole,ville) VALUES (:telephone,:email,:mdp,:typeUtilisateur,:nivEtude,:nom,:prenom,:ecole,:ville)';
         $updateUser = $mysqlClient->prepare($sqlQuery);
         $updateUser -> execute ([
-            email =>$email,
-            mdp =>$mdp,
-            typeUtilisateur =>$typeUtilisateur,
-            nivEtude=>$etude,
-            nom=>$nom,
-            prenom=>$prenom,
-            ecole=>$ecole,
-            ville=>$ville,
+            'telephone' => $telephone,
+            'email' => $email,
+            'mdp' => $mdp,
+            'typeUtilisateur' => $typeUtilisateur,
+            'nivEtude'=> $etude,
+            'nom' => $nom,
+            'prenom' => $prenom,
+            'ecole' => $ecole,
+            'ville' => $ville,
         ]);
     } catch (Exception $e) {
         die('Erreur : ' . $e->getMessage());
