@@ -95,10 +95,10 @@ if (isset($_SESSION["validation"])){
                     >
                     <?php
                     if(isset($_SESSION["invalide"]["email"])){
-                        echo("Adresse mail invalide");
+                        echo("<p class='msgInfo'>Adresse mail invalide</p>");
                     }
                     if(isset($_SESSION["indisponible"]["email"])){
-                        echo("Adresse mail indisponible");
+                        echo("<p class='msgInfo'>Adresse mail indisponible</p>");
                     }
                     ?>
 
@@ -124,11 +124,10 @@ if (isset($_SESSION["validation"])){
                     >
                     <?php
                     if(isset($_SESSION["invalide"]["mdp"])){
-                        // ATTENTION A MODIFIER
-                        echo("Ne respect pas les regles de securité : 1 Maj, 1 min, 1 chiffre, 1 cara spe, taille sup à 6 ");
+                        echo("<p class='msgInfo'>1 Majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial et une taille supérieur à 6 </p>");
                     }
                     if(isset($_SESSION["different"]["mdp"])){
-                        echo("Different de mot de passe confirmation");
+                        echo("<p class='msgInfo'>Different de mot de passe confirmation</p>");
                     }
                     ?>
             </div>
