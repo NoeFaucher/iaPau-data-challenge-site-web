@@ -1,10 +1,13 @@
-<?php 
+<?php
 
     $nomDataChallenge = $resultatDataEvent["titre"];
     $nomEntreprise = $resultatDataEvent["entreprise"];
     $dateDebut = $resultatDataEvent["dateDebut"];
     $dateFin = $resultatDataEvent["dateFIN"];
     $presentation = $resultatDataEvent["descript"];
+
+    // A modifier
+    $id_equipe = 1;
 
     // description du data challenge - accessible à tous
     echo "
@@ -59,28 +62,31 @@
             <p class='paragraphe-presentation'>".$loremIpsum."</p>
             ";
 
+            echo "
+                <div class='sous-titre-evenement'>
+                    <span>Rendu</span>
+                </div>
+                <div id='lien-code-gitlab'>
+            ";
+
             // cas 1.1.1 : l'utilisateur est étudiant et chef d'équipe, il peut donc rendre une archive GitLab
             // note : chefEquipe => etudiant donc pas besoin de vérifier qu'il est étudiant
             if ((isset($_SESSION["chefEquipe"])) && ($_SESSION["chefEquipe"] == true)) {
 
                 // partie pour le lien gitlab
                 echo "
-                <div class='sous-titre-evenement'>
-                    <span>Rendu</span>
-                </div>
-                <p class='paragraphe-presentation'>".$loremIpsum."</p>
-                <div id='lien-code-gitlab'>
+                    <i>Veuillez entrer un lien vers un fichier raw (GitLab ou GitHub)</i>
                     <div id='texte-input-lien-gitlab'>
                         <label for='nom'>Lien d'hébergement de votre code :</label>
-                        <input type='text' name='lien_code_gitlab' placeholder='Veuillez entrer un lien vers un fichier raw (GitLab ou GitHub)...' required>
+                        <input type='text' name='lien_code_gitlab' id='lien_code_gitlab'  placeholder='Veuillez entrer un lien vers un fichier raw (GitLab ou GitHub)...' required>
                     </div>
-                    <input type=\"button\" onclick=\"\" value=\"Envoyer\">
+                    <input type=\"button\" onclick=\"envoyerCode(this,".$id_equipe.")\" value=\"Envoyer\">
 
-                    <a href=\"\" >Consulter mes résultats</a>
-                </div>
                 ";
 
             }
+            echo "<a href=\"rendu.php?equipe=$id_equipe\" >Consulter mes résultats</a>
+                </div>";
 
         }
 
@@ -159,4 +165,4 @@
     }
 
 ?>
-
+    <script src="/js/rendu.js"></script>
