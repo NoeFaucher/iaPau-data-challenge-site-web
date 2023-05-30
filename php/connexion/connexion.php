@@ -1,5 +1,6 @@
 <?php
 include ("../varSession.inc.php");
+
 $validform = true;
 
 if ($_SESSION["estConnecte"]){
