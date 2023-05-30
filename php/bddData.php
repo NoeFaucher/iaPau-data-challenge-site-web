@@ -1,8 +1,8 @@
 <?php
 
     $serveur = "localhost";
-    $user = "leo";
-    $pass = "";
+    $user = "noe";
+    $pass = "azerty01234";
     $bdd = "iaPau";
 
 ?>
