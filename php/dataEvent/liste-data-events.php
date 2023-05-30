@@ -8,7 +8,7 @@
     <head>
         <meta charset="utf-8">
         <title>IA PAU</title>
-        <link rel="stylesheet" type="text/css" href="/css/general.css" />
+        <link rel="stylesheet" type="text/css" href="/css/general-data-event.css" />
         <link rel="stylesheet" type="text/css" href="/css/header.css" />
         <link rel="stylesheet" type="text/css" href="/css/footer.css" />
         <link rel="stylesheet" type="text/css" href="/css/liste-data-events.css" />

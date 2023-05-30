@@ -1,3 +1,4 @@
+// ajouter un étudiant
 function ajouterEtudiant() {
 
     // récupération de tous les étudiants "ajoutables" (même s'ils ont déjà été ajoutés)
@@ -68,7 +69,24 @@ function ajouterEtudiant() {
 
 }
 
+// supprimer un étudiant
 function supprimerEtudiant(div) {
     div.remove();
     return(null);
 }
+
+// alerte si moins de 3 étudiants en tout
+function verifierEquipe(event) {
+
+    // Sélectionne la liste des étudiants ajoutés à l'équipe
+    var nombreEtudiants = document.getElementById('etudiants-ajoutes').childNodes.length;
+
+    // vérifier s'il y a moins de deux étudiants dans l'équipe
+    if (nombreEtudiants <= 2) {
+        alert("Vous devez ajouter au moins deux étudiants à votre équipe !");
+        event.preventDefault();
+        return(false);
+    } 
+    
+    return(true);
+} 
