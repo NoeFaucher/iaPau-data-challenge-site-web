@@ -10,10 +10,22 @@ main {
     margin: 25px;
 }
 
+/*
 main button {
     border-radius: 10px;
     border: 2px solid black;
     font-size: 22px;
+    color: white;
+    background-color: rgb(56, 136, 106);
+    padding: 5px 15px 5px 15px;
+    margin-bottom: 10px;
+}
+*/ 
+
+main .bouton-data-event a, main .bouton-data-event button {
+    border-radius: 10px;
+    border: 2px solid black;
+    font-size: 21px;
     color: white;
     background-color: rgb(56, 136, 106);
     padding: 5px 15px 5px 15px; /* ordre : haut, droite, bas, gauche */

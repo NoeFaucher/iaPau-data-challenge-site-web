@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="Serveur" default="compile" basedir=".">
+    <!-- Definition des proprietes du projet -->
+    <property name="projet.sources.dir" value="src"/>
+    <property name="projet.lib.dir" value="lib"/>
+    <property name="projet.bin.dir" value="bin"/>
+    <property name="projet.doc.dir" value="doc"/>
+    <property name="projet.nom.jar" value="TP10"/>
+    <property name="projet.nom.run" value="Serveur"/>
+
+    <!-- Definition du classpath du projet -->
+    <path id="projet.classpath">
+        <pathelement location="${projet.bin.dir}" />
+        <fileset dir="${projet.lib.dir}"> 
+            
+            <include name="**/*.jar"/>
+        </fileset >
+    </path>
+
+    <!-- Creation du repertoire source  -->
+    <target name="mkdir" description="Initialise le projet">
+        <mkdir dir="${projet.sources.dir}"/>
+        <mkdir dir="${projet.lib.dir}"/>
+    </target>
+
+    <!-- Suppression des fichiers .class  -->
+    <target name="clean" description="Suprime les .class">
+        <delete dir="${projet.bin.dir}" />
+        <delete dir="${projet.doc.dir}" />
+    </target>
+
+    <!-- Compilation des classes du projet -->
+    <target name="compile" description="Compilation des classes">
+        <mkdir dir="${projet.bin.dir}"/>
+        <echo message="Compilation..." />
+        <javac srcdir="${projet.sources.dir}" 
+                destdir="${projet.bin.dir}" 
+                debug="on" 
+                optimize="off" 
+                deprecation="on">
+            <classpath refid="projet.classpath"/>
+        </javac>
+    </target>
+
+    <!-- Archivage -->
+    <target name="jar">
+        <jar jarfile="${projet.nom.jar}.jar" basedir="${projet.sources.dir}" />
+    </target>
+
+    <!-- Lancement -->
+    <target name="run" >
+        <java classname="${projet.nom.run}" fork="true">
+            <classpath refid="projet.classpath" />
+        </java>
+    </target>
+
+    <!-- Documentation  -->
+    <target name="javadoc">
+        <mkdir dir="${projet.doc.dir}" />
+
+        <javadoc sourcepath="src" destdir="doc" >
+            <fileset dir="src" defaultexcludes="yes">
+                <include name="**" />
+            </fileset>
+        </javadoc>
+    </target>
+
+</project>

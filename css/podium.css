@@ -12,8 +12,8 @@
 #podium .place {
     width: 125px;
     bottom: 0px;
-    margin-right: 5px;
-    margin-left: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 /* barres de score */
@@ -42,6 +42,7 @@
 /* textes associés aux utilisateurs du podium : place, équipe, etc */
 #podium .place .infos-score {
     text-align: center;
+    height: 150px;
 }
 
 /* rang : 1er, 2ème ou 3ème */
@@ -64,7 +65,7 @@
 /* nom de l'équipe */
 #podium .place .infos-score .nom-equipe {
     font-weight: bold;
-    font-size: 22px;
+    font-size: 20px;
     margin-bottom: 5px;
 }
 

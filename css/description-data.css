@@ -37,13 +37,29 @@ h3 {
     padding-left: 5px;
     border: 2px solid black;
     border-radius: 5px;
-    width: 300px;
+    width: 450px;
     font-size: 18px;
+}
+
+#lien-code-gitlab .boutons-rendu button, #lien-code-gitlab .boutons-rendu a {
+    padding: 5px 15px 5px 15px; /* ordre : haut, droite, bas, gauche */
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 10px;
+    border: 2px solid black;
+    font-size: 22px;
+    background-color: rgb(56, 136, 106);
+    color: white;
+}
+
+
+#lien-code-gitlab .boutons-rendu button:hover {
+    cursor: pointer;
 }
 
 /* cas 1.2 : l'étudiant n'est pas inscrit au data challenge */
 
-#bouton-inscription, .bouton-inscription-interdit {
+#bouton-inscription {
     display: flex;
     justify-content: center;
 }

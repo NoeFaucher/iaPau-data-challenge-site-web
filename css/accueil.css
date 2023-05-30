@@ -4,6 +4,10 @@ body{
     font-family: "montserrat", sans-serif;  
 }
 
+main {
+    margin: 0;
+}
+
 #atriumImg{
     display: block;
     width: 100%;

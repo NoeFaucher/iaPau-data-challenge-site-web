@@ -1,3 +1,7 @@
+.gras {
+    font-weight: bold;
+}
+
 /***** cas 1 : l'utilisateur est un admin ou un gestionnaire *****/
 
 /*  conteneur du bouton de gestion des équipes */
@@ -19,17 +23,41 @@
     border-radius: 15px;
     padding: 15px;
     margin: 10px;
+    height: 140px;
+    font-size: 17px;
 }
 
 #liste-equipes .equipe .nom-equipe {
     font-weight: bold;
     font-size: 20px;
     border-bottom: 1px solid rgb(99, 99, 99);
-    padding-bottom: 5px;
+    padding-bottom: 3px;
+    margin-bottom: 8px;
 }
 
-#liste-equipes .equipe .rang {
-    margin-top: 5px;
+#liste-equipes .date-rendu-et-code {
+    margin-top: 12px;
+}
+
+#liste-equipes .bouton-data-event {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+#liste-equipes .bouton-data-event a {
+    font-size: 18px;
+}
+
+#projet-rendu p {
+    border: 1px solid red;
+}
+
+#liste-equipes .partie-code-non-rendu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
 }
 
 /***** cas 2 : l'utilisateur est un étudiant *****/
@@ -37,12 +65,12 @@
 /*  conteneur du bouton pour accéder au profil de son équipe */
 #bouton-acces-equipe {
     display: flex;
-    justify-content: right;
+    justify-content: center;
 }
 
 /***** questionnaire (pour les data battle, que si l'utilisateur est chef d'équipe) *****/
 
-.questionnaire {
+#questionnaire {
     display: flex;
     justify-content: center;
 }
@@ -76,4 +104,8 @@
     display: flex;
     justify-content: center;
     margin-top: 30px;
+}
+
+#bouton-envoi-questionnaire:hover button {
+    cursor: pointer;
 }
