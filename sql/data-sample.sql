@@ -143,17 +143,14 @@ INSERT INTO Equipe (nomEquipe, idProjetData, idChefEquipe) VALUES
 
 -- table des rendus
 -- note : pas d'attribut idProjetData car chaque équipe ne peut participer qu'à un projet data + Equipe et ProjetData liés
-INSERT INTO Rendu (dateRendu, lienRendu, idEquipe) VALUES
-    ('2023-06-08', 'https://gitlab.com/exemple1', 1),
-    ('2023-06-09', 'https://gitlab.com/exemple2', 5),
-    ('2023-06-10', 'https://gitlab.com/exemple3', 14),
-    ('2023-06-11', 'https://gitlab.com/exemple4', 8),
-    ('2023-06-12', 'https://gitlab.com/exemple5', 11),
-    ('2023-06-13', 'https://gitlab.com/exemple6', 6),
-    ('2023-06-14', 'https://gitlab.com/exemple7', 20),
-    ('2023-06-15', 'https://gitlab.com/exemple8', 3),
-    ('2023-06-16', 'https://gitlab.com/exemple9', 17),
-    ('2023-06-17', 'https://gitlab.com/exemple10', 9);
+INSERT INTO Rendu (dateRendu, idEquipe,lienRendu,resultatJson)
+VALUES
+    ('2022-06-08', 1,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 49,"nbFonction" : 5,"nbLigneMinFonction" : 5,"nbLigneMaxFonction" : 12,"nbLigneMoyenFonction" : 8.2}'),
+    ('2022-07-23', 1,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 40,"nbFonction" : 3,"nbLigneMinFonction" : 8,"nbLigneMaxFonction" : 10,"nbLigneMoyenFonction" : 9.2}'),
+    ('2022-08-18', 3,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 49,"nbFonction" : 5,"nbLigneMinFonction" : 5,"nbLigneMaxFonction" : 2,"nbLigneMoyenFonction" : 10.2}'),
+    ('2022-09-12', 1,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 70,"nbFonction" : 10,"nbLigneMinFonction" : 9,"nbLigneMaxFonction" : 18,"nbLigneMoyenFonction" : 14.2}'),
+    ('2022-10-08', 5,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 49,"nbFonction" : 5,"nbLigneMinFonction" : 5,"nbLigneMaxFonction" : 2,"nbLigneMoyenFonction" : 4.2}'),
+    ('2022-11-22', 6,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 49,"nbFonction" : 5,"nbLigneMinFonction" : 5,"nbLigneMaxFonction" : 2,"nbLigneMoyenFonction" : 4.2}');
 
 -- UtilisateurAppartientEquipe
 -- note : seules les cinq premières équipes sont constituées de "vraies" personnes, les autres possèdent seulement un chef d'équipe

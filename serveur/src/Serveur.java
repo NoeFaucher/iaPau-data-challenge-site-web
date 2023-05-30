@@ -73,8 +73,9 @@ public class Serveur {
             String code = requestParamValue;
             String htmlResponse = (new VerificateurCodePython(code)).jsonResult();
            
+            LOGGER.info(htmlResponse);
+
             // this line is a must
-            LOGGER.info("traitement de "+ code);
             httpExchange.sendResponseHeaders(200, htmlResponse.length());
             outputStream.write(htmlResponse.getBytes());
             outputStream.flush();

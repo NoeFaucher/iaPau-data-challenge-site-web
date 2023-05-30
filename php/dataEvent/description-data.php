@@ -81,7 +81,7 @@
                         <input type='text' name='lien_code_gitlab' id='lien_code_gitlab'  placeholder='Veuillez entrer un lien vers un fichier raw (GitLab ou GitHub)...' required>
                     </div>
                     <input type=\"button\" onclick=\"envoyerCode(this,".$id_equipe.")\" value=\"Envoyer\">
-
+                    <p id=\"retour-sur-envoi\"> </p>
                 ";
 
             }
