@@ -32,7 +32,6 @@ $ecole = valid($_POST["ecole_participant"]);
 $ville = valid($_POST["ville_participant"]);
 
 
-
 $emailRegExp = '/^[^\s@]+@[^\s@]+\.[^\s@]+$/';
 $mdpRegExp = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/';
 
@@ -90,7 +89,6 @@ if (empty($ville)){
 
 if ($inscriptionValide) {
     $typeUtilisateur = 'normal';
-    var_dump($etude);
 
     addUser($mysqlClient,$email,password_hash($mdp,PASSWORD_DEFAULT),$typeUtilisateur,$etude,$nom,$prenom,$ecole,$ville);
     $idUtilisateur = getLastInsertId($mysqlClient);
