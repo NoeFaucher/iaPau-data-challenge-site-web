@@ -1,6 +1,7 @@
 <?php
     session_start();
-    include("../php/header.php");
+    include("header.php");
+    include("bdd.php");
 
 // l'utilisateur est connecté
 if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
@@ -14,10 +15,14 @@ if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
             //c'est un data battle
             if((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "DataBattle")){
 
+                $request = "SELECT titre, entreprise, dateDebut, dateFIN, descript FROM DataEvent INNER JOIN Utilisateur ON Utilisateur.idUtilisateur = DataEvent.idGestionnaire  WHERE typeDataEvent = 'DataBattle'";
+                $cnx = connexion($serveur, $bdd, $user, $pass);
+                $DataEvent = getAllFromRequest($cnx,$request);
+
             // affichage de la liste des battles dont il est proprietaire
             echo "<ul>";
 
-            foreach ($event as $DataEvent) {
+            foreach ($DataEvent as $event) {
                 echo "<li>";
                 echo "<h3>{$event['titre']}</h3>";
                 echo "<p>Date de debut : {$event['dateDebut']}</p>";
@@ -39,10 +44,14 @@ if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
 
         if((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "DataBattle")){
 
+            $request = "SELECT titre, entreprise, dateDebut, dateFIN, descript FROM DataEvent  WHERE typeDataEvent = 'DataBattle'";
+            $cnx = connexion($serveur, $bdd, $user, $pass);
+            $DataEvent = getAllFromRequest($cnx,$request);
+
         // affichage de la liste des battles dont il est proprietaire
         echo "<ul>";
 
-        foreach ($event as $DataEvent) {
+        foreach ($DataEvent as $event) {
             echo "<li>";
             echo "<h3>{$event['titre']}</h3>";
             echo "<p>Date de debut : {$event['dateDebut']}</p>";
@@ -67,10 +76,14 @@ if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
 
             if((isset($_SESSION["typeDataEvent"])) && ($_SESSION["typeDataEvent"] == "DataBattle")){
 
+                $request = "SELECT titre, entreprise, dateDebut, dateFIN, descript FROM DataEvent INNER JOIN Utilisateur ON Utilisateur.idUtilisateur = DataEvent.idnormal  WHERE typeDataEvent = 'DataBattle'";
+                $cnx = connexion($serveur, $bdd, $user, $pass);
+                $DataEvent = getAllFromRequest($cnx,$request);
+
             // affichage de la liste des battles dont il est proprietaire
             echo "<ul>";
 
-            foreach ($event as $DataEvent) {
+            foreach ($DataEvent as $event) {
                 echo "<li>";
                 echo "<h3>{$event['titre']}</h3>";
                 echo "<p>Date de debut : {$event['dateDebut']}</p>";

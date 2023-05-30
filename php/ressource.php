@@ -1,9 +1,9 @@
 <?php
     session_start();
-    include("../php/header.php");
+    include("header.php");
 
 echo 'Ressource';
 
-include("../php/footer.php");
+include("footer.php");
 
 ?>

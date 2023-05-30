@@ -1,7 +1,15 @@
 <?php
     session_start();
-    include("../php/header.php");
+    include("header.php");
+    include("bdd.php");
 
+    $request = "SELECT prenom, nom, email, nivEtude, ecole, ville FROM Utilisateur INNER JOIN Utilisateur WHERE typeUtilisateur= 'normal'";
+    $cnx = connexion($serveur, $bdd, $user, $pass);
+    $Utilisateur = getAllFromRequest($cnx,$request);
+
+
+    // l'utilisateur est connecté
+if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)){
 
         echo "<div class='menu-vert'>";
         echo "<h2>{$_SESSION['prenom']} {$_SESSION['nom']}</h2>";
@@ -18,15 +26,15 @@
         echo "</div>";
     
     
-    //affichage/modifier/supprimer de la liste des challenges dont il est proprietaire
+    //affichage/modifier/supprimer de la liste des utilisateurs
     echo "<ul>";
     foreach ($Utilisateur as $utilisateur) {
         echo "<li>";
         echo "<p>Nom : {$utilisateur['nom']}</p>";
         echo "<p>Prenom : {$utilisateur['prenom']}</p>";
         echo "<p>Rôle : {$utilisateur['typeUtilisateur']}</p>";
-        echo "<button><a title='ModifU' onclick='info(\"{$utilisateur['nom']}\", \"{$utilisateur['prenom']}\", \"{$utilisateur['email']}\", \"{$utilisateur['nivEtude']}\", \"{$utilisateur['ecole']}\", \"{$utilisateur['ville']}\")'>Modifier l'utilisateur</a></button>";
-        echo "<button><a title='SupprU' onclick='supprimerUtilisateur(\"{$utilisateur['nom']}\", \"{$utilisateur['prenom']}\", \"{$utilisateur['email']}\", \"{$utilisateur['nivEtude']}\", \"{$utilisateur['ecole']}\", \"{$utilisateur['ville']}\")'>Supprimer l'utilisateur</a></button>";
+        echo "<button><a title='ModifU' onclick='info(\"{$Utilisateur['nom']}\", \"{$Utilisateur['prenom']}\", \"{$Utilisateur['email']}\", \"{$Utilisateur['nivEtude']}\", \"{$Utilisateur['ecole']}\", \"{$Utilisateur['ville']}\")'>Modifier l'Utilisateur</a></button>";
+        echo "<button><a title='SupprU' onclick='supprimerUtilisateur(\"{$Utilisateur['nom']}\", \"{$Utilisateur['prenom']}\", \"{$Utilisateur['email']}\", \"{$Utilisateur['nivEtude']}\", \"{$Utilisateur['ecole']}\", \"{$Utilisateur['ville']}\")'>Supprimer l'utilisateur</a></button>";
         echo "</li>";
     }
     echo "</ul>";
@@ -74,6 +82,7 @@
         <button type='submit'>S'inscrire</button>
     </form>
 
+<?php } ?>
 
 <script>
 

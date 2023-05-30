@@ -8,6 +8,9 @@ $dateFIN =$_POST['dateFIN'];
 $descript =$_POST['descript'];  
 $type = $_SESSION['typeDataEvent'];
 
+    // l'utilisateur doit être connecté pour afficher cette section
+    if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
+
 // Création de la connexion
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -18,9 +21,11 @@ $result = $conn->query($sql);
 $conn->close();
 
 if($type = 'DataChallenge'){
-    header('Location: ../php/challenge.php');
+    header('Location: challenge.php');
 }else{
-    header('Location: ../php/battle.php');
+    header('Location: battle.php');
 }
+
+    }
 
 ?>

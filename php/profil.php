@@ -1,7 +1,10 @@
 <?php
     session_start();
-    include("../php/header.php");
+    include("header.php");
     
+$_SESSION['prenom'] = 'sacha';
+$_SESSION['typeUtilisateur'] = 'normal';
+$_SESSION['estConnecte'] = true;
 
     // l'utilisateur doit être connecté pour afficher cette section
     if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
@@ -14,29 +17,29 @@
             if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "normal")) {
                 
                 // L'étudiant est inscrit
-                echo "<li><a title='Informations' href='../php/info.php'>Informations</a></li>";
-                echo "<li><a title='Equipe(s)' href='../php/partie-equipe.php'>Equipe(s)</a></li>";
-                echo "<li><a title='Challenge' href='../php/challenge.php'>Challenge</a></li>";
-                echo "<li><a title='Battle' href='../php/battle.php'>Battle</a></li>";
-                echo "<li><a title='Messagerie' href='../php/messagerie.php'>Messagerie</a></li>";
+                echo "<li><a title='Informations' href='info.php'>Informations</a></li>";
+                echo "<li><a title='Equipe(s)' href='partie-equipe.php'>Equipe(s)</a></li>";
+                echo "<li><a title='Challenge' href='challenge.php'>Challenge</a></li>";
+                echo "<li><a title='Battle' href='battle.php'>Battle</a></li>";
+                echo "<li><a title='Messagerie' href='messagerie.php'>Messagerie</a></li>";
 
             } 
 
             // l'utilisateur est un admin
             if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "administrateur")) {
-                echo "<li><a title='Utilisateurs' href='../php/utilisateurs.php'>Utilisateurs</a></li>";
-                echo "<li><a title='Equipe(s)' href='../php/partie-equipe.php'>Equipe(s)</a></li>";
-                echo "<li><a title='Challenge' href='../php/challenge.php'>Challenge</a></li>";
-                echo "<li><a title='Battle' href='../php/battle.php'>Battle</a></li>";
-                echo "<li><a title='Ressource' href='../php/ressource.php'>Ressource</a></li>";
-                echo "<li><a title='Messagerie' href='../php/messagerie.php'>Messagerie</a></li>";
+                echo "<li><a title='Utilisateurs' href='utilisateurs.php'>Utilisateurs</a></li>";
+                echo "<li><a title='Equipe(s)' href='partie-equipe.php'>Equipe(s)</a></li>";
+                echo "<li><a title='Challenge' href='challenge.php'>Challenge</a></li>";
+                echo "<li><a title='Battle' href='battle.php'>Battle</a></li>";
+                echo "<li><a title='Ressource' href='ressource.php'>Ressource</a></li>";
+                echo "<li><a title='Messagerie' href='messagerie.php'>Messagerie</a></li>";
             }
 
             // l'utilisateur est un gestionnaire
             if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "gestionnaire")) {
-                echo "<li><a title='Challenge' href='../php/challenge.php'>Challenge</a></li>";
-                echo "<li><a title='Battle' href='../php/battle.php'>Battle</a></li>";
-                echo "<li><a title='Messagerie' href='../php/messagerie.php'>Messagerie</a></li>";
+                echo "<li><a title='Challenge' href='challenge.php'>Challenge</a></li>";
+                echo "<li><a title='Battle' href='battle.php'>Battle</a></li>";
+                echo "<li><a title='Messagerie' href='messagerie.php'>Messagerie</a></li>";
             }
 
             echo "</ul>";
@@ -44,5 +47,5 @@
 
         }        
 
-    include("../php/footer.php");
+    include("footer.php");
 ?>

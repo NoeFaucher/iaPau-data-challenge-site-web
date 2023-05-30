@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include("./php/header.php");
+    include("header.php");
 
     $_POST = json_decode(file_get_contents('php://input'), true);
     $titre = $_POST['titre'];
@@ -9,6 +9,8 @@
     $dateFIN =$_POST['dateFIN'];   
     $descript =$_POST['descript'];   
 
+    // l'utilisateur est connecté
+if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
         
         echo "<div class='menu-vert'>";
         echo "<h2>{$_SESSION['prenom']} {$_SESSION['nom']}</h2>";
@@ -67,7 +69,7 @@
     </form>
 
 <?php
-
+}
     $titre = $_POST['titre'];
     $nomEntreprise = $_POST['entreprise'];
     $dateDebut = $_POST['dateDebut'];
@@ -76,8 +78,8 @@
 
     echo "<script>alert('Les informations ont été mises à jour avec succès.');</script>";
     
-    header('Location: ../php/battle.php');
+    header('Location: battle.php');
 
-    include("../php/footer.php");
+    include("footer.php");
 
 ?>
