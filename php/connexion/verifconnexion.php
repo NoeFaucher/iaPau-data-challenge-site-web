@@ -17,6 +17,9 @@ $mdp = valid($_POST["mot_de_passe_participant"]);
 
 $mysqlClient = connexion($serveur, $bdd, $user, $pass);
 
+$listutilisateur = getUtilisateur($mysqlClient);
+
+
 if (!empty($email) and !empty($mdp)){
 
     $verifUtilisateur = getUtilisateurByEmail($mysqlClient,$email);

@@ -10,7 +10,7 @@ function validateConnexion() {
         email.classList.add('error');
         verification = false;
     } else {
-        email.classList.add('form-email');
+        email.classList.remove('error');
     }
 
     if (mdp.value === ""){

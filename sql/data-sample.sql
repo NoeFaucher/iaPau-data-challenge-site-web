@@ -1,12 +1,12 @@
 -- Utilisateur
 INSERT INTO Utilisateur (email, mdp, typeUtilisateur, nivEtude, nom, prenom, ecole, ville)
 VALUES
-    ('user1@example.com', '$2y$10$8WXSr/ew/4Axsmt6r1vuiunm5bBXsx/Lu/r/GNlTijdx8RwmRSsrm', 'normal', 'L1', 'Smith', 'John', 'University A', 'City A'),
-    ('user2@example.com', '$2y$10$4uBJHI5.1MeS9IvR.j6QsevXV24qjxwN6Ju10LW.Sm3VH9oKGKKqu', 'normal', 'L2', 'Johnson', 'Emily', 'University B', 'City B'),
-    	('user3@example.com', '$2y$10$Kk5N.OlCwrxobHiKr2my1OaHRETrTMwXMuf2N4EeOEEvXVmfICj7G', 'gestionnaire', 'M1', 'Brown', 'Michael', 'University C', 'City C'),
-    ('user4@example.com', '$2y$10$wg.PcU/3QagAFBRI9CBsX.pvHQzupr3yFKvlHwfg8/27FwrZq9ZuO', 'gestionnaire', 'L3', 'Davis', 'Sophia', 'University D', 'City D'),
-    ('user5@example.com', '$2y$10$hMGftNk7Yt4AqdtgIaloH.XOq4l/igDt3frAUg2qqDR99LYcCt46O', 'administrateur', 'D', 'Miller', 'Oliver', 'University E', 'City E'),
-    ('user6@example.com', '$2y$10$VCoaTFJZMUmA24VKp5LYt..NwxPwver9aaKJ/o7Gc/XEYFJFqnuNe', 'normal', 'M2', 'Wilson', 'Emma', 'University F', 'City F');
+    ('user1@example.com', 'password1', 'normal', 'L1', 'Smith', 'John', 'University A', 'City A'),
+    ('user2@example.com', 'password2', 'normal', 'L2', 'Johnson', 'Emily', 'University B', 'City B'),
+    ('user3@example.com', 'password3', 'gestionnaire', 'M1', 'Brown', 'Michael', 'University C', 'City C'),
+    ('user4@example.com', 'password4', 'gestionnaire', 'L3', 'Davis', 'Sophia', 'University D', 'City D'),
+    ('user5@example.com', 'password5', 'administrateur', 'D', 'Miller', 'Oliver', 'University E', 'City E'),
+    ('user6@example.com', 'password6', 'normal', 'M2', 'Wilson', 'Emma', 'University F', 'City F');
 
 -- DataEvent
 INSERT INTO DataEvent (typeDataEvent, dateDebut, dateFIN, dateCreation, descript, entreprise, titre, idGestionnaire)
@@ -144,5 +144,147 @@ VALUES
     ('2023-05-25 09:00:00', 'Message 1', 'Message content 1', 1),
     ('2023-05-25 10:00:00', 'Message 2', 'Message content 2', 2),
     ('2023-05-25 11:00:00', 'Message 3', 'Message content 3', 3),
-    ('2023-05-25 12:00:00', 'Message 4', 'Message content 4', 4);
+    ('2023-05-25 12:00:00', 'Message 4', 'Message content 4', 4),
+    ('2023-05-25 13:00:00', 'Meinclude("bddData.php");
 
+function connexion($serveur,$bdd,$user,$pass) {
+    try {
+        return new PDO( 'mysql:host=' . $serveur . ';dbname=' . $bdd . ';charset=utf8',
+        $user,
+        $pass,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+        );
+    }
+    catch (Exception $e){
+        die('Erreur' .$e -> getMessage());
+    }
+}
+
+function deconnexion ()  {
+    return null;
+}
+
+function setFromRequest($mysqlClient,$request) {
+    try {
+        $statement = $mysqlClient->prepare($request);
+        $statement->execute();
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+
+function getLastInsertId($mysqlClient) {
+    return $mysqlClient->lastInsertId();
+}include("bddData.php");
+
+function connexion($serveur,$bdd,$user,$pass) {
+    try {
+        return new PDO( 'mysql:host=' . $serveur . ';dbname=' . $bdd . ';charset=utf8',
+        $user,
+        $pass,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+        );
+    }
+    catch (Exception $e){
+        die('Erreur' .$e -> getMessage());
+    }
+}
+
+function deconnexion ()  {
+    return null;
+}
+
+function setFromRequest($mysqlClient,$request) {
+    try {
+        $statement = $mysqlClient->prepare($request);
+        $statement->execute();
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+
+function getLastInsertId($mysqlClient) {
+    return $mysqlClient->lastInsertId();
+}
+
+function getAllFromRequest($mysqlClient,$request) {
+
+    try {
+        $statement = $mysqlClient->prepare($request);
+        $statement->execute();
+        $tableau = $statement->fetchAll();
+        return $tableau;
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+}
+
+function getUtilisateur($mysqlClient) {
+    $sqlQuery = 'SELECT * FROM Utilisateur';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute();
+        $tableau = $statement->fetchAll();
+        return $tableau;
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+
+function getUtilisateurByEmail($mysqlClient,$utilisateurEmail) {
+    $sqlQuery = 'SELECT * FROM Utilisateur WHERE email = :email';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute([
+            'email' => $utilisateurEmail,
+        ]);
+        $tableau = $statement->fetchAll();
+        return $tableau[0];
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+}
+
+function getUtilisateur($mysqlClient) {
+    $sqlQuery = 'SELECT * FROM Utilisateur';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute();
+        $tableau = $statement->fetchAll();
+        return $tableau;
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}
+
+function getUtilisateurByEmail($mysqlClient,$utilisateurEmail) {
+    $sqlQuery = 'SELECT * FROM Utilisateur WHERE email = :email';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute([
+            'email' => $utilisateurEmail,
+        ]);
+        $tableau = $statement->fetchAll();
+        return $tableau[0];
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+
+}

@@ -77,24 +77,4 @@ function getUtilisateurByEmail($mysqlClient,$utilisateurEmail) {
 
 }
 
-function addUser($mysqlClient,$email,$mdp,$typeUtilisateur,$etude,$nom,$prenom,$ecole,$ville) {
-    try {
-        $sqlQuery = 'INSERT INTO Utilisateur (email,mdp,typeUtilisateur,nivEtude,nom,prenom,ecole,ville) VALUES (:email,:mdp,:typeUtilisateur,:nivEtude,:nom,:prenom,:ecole,:ville)';
-        $updateUser = $mysqlClient->prepare($sqlQuery);
-        $updateUser -> execute ([
-            email =>$email,
-            mdp =>$mdp,
-            typeUtilisateur =>$typeUtilisateur,
-            nivEtude=>$etude,
-            nom=>$nom,
-            prenom=>$prenom,
-            ecole=>$ecole,
-            ville=>$ville,
-        ]);
-    } catch (Exception $e) {
-        die('Erreur : ' . $e->getMessage());
-    }
-
-}
-
 ?>

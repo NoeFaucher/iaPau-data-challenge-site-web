@@ -2,14 +2,8 @@
 
 
 const ajouterDestinataire = () => {
-
-    // recuperation de toutes les options dans la datalist
     let dataListOptions = document.getElementById("destinataires-list").children;
-    
-    // recuperation du destinataire selectionné
     let currentSelect = document.getElementById("input-current-destinataire");
-
-    // recuperation de l'input hidden de tous les uitlisateurs déjà selectionnés
     let lesDestinataires = document.getElementById("input-destinataires");
 
 

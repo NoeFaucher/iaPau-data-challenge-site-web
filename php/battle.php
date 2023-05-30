@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include("../header.php");
+    include("../php/header.php");
 
 // l'utilisateur est connecté
 if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
@@ -23,7 +23,7 @@ if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
                 echo "<p>Date de debut : {$event['dateDebut']}</p>";
                 echo "<p>Date de fin : {$event['dateFIN']}</p>";
                 echo "<p>Description : {$event['descript']}</p>";
-                echo "<button><a title='DataBattle' href='../dataEvent/description-data-challenge.php'>Acces au dataBattle</a></button>";
+                echo "<button><a title='DataBattle' href='../php/description-data-challenge.php'>Acces au dataBattle</a></button>";
                 echo "<button><a title='ModifU' onclick='info(\"{$DataEvent['titre']}\", \"{$DataEvent['nomEntreprise']}\", \"{$DataEvent['dateDebut']}\", \"{$DataEvent['dateFIN']}\", \"{$DataEvent['descript']}\")'>Modifier le battle</a></button>";
                 echo "</li>";
             }
@@ -135,6 +135,6 @@ function info(titre,nomEntreprise, dateDebut, dateFIN, descript){
 
 <?php
 
-include("../footer.php");
+include("../php/footer.php");
 
 ?>
