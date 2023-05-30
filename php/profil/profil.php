@@ -1,51 +1,52 @@
-<?php
-include("../header.php");
-?>
-<?php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/profil.css">
 
-// l'utilisateur doit être connecté pour afficher cette section
-    if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
+    <title>Profil - Ia Pau</title>
+</head>
+    <body>
+        <?php
+            include '../header.php';
+        ?>
+        <div class="left-menu">
+            <ul>
+                <li><a title='Informations' href='#inf'>Informations</a></li>
+                <li><a title='Equipe(s)' href='#equ'>Equipe(s)</a></li>
+                <li><a title='Challenge' href='#.php'>Challenge</a></li>
+                <li><a title='Battle' href='#'>Battle</a></li>
+                <li><a title='Messagerie' href='#'>Messagerie</a></li>
+            </ul>
+        </div>
+        <div class="right-main">
+            <span id="inf"></span>
+            <h1>Votre profil</h1>
+            <div id="infos">
+                <?php
+                if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "normal")) {
 
-        echo "<div class='menu-vert'>";
-        echo "<h2>{$_SESSION['prenom']} {$_SESSION['nom']}</h2>";
-        echo "<ul>";
+                    echo '<p>Prénom : '.$_SESSION['prenom'] . ' | Nom : ' . $_SESSION['nom'] .' | Téléphone : '.$_SESSION["telephone"]."</p>";
+                    echo '<p>Niveau d\'étude : '.$_SESSION['nivEtude']. ' | Etablissement : ' . $_SESSION['ecole']. ' | Ville : ' . $_SESSION['ville']."</p>";
+                }
+                    // l'utilisateur est un gestionnaire
+                if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "gestionnaire")) {
 
-            // l'utilisateur est un etudiant
-            if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "normal")) {
-                
-                // L'étudiant est inscrit
-                echo "<li><a title='Informations' href='info.php'>Informations</a></li>";
-                echo "<li><a title='Equipe(s)' href='#'>Equipe(s)</a></li>";
-                echo "<li><a title='Challenge' href='challenge.php'>Challenge</a></li>";
-                echo "<li><a title='Battle' href='battle.php'>Battle</a></li>";
-                echo "<li><a title='Messagerie' href='../messagerie.php'>Messagerie</a></li>";
+                    echo 'Prénom : '.$_SESSION['prenom'] . ' | Nom : ' . $_SESSION['nom'];
+                }
+                    // l'utilisateur est un admin
+                if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "administrateur")) {
 
-            } 
-
-            // l'utilisateur est un admin
-            if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "administrateur")) {
-                echo "<li><a title='Utilisateurs' href='utilisateurs.php'>Utilisateurs</a></li>";
-                echo "<li><a title='Equipe(s)' href='#'>Equipe(s)</a></li>";
-                echo "<li><a title='Challenge' href='challenge.php'>Challenge</a></li>";
-                echo "<li><a title='Battle' href='battle.php'>Battle</a></li>";
-                echo "<li><a title='Ressource' href='ressource.php'>Ressource</a></li>";
-                echo "<li><a title='Messagerie' href='../messagerie.php'>Messagerie</a></li>";
-            }
-
-            // l'utilisateur est un gestionnaire
-            if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "gestionnaire")) {
-                echo "<li><a title='Challenge' href='challenge.php'>Challenge</a></li>";
-                echo "<li><a title='Battle' href='battle.php'>Battle</a></li>";
-                echo "<li><a title='Messagerie' href='../messagerie.php'>Messagerie</a></li>";
-            }
-
-            echo "</ul>";
-            echo "</div>";
-            echo "<button onclick=\"window.location = '../connexion/deconnexion.php';\">Déconnexion</button>";
-
-        }else{
-            header("Location: ../connexion/connexion.php");
-        }     
-
-    include("footer.php");
-?>
+                    echo 'Prénom : '.$_SESSION['prenom'] . ', Nom : ' . $_SESSION['nom'];
+                }
+                ?>
+                <button class="btnStyle" onclick="">Modifier mes informations</button>
+            </div>
+            <span id="equ"></span>
+            <h1>Vos équipes</h1>
+            <div>
+                <button class="btnStyle" onclick="window.location = '/php/equipe/equipe.php';">accéder aux équipes</button>
+            </div>
+        </div>
+    </body>
+</html>

@@ -2,7 +2,6 @@
 include ("varSession.inc.php");
 ?>
 <link rel="stylesheet" type="text/css" href="/css/header.css" />
-<script src="/js/header.js"></script>
 <header>
     <div class="banniere">
         <a href="/index.php">
