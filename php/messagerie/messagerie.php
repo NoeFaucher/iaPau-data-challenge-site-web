@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/messagerie.css">
-    <title>Document</title>
-    <script src="/js/messagerie.js"></script>
-</head>
-<body>
     <?php
         $curent_user = 2;
     ?>
+    <meta>
+        <link rel="stylesheet" href="/css/messagerie.css">
+    </meta>
 
+    <script src="/js/messagerie.js"></script>
 
     <div class="message-conteneur">
 
@@ -122,7 +115,11 @@
         <input type="submit" value="Envoyer">
 
     </form>
-    <?php
+
+
+
+    
+    <!-- <?php
         if(isset($_GET["send"])){
             if ($_GET["send"] == "true") {
                 echo "message envoyé";
@@ -130,7 +127,4 @@
                 echo "problème dans l'envoie du message";
             }
         }
-    ?>
-
-</body>
-</html>
+    ?> -->

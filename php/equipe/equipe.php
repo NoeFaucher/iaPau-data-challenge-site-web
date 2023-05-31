@@ -29,7 +29,6 @@
                 FROM DataEvent INNER JOIN Equipe 
                 on Equipe.idProjetData=DataEvent.idDataEvent;';
             }else {
-
                 $req = 'SELECT Equipe.idEquipe, nomEquipe, Equipe.idProjetData, DataEvent.titre, idChefEquipe
                 FROM UtilisateurAppartientEquipe 
                 INNER JOIN Equipe ON UtilisateurAppartientEquipe.idEquipe = Equipe.idEquipe
@@ -152,5 +151,8 @@
             });
         </script>
         <script src="/js/ajaxEquipes.js"></script>
+        <?php
+        include '../footer.php';
+        ?>
     </body>
 </html>

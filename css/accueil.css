@@ -84,8 +84,8 @@ main {
 #content3{
     display: block;
     background-color: rgb(14, 135, 105);
-    padding: 3vh;
-    padding-left: 0;
+    width: 100%;
+    height: fit-content;
 }
 
 #pyr{

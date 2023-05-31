@@ -30,6 +30,7 @@
                     $requete = "SELECT * FROM DataEvent WHERE typeDataEvent='DataBattle';";
                     $resultat = getAllFromRequest($conn, $requete);
                 }
+
                 $conn = deconnexion();
 
                 // affichage de tous les data challenges (resp. toutes les data battles)
