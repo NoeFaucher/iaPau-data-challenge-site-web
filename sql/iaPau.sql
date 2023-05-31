@@ -22,7 +22,7 @@ create table DataEvent (
     idDataEvent INTEGER primary key unique not null auto_increment, 
     typeDataEvent ENUM('DataChallenge','DataBattle'),
     dateDebut DATETIME,
-    dateFIN DATETIME,
+    dateFin DATETIME,
     dateCreation DATETIME,
     descript TEXT,
     entreprise VARCHAR(100),
