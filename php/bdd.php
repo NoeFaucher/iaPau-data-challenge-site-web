@@ -112,5 +112,4 @@ function addUser($mysqlClient,$telephone,$email,$mdp,$typeUtilisateur,$etude,$no
     }
 
 }
-
 ?>
