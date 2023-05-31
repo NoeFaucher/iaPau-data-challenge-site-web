@@ -115,7 +115,7 @@ if ($inscriptionValide) {
     $_SESSION["typeUtilisateur"] = $typeUtilisateur;
     $_SESSION["nom"] = $nom;
     $_SESSION["prenom"] = $prenom;
-    $_SESSION["etude"] = $etude;
+    $_SESSION["nivEtude"] = $etude;
     $_SESSION["ecole"] = $ecole;
     $_SESSION["ville"] = $ville;
 

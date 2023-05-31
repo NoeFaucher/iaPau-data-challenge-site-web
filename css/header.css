@@ -1,75 +1,75 @@
-body{
+body {
   margin: 0;
   font-family: "montserrat", sans-serif;
 }
 
-.banniere{
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    paddING: 20px;
-  }
+.banniere {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  paddING: 20px;
+}
 
-  .banniere p {
-    color: #0E8769;
+.banniere p {
+  color: #0E8769;
 
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
 
 
 .menu-banniere a {
-    color: white;
-    font-size: 23px;
-    padding: 14px 5%;
-    min-width: 34%    ;
-    text-decoration: none;
-    transition: 0.4s ease;
-    box-sizing: border-box; 
-  }
+  color: white;
+  font-size: 23px;
+  padding: 14px 5%;
+  min-width: 34%;
+  text-decoration: none;
+  transition: 0.4s ease;
+  box-sizing: border-box;
+}
 
-  .menu-banniere a:hover {
-    background-color: #13b88f;
-    color: white;
-  }
+.menu-banniere a:hover {
+  background-color: #13b88f;
+  color: white;
+}
 
-  .menu-banniere{
-    background-color: #0E8769;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-  }
+.menu-banniere {
+  background-color: #0E8769;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
 
-  .banniere h1{
-    color: #0E8769;
-    font-family: "montserrat", sans-serif;
-    text-align: center;
-    display: inline-block;
-    margin-top: 10px;
-    margin-bottom:0;
-  }
+.banniere h1 {
+  color: #0E8769;
+  font-family: "montserrat", sans-serif;
+  text-align: center;
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
 
-  #profilHeader {
-      position: absolute;
-      display: flex;
-      right: 10px;
-      align-items: center;
-  }
+#profilHeader {
+  position: absolute;
+  display: flex;
+  right: 10px;
+  align-items: center;
+}
 
-  #Client {
-    top : 30px;
-    height : 60px;
-    padding: 10px;
-  }
+#Client {
+  top: 30px;
+  height: 60px;
+  padding: 10px;
+}
 
-  #logo {
-    position : absolute;
-    top : 20px;
-    left: 10px;
-    height : 80px;
-  }
+#logo {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  height: 80px;
+}
