@@ -22,7 +22,7 @@ create table DataEvent (
     idDataEvent INTEGER primary key unique not null auto_increment, 
     typeDataEvent ENUM('DataChallenge','DataBattle'),
     dateDebut DATETIME,
-    dateFIN DATETIME,
+    dateFin DATETIME,
     dateCreation DATETIME,
     descript TEXT,
     entreprise VARCHAR(100),
@@ -44,7 +44,7 @@ create table RessourceAppartientDataEvent (
     idDataEvent INTEGER,
     idRessource INTEGER,
     constraint pk_AppartientDataEvent primary key (idDataEvent,idRessource),
-    foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent),
+    foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent) ON DELETE CASCADE,
     foreign key fk_Ressource(idRessource) references Ressource(idRessource)
 );
 
@@ -55,7 +55,7 @@ create table ProjetData (
     descriptProjet TEXT,
     idImage INTEGER,
     foreign key fk_image(idImage) references Ressource(idRessource),
-    foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent)
+    foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent) ON DELETE CASCADE
 );
 
 create table Equipe (
@@ -88,7 +88,7 @@ create table RessourceAppartientProjetData (
     idProjetData INTEGER,
     idRessource INTEGER,
     constraint pk_AppartientProjetData primary key (idProjetData,idRessource),
-    foreign key fk_DataEvent(idProjetData) references ProjetData(idProjetData),
+    foreign key fk_DataEvent(idProjetData) references ProjetData(idProjetData) ON DELETE CASCADE,
     foreign key fk_Ressource(idRessource) references Ressource(idRessource)
 );
 
@@ -106,7 +106,7 @@ create table Questionnaire (
     idQuestionnaire INTEGER primary key unique not null auto_increment,
     descriptQuestionnaire TEXT,
     idDataEvent INTEGER,
-    foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent)
+    foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent) ON DELETE CASCADE
 );
 
 create table Question (

@@ -1,6 +1,5 @@
 body{
     background-color: #FAFAFF;
-    height: 3000px;
 }
 
 .left-menu{
@@ -82,6 +81,7 @@ li:hover a{
     outline: 0;
     cursor: pointer;
     border: none;
+    margin-left: 3vh;
     padding: 0 56px;
     height: 45px;
     line-height: 45px;
@@ -150,7 +150,7 @@ li:hover a{
     
 }   
 
-form input{
+form input, .utilInput{
     background-repeat: no-repeat; 
     margin: 2vh;
     width: 80%;
