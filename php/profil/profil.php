@@ -10,7 +10,7 @@
         <?php
             include '../header.php';
         ?>
-
+        <!-- modification d'un Data-Challenge-->
         <div id="data-chall-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('data-chall-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
@@ -35,10 +35,11 @@
             </div>
         </div>
 
+        <!-- creation d'un Data-Challenge -->
         <div id="new-data-chall-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('new-data-chall-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
-                <form id="formNewChall" action="newDataChall.php" method="post">
+                <form id="formNewChall" action="creeDataEvent.php" method="post">
                     <h1>Créer un Data Challenge</h1>
                     <label>Titre :</label><br>
                     <input type="text" name="titre">
@@ -61,6 +62,7 @@
             </div>
         </div>
 
+        <!-- modification d'un Data-Battle -->
         <div id="data-battle-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('data-battle-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
@@ -85,6 +87,7 @@
             </div>
         </div>
 
+        <!-- creation d'un Data Battle -->
         <div id="new-data-battle-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('new-data-battle-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
@@ -110,7 +113,8 @@
                 </form>
             </div>
         </div>
-        
+
+        <!-- modification d'un projet Data  A FAIRE -->
         <div id="projet-data-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('projet-data-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
@@ -118,12 +122,9 @@
                     <h1>Modifier le Data Battle</h1>
                     <label>Titre :</label><br>
                     <input type="text" name="titre">
-                    <label>Dates de début et de fin :</label><br>
-                    <input type="date" name="debut">
-                    <input type="date" name="fin">
                     <label>Description :</label><br>
                     <textarea name="description" style="resize:none;width: 50%; height:10vh;"></textarea>
-                    <label>Entreprise :</label><br>
+                    <label>Image :</label><br>
                     <input type="text" name="entreprise">
                     <label>Données :</label><br>
                     <input type="text" name="donnees">
@@ -137,6 +138,7 @@
             </div>
         </div>
 
+        <!-- Creation d'un Projet Data A FAIRE -->
         <div id="new-data-projet-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('new-data-projet-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
@@ -149,15 +151,9 @@
                     <input type="date" name="fin">
                     <label>Description :</label><br>
                     <textarea name="description" style="resize:none;width: 50%; height:10vh;"></textarea>
-                    <label>Entreprise :</label><br>
-                    <input type="text" name="entreprise">
-                    <label>Données :</label><br>
-                    <input type="text" name="donnees">
-                    <label>Consignes :</label><br>
-                    <input type="text" name="consignes">
-                    <label>Conseils :</label><br>
-                    <input type="text" name="conseils">
-                    
+                    <label>Images :</label><br>
+                    <input type="text" name="idImage">
+
                     <button type="submit" style="margin-top:2vh;" class="btnStyle">créer un nouveau data challenge</button>
                 </form>
             </div>
