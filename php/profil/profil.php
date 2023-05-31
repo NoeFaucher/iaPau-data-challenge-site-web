@@ -9,7 +9,65 @@
     <body>
         <?php
             include '../header.php';
+
+            include '../bdd.php';
+            $conn = connexion($serveur, $bdd, $user, $pass);
+
+
+            //On récupère le tableau des gestionnaires pour les inputs des data events
+            $req2 = 
+                "SELECT U.nom, U.prenom, U.idUtilisateur
+                FROM Utilisateur U
+                WHERE U.typeUtilisateur = 'gestionnaire';
+                ";
+
+            $tab2 = getAllFromRequest($conn, $req2);
         ?>
+
+        <div id="util-overlay" class="overlay">
+            <span class="closebtn" onclick="closeModal('util-overlay')" title="Close Overlay">×</span>
+            <div class="overlay-content">
+                <form id="form-modif-util" action="modifDataEvent.php" method="post">
+                    <h1>Modifier mes informations</h1>
+                    <label>Prénom :</label><br>
+                    <input type="text" name="prenom">
+                    <label>Nom :</label><br>
+                    <input type="text" name="nom">
+                    <label>Mot de passe actuel :</label><br>
+                    <input type="text" name="mdp">
+                    <label>Nouveau mot de passe :</label><br>
+                    <input type="text" name="newMdp">
+
+                    <?php if ($_SESSION["typeUtilisateur"] == "normal"): ?>
+                        <label>Email :</label><br>
+                        <input type="text" name="mail">
+                        <label>Téléphone :</label><br>
+                        <input type="text" name="telephone">
+                        <label>Ecole :</label><br>
+                        <input type="text" name="ecole">
+                        <label>Ville :</label><br>
+                        <input type="text" name="ville">
+                        <label>Niveau d'étude :</label><br>
+                        <select id="niveau-etude" name="nivEtude">
+                            <option value="L1">L1</option>
+                            <option value="L2">L2</option>
+                            <option value="L3">L3</option>
+                            <option value="M1">M1</option>
+                            <option value="M2">M2</option>
+                            <option value="D">D</option>
+                        </select><br>
+                    <?php endif; ?>
+
+                    <?php if ($_SESSION["typeUtilisateur"] == "gestionnaire"): ?>
+                        <label>Entreprise :</label><br>
+                        <input type="text" name="entreprise">
+                    <?php endif; ?>
+                    
+                    <button type="submit" style="margin-top:2vh;" class="btnStyle">Valider les modifications</button>
+                </form>
+            </div>
+        </div>
+
 
         <div id="data-chall-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('data-chall-overlay')" title="Close Overlay">×</span>
@@ -30,6 +88,19 @@
                     <label>Conseils :</label><br>
                     <input type="text" name="conseils">
                     
+                    <label>Choix du gestionnaire :</label>
+                    <input type='text' list='destinataires-list' class='searchInp' placeholder='Recherche rapide' require>
+                    <datalist id='destinataires-list' class='dataL'>
+                        <?php
+                        foreach($tab2 as $util) {
+                            $nom_prenom = $util["prenom"].' '.$util["nom"];
+                            $idUtil = $util['idUtilisateur'];
+                            echo '<option value="'.$nom_prenom.'" data-id="'.$idUtil.'">'.$nom_prenom.'</option>';
+                        }
+                        ?>
+
+                    </datalist>
+                    
                     <button type="submit" style="margin-top:2vh;" class="btnStyle">Valider les modifications</button>
                 </form>
             </div>
@@ -38,7 +109,7 @@
         <div id="new-data-chall-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('new-data-chall-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
-                <form id="formNewChall" action="newDataChall.php" method="post">
+                <form id="form-new-chall" action="creeDataEvent.php" method="post">
                     <h1>Créer un Data Challenge</h1>
                     <label>Titre :</label><br>
                     <input type="text" name="titre">
@@ -55,6 +126,19 @@
                     <input type="text" name="consignes">
                     <label>Conseils :</label><br>
                     <input type="text" name="conseils">
+
+                    <label>Choix du gestionnaire :</label>
+                    <input type='text' list='destinataires-list' class='searchInp' placeholder='Recherche rapide' require>
+                    <datalist id='destinataires-list' class='dataL'>
+                        <?php
+                        foreach($tab2 as $util) {
+                            $nom_prenom = $util["prenom"].' '.$util["nom"];
+                            $idUtil = $util['idUtilisateur'];
+                            echo '<option value="'.$nom_prenom.'" data-id="'.$idUtil.'">'.$nom_prenom.'</option>';
+                        }
+                        ?>
+
+                    </datalist>
                     
                     <button type="submit" style="margin-top:2vh;" class="btnStyle">créer un nouveau data challenge</button>
                 </form>
@@ -79,6 +163,18 @@
                     <input type="text" name="consignes">
                     <label>Conseils :</label><br>
                     <input type="text" name="conseils">
+
+                    <input type='text' list='destinataires-list' class='searchInp' placeholder='Recherche rapide' require>
+                    <datalist id='destinataires-list' class='dataL'>
+                        <?php
+                        foreach($tab2 as $util) {
+                            $nom_prenom = $util["prenom"].' '.$util["nom"];
+                            $idUtil = $util['idUtilisateur'];
+                            echo '<option value="'.$nom_prenom.'" data-id="'.$idUtil.'">'.$nom_prenom.'</option>';
+                        }
+                        ?>
+
+                    </datalist>
                     
                     <button type="submit" style="margin-top:2vh;" class="btnStyle">valider les modifications</button>
                 </form>
@@ -88,7 +184,7 @@
         <div id="new-data-battle-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('new-data-battle-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
-                <form action="modifDataChall.php" method="post">
+                <form id="form-new-battle" action="creeDataEvent.php" method="post">
                     <h1>Créer un Data Battle</h1>
                     <label>Titre :</label><br>
                     <input type="text" name="titre">
@@ -105,6 +201,19 @@
                     <input type="text" name="consignes">
                     <label>Conseils :</label><br>
                     <input type="text" name="conseils">
+
+                    <label>Choix du gestionnaire :</label>
+                    <input type='text' list='destinataires-list' class='searchInp' placeholder='Recherche rapide' require>
+                    <datalist id='destinataires-list' class='dataL'>
+                        <?php
+                        foreach($tab2 as $util) {
+                            $nom_prenom = $util["prenom"].' '.$util["nom"];
+                            $idUtil = $util['idUtilisateur'];
+                            echo '<option value="'.$nom_prenom.'" data-id="'.$idUtil.'">'.$nom_prenom.'</option>';
+                        }
+                        ?>
+
+                    </datalist>
                     
                     <button type="submit" style="margin-top:2vh;" class="btnStyle">créer un nouveau data battle</button>
                 </form>
@@ -115,7 +224,7 @@
             <span class="closebtn" onclick="closeModal('projet-data-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
                 <form action="newProjetData.php" method="post">
-                    <h1>Modifier le Data Battle</h1>
+                    <h1>Modifier le Projet Data</h1>
                     <label>Titre :</label><br>
                     <input type="text" name="titre">
                     <label>Dates de début et de fin :</label><br>
@@ -141,7 +250,7 @@
             <span class="closebtn" onclick="closeModal('new-data-projet-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
                 <form action="modifDataChall.php" method="post">
-                    <h1>Créer un Data Battle</h1>
+                    <h1>Créer un Projet Data</h1>
                     <label>Titre :</label><br>
                     <input type="text" name="titre">
                     <label>Dates de début et de fin :</label><br>
@@ -201,7 +310,7 @@
                 }
                 ?>
                 <br>
-                <button class="btnStyle" onclick="">Modifier mes informations</button>
+                <button class="btnStyle" onclick="openModal(0,'util-overlay','form-modif-util',0)">Modifier mes informations</button>
             </div>
 
             <div id="equ">
@@ -212,13 +321,11 @@
             <div id="challenge">
                 <h1>Vos Data Challenges</h1> 
                 <?php
-                include '../bdd.php';
-                $conn = connexion($serveur, $bdd, $user, $pass);
                 
                 
                 if ($_SESSION["typeUtilisateur"] == "administrateur") {
                 
-                    echo "<button class='btnStyle' onclick='openNewDataChall();';'>créer un data challenge</button>";
+                    echo "<button class='btnStyle' onclick='openModal(0, \"new-data-chall-overlay\",\"form-new-chall\");'>créer un data challenge</button>";
                     //Pour l'admin, on récup juste tout
                     $requete = "SELECT * FROM DataEvent WHERE typeDataEvent='DataChallenge';";
                 }elseif($_SESSION["typeUtilisateur"] == "gestionnaire"){
@@ -271,10 +378,11 @@
                             </a>
                         ";
                         if ($_SESSION["typeUtilisateur"] != "normal"): ?>
-                            <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idDataEvent"] ?>,"data-chall-overlay","form-modif-chall",<?php echo $resultat[$i]["idGestionnaire"] ?>);' style='background-color: blue;'>Modifier</button>
+                            <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idDataEvent"] ?>,"data-chall-overlay","form-modif-chall");' style='background-color: blue;'>Modifier</button>
+                        <?php endif;
+                        if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>
                             <button class='btnStyle' onclick='window.location="supDataEvent.php?idDataEvent=<?php echo $resultat[$i]["idDataEvent"] ?>";' style='background-color: red;'>supprimer</button>
                         <?php endif;
-
                         echo" </div>";
                     }
                     echo "</div>";
@@ -288,7 +396,7 @@
 
                     if ($_SESSION["typeUtilisateur"] == "administrateur") {
                                     
-                        echo "<button class='btnStyle' onclick='openNewDataBattle();';'>créer un data battle</button>";
+                        echo "<button class='btnStyle' onclick='openModal(0, \"new-data-battle-overlay\",\"form-new-battle\");'>créer un data battle</button>";
                         //Pour l'admin, on récup juste tout
                         $requete = "SELECT * FROM DataEvent WHERE typeDataEvent='DataBattle';";
                     }elseif($_SESSION["typeUtilisateur"] == "gestionnaire"){
@@ -341,7 +449,9 @@
                                 </a>
                             ";
                             if ($_SESSION["typeUtilisateur"] != "normal"): ?>
-                                <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idDataEvent"] ?>,"data-battle-overlay","form-modif-battle",<?php echo $resultat[$i]["idGestionnaire"] ?>);' style='background-color: blue;'>Modifier</button>
+                                <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idDataEvent"] ?>,"data-chall-overlay","form-modif-chall");' style='background-color: blue;'>Modifier</button>
+                            <?php endif;
+                            if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>
                                 <button class='btnStyle' onclick='window.location="supDataEvent.php?idDataEvent=<?php echo $resultat[$i]["idDataEvent"] ?>";' style='background-color: red;'>supprimer</button>
                             <?php endif;
 
@@ -357,13 +467,19 @@
             
             <div id="projetdata">
                 <h1>Vos Projets Data</h1>
-
+                
                 
             </div>
 
+
+            <div>
+
+            </div>
+
+
         </div>
         <script>
-            function openModal(idDataEv,overlay,form,idGest) {
+            function openModal(idDataEv,overlay,form) {
 
                 // Création de l'élément input
                 var input = document.createElement('input');
@@ -371,13 +487,9 @@
                 input.value = idDataEv;
                 input.name = 'idDataEvent';
 
-                var input2 = document.createElement('input');
-                input2.type = 'hidden';
-                input2.value = idGest;
-                input2.name = 'idGestionnaire';
 
                 document.getElementById(form).appendChild(input);
-                document.getElementById(form).appendChild(input2);
+
                 document.getElementById(overlay).style.display = "block";
              }       
 
