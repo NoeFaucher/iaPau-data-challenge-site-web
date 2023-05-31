@@ -13,32 +13,32 @@
             
             $cnx = connexion($serveur,$bdd,$user,$pass);
 
+
             if ($_SESSION["typeUtilisateur"] == 'gestionnaire') {
 
-                $req = 'SELECT Equipe.idEquipe, nomEquipe, Equipe.idProjetData, DataEvent.titre, idChefEquipe
-                FROM DataEvent INNER JOIN Equipe 
-                on Equipe.idProjetData=DataEvent.idDataEvent 
-                and DataEvent.idDataEvent = any 
-                (SELECT idDataEvent 
-                FROM DataEvent INNER JOIN Utilisateur 
-                on Utilisateur.idUtilisateur = DataEvent.idDataEvent 
-                and DataEvent.idGestionnaire = '.$_SESSION["idUtilisateur"].');';
+                $req = "SELECT nomEquipe, idEquipe, idProjetData, idChefEquipe, idDataEvent, titre, idGestionnaire FROM Equipe 
+                NATURAL JOIN ProjetData 
+                NATURAL JOIN DataEvent
+                WHERE idGestionnaire=".$_SESSION["idUtilisateur"].";";
+                
+                echo $_SESSION["idUtilisateur"];
+                echo "<br>";
+                echo $req;
+
             }elseif ($_SESSION["typeUtilisateur"] == 'administrateur') {
 
-                $req = 'SELECT Equipe.idEquipe, nomEquipe, Equipe.idProjetData,DataEvent.idDataEvent, DataEvent.titre, idChefEquipe
-                FROM DataEvent INNER JOIN Equipe 
-                on Equipe.idProjetData=DataEvent.idDataEvent;';
-            }else {
-                $req = 'SELECT Equipe.idEquipe, nomEquipe, Equipe.idProjetData, DataEvent.titre, idChefEquipe
-                FROM UtilisateurAppartientEquipe 
-                INNER JOIN Equipe ON UtilisateurAppartientEquipe.idEquipe = Equipe.idEquipe
-                INNER JOIN DataEvent ON Equipe.idProjetData = DataEvent.idDataEvent
-                WHERE UtilisateurAppartientEquipe.idUtilisateur ='.$_SESSION["idUtilisateur"].';';
-            }
+                $req = "SELECT nomEquipe, idEquipe, idProjetData, idChefEquipe, idDataEvent, titre idGestionnaire FROM Equipe 
+                NATURAL JOIN ProjetData 
+                NATURAL JOIN DataEvent;";
 
-            
+            }else {
+                $req = "SELECT nomEquipe, idEquipe, idProjetData, idChefEquipe, idDataEvent, titre, idGestionnaire FROM Equipe 
+                NATURAL JOIN ProjetData 
+                NATURAL JOIN DataEvent 
+                NATURAL JOIN UtilisateurAppartientEquipe 
+                WHERE idUtilisateur=".$_SESSION["idUtilisateur"].";";
+            }
         
-                
             $tab = getAllFromRequest($cnx, $req);
 
             foreach($tab as $ligne){
@@ -65,8 +65,6 @@
                 ";
 
                 $tab3 = getAllFromRequest($cnx, $req3);
-                
-
 
 
 
