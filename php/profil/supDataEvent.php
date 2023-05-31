@@ -13,7 +13,7 @@ if ($_SESSION["estConnecte"]) {
 }
 
 
-$idDataEvent = $_POST["idDataEvent"];
+$idDataEvent = $_GET["idDataEvent"];
 
 $mysqlClient = connexion($serveur, $bdd, $user, $pass);
 

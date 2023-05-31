@@ -272,7 +272,7 @@
                         ";
                         if ($_SESSION["typeUtilisateur"] != "normal"): ?>
                             <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idDataEvent"] ?>,"data-chall-overlay","form-modif-chall",<?php echo $resultat[$i]["idGestionnaire"] ?>);' style='background-color: blue;'>Modifier</button>
-                            <button class='btnStyle' onclick='' style='background-color: red;'>supprimer</button>
+                            <button class='btnStyle' onclick='window.location="supDataEvent.php?idDataEvent=<?php echo $resultat[$i]["idDataEvent"] ?>";' style='background-color: red;'>supprimer</button>
                         <?php endif;
 
                         echo" </div>";
@@ -342,7 +342,7 @@
                             ";
                             if ($_SESSION["typeUtilisateur"] != "normal"): ?>
                                 <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idDataEvent"] ?>,"data-battle-overlay","form-modif-battle",<?php echo $resultat[$i]["idGestionnaire"] ?>);' style='background-color: blue;'>Modifier</button>
-                                <button class='btnStyle' onclick='' style='background-color: red;'>supprimer</button>
+                                <button class='btnStyle' onclick='window.location="supDataEvent.php?idDataEvent=<?php echo $resultat[$i]["idDataEvent"] ?>";' style='background-color: red;'>supprimer</button>
                             <?php endif;
 
                             echo" </div>";
