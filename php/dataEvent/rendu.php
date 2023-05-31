@@ -1,17 +1,7 @@
 <?php
     session_start();
-
-
-
-
-
-
     $id_equipe = $_GET["equipe"];
-
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -37,8 +27,6 @@
 
         </div>
 
-
-
         <div class="graph-container">
             <h2>Evolution des rendus :</h2>
             <div class="graph" id="graph1">
@@ -53,7 +41,6 @@
         </div>
 
         <!-- Retrospective des données  -->
-
 
     </div>
     <script>

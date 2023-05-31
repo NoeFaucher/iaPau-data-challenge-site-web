@@ -1,0 +1,47 @@
+/***** modification de l'affichage d'éléments de base *****/
+
+a {
+    text-decoration: none;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+main {
+    font-family: "Montserrat", sans-serif;
+    margin: 25px;
+}
+
+main .gras {
+    font-weight: bold;
+}
+
+main .italique {
+    font-style: italic;
+}
+
+main .bouton-data-event {
+    display: flex;
+    justify-content: center;
+}
+
+main .bouton-data-event a, main .bouton-data-event button {
+    display: inline-block;
+    outline: 0;
+    cursor: pointer;
+    border: none;
+    padding: 0 56px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 7px;
+    background-color: #0e8769;
+    color: white;
+    transition: 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    text-transform: uppercase;
+}
+
+main .bouton-data-event a:hover, main .bouton-data-event button:hover {
+    cursor: pointer;
+}

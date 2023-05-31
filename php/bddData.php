@@ -1,7 +1,7 @@
 <?php
 
     $serveur = "localhost";
-    $user = "user";
+    $user = "hugohrst";
     $pass = "password";
     $bdd = "iaPau";
 

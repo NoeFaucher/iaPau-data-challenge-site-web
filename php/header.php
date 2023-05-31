@@ -1,5 +1,5 @@
 <?php
-include ("varSession.inc.php");
+include("varSession.inc.php");
 ?>
 <link rel="stylesheet" type="text/css" href="/css/header.css" />
 <header>
