@@ -15,7 +15,7 @@
 
             if ($_SESSION["typeUtilisateur"] == 'gestionnaire') {
 
-                $req = 'SELECT Equipe.idEquipe, nomEquipe, Equipe.idDataEvent, DataEvent.titre, idChefEquipe
+                $req = 'SELECT Equipe.idEquipe, nomEquipe, Equipe.idProjetData, DataEvent.titre, idChefEquipe
                 FROM DataEvent INNER JOIN Equipe 
                 on Equipe.idProjetData=DataEvent.idDataEvent 
                 and DataEvent.idDataEvent = any 
@@ -29,7 +29,6 @@
                 FROM DataEvent INNER JOIN Equipe 
                 on Equipe.idProjetData=DataEvent.idDataEvent;';
             }else {
-
                 $req = 'SELECT Equipe.idEquipe, nomEquipe, Equipe.idProjetData, DataEvent.titre, idChefEquipe
                 FROM UtilisateurAppartientEquipe 
                 INNER JOIN Equipe ON UtilisateurAppartientEquipe.idEquipe = Equipe.idEquipe
