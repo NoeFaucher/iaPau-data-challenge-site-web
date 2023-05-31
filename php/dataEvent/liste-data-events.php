@@ -47,7 +47,8 @@
                         </a>
                     </div>";
                 }
-                echo "</div>";
+                echo "
+                </div>";
 
             ?>
         </main>

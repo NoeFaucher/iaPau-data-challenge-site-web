@@ -8,6 +8,7 @@
     $nomEquipe = $_POST["nom_equipe"];
     $idProjetData = $_SESSION["idProjetData"];
     $idChefEquipe = $_SESSION["idUtilisateur"];
+    $listeEtudiantsEquipe = $_POST["tableauEtudiants"];
 
     // connexion à la base de données
     $conn = connexion($serveur, $bdd, $user, $pass);
@@ -20,11 +21,17 @@
     $requeteIdEquipe = "SELECT idEquipe FROM Equipe WHERE idProjetData=".$idProjetData." AND idChefEquipe=".$idChefEquipe.";";
     $resultatIdEquipe = getAllFromRequest($conn, $requeteIdEquipe)[0]["idEquipe"];
 
-    // sélection de tous les membres à ajouter dans l'équipe
-    // FAIRE ÇA
-
     // ajout des membres dans l'équipe
-    $requeteAjoutMembresEquipe = "INSERT INTO UtilisateurAppartientEquipe (idUtilisateur, idEquipe) VALUES (".$idChefEquipe.", ".$resultatIdEquipe.");";
+    $requeteAjoutMembresEquipe = "INSERT INTO UtilisateurAppartientEquipe (idUtilisateur, idEquipe) VALUES (".$idChefEquipe.", ".$resultatIdEquipe."), ";
+    for ($i=0; $i<count($listeEtudiantsEquipe); $i++) {
+        if ($i != count($listeEtudiantsEquipe)-1) {
+            $requeteAjoutMembresEquipe .= "(".$listeEtudiantsEquipe[$i].", ".$resultatIdEquipe."), ";
+        }
+        else {
+            $requeteAjoutMembresEquipe .= "(".$listeEtudiantsEquipe[$i].", ".$resultatIdEquipe.");";
+        }
+    }
+    echo $requeteAjoutMembresEquipe;
     setFromRequest($conn, $requeteAjoutMembresEquipe);
 
     // requête SQL pour retrouver le data event et rediriger l'utilisateur vers la page

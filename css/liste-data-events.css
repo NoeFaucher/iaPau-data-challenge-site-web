@@ -1,4 +1,4 @@
-    #liste-events a {
+#liste-events a {
     color: black;
     transition: 0.3s ease;
 }
@@ -44,39 +44,3 @@
     font-size: 18px;
     margin-top: 8px;
 }
-
-/* ancien code : 
-
-#liste-events {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-#liste-events a {
-    color: black;
-    transition: 0.4s ease;
-}
-
-#liste-events a:hover {
-    color: rgb(0, 0, 0);
-    opacity: 50%;
-}
-
-#liste-events .event {
-    width: 30%;
-    border: 2px solid rgb(56, 136, 106);
-    border-radius: 15px;
-    padding: 15px;
-    margin: 10px;
-    text-align: justify;
-}
-
-#liste-events .event .titre-event {
-    font-weight: bold;
-    font-size: 20px;
-    border-bottom: 1px solid rgb(56, 136, 106);
-    padding-bottom: 5px;
-    color: rgb(56, 136, 106);
-}
-*/

@@ -18,6 +18,10 @@ main .gras {
     font-weight: bold;
 }
 
+main .italique {
+    font-style: italic;
+}
+
 main .bouton-data-event {
     display: flex;
     justify-content: center;

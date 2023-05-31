@@ -163,18 +163,6 @@ const envoyerCode = (element,equipe) => {
             let inputEnvoiResultats = document.querySelector("#texte-input-lien-gitlab input");
             inputEnvoiResultats.value = "";
 
-            // ajout du lien dans la liste des rendus de l'équipe
-            var liste = document.getElementById('liste-rendus-equipe');
-            var nouvelElement = document.createElement('li');
-            nouvelElement.className = 'paragraphe-presentation';
-            var lien = document.createElement('a');
-            var currentDate = new Date().toLocaleString(); // date du jour
-            var dateEtLien = currentDate + " : " + link;
-            lien.href = link;
-            lien.textContent = dateEtLien;
-            nouvelElement.appendChild(lien);
-            liste.appendChild(nouvelElement);
-
             // création du bouton "consulter mes résultats", s'il n'existe pas déjà
             let divBoutons = document.querySelector(".boutons-rendu");
             let lienResultats = divBoutons.querySelector("a");
@@ -184,6 +172,30 @@ const envoyerCode = (element,equipe) => {
                 lienRendu.innerHTML = "Consulter mes résultats";
                 divBoutons.appendChild(lienRendu);
             }
+
+            // titre "Rendus de mon équipe"
+            var titre = document.querySelector('#titre-rendus-equipe span');
+            titre.textContent = "Rendus de mon équipe";
+
+            // ajout du lien dans la liste des rendus de l'équipe
+            var liste = document.getElementById('liste-rendus-equipe');
+            var nouvelElement = document.createElement('li');
+            nouvelElement.className = 'paragraphe-presentation';
+            var lien = document.createElement('a');
+            lien.href = link;
+            lien.textContent = link;
+            var dateDuJour = new Date();
+            var annee = dateDuJour.getFullYear();
+            var mois = ("0" + (dateDuJour.getMonth() + 1)).slice(-2);
+            var jour = ("0" + dateDuJour.getDate()).slice(-2);
+            var heures = ("0" + dateDuJour.getHours()).slice(-2);
+            var minutes = ("0" + dateDuJour.getMinutes()).slice(-2);
+            var secondes = ("0" + dateDuJour.getSeconds()).slice(-2);
+            var dateFormatee = annee + "-" + mois + "-" + jour + " " + heures + ":" + minutes + ":" + secondes;
+            var texteDate = document.createTextNode(dateFormatee + " : ");
+            nouvelElement.appendChild(texteDate);
+            nouvelElement.appendChild(lien);
+            liste.appendChild(nouvelElement);
 
         }else {
             pEnvoi.innerHTML = "Une erreur s'est produite dans l'envoi du rendu.";

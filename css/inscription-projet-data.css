@@ -1,7 +1,3 @@
-.italique {
-    font-style: italic;
-}
-
 #inscription-projet-data h1 {
     color: black;
     font-family: "Montserrat", sans-serif;
@@ -35,7 +31,6 @@
     padding-left: 7px;
 }
 
-/* note : c'est pas opti pour des grands nombres mais comme on dépasse jamais 7 c'est ok */
 #etudiants-ajoutes {
     display: flex;
     justify-content: center;

@@ -256,6 +256,15 @@ Récapitulatif :
 
                             }
 
+                            // affichage de tous les rendus réalisés par l'équipe de l'utilisateur
+                            echo "
+                            <div id='rendus-equipe'>
+                                <div id='titre-rendus-equipe'>
+                                    <span></span>
+                                </div>
+                                <ul id='liste-rendus-equipe'></ul>
+                            </div>";
+
                         }
 
                     }
@@ -432,7 +441,7 @@ Récapitulatif :
                         <div id='podium'>";
 
                         // affichage de la seconde place
-                        if (count($resultatPodium) >= 2) {
+                        if ((count($resultatPodium) >= 2) && (isset($resultatPodium[1]["score"]))) {
                             echo "
                             <div id='seconde-place' class='place'>
                                 <div class='barre-score' id='barre-score-second' style='height: ".$hauteurSecond."px;'></div>
@@ -482,7 +491,7 @@ Récapitulatif :
                         </div>";
 
                         // affichage de la troisième place
-                        if (count($resultatPodium) >= 3) {
+                        if ((count($resultatPodium) >= 3) && (isset($resultatPodium[2]["score"]))) {
                             echo "
                             <div id='troisieme-place' class='place'>
                                 <div class='barre-score' id='barre-score-troisieme' style='height: ".$hauteurTroisieme."px;'></div>
@@ -634,14 +643,9 @@ Récapitulatif :
                     // note : pas besoin de vérifier qu'il est étudiant puisque inscrit => étudiant
                     if (isset($_SESSION["inscrit"]) && ($_SESSION["inscrit"] == true)) {
 
-                        // texte à afficher en fonction de si l'utilisateur est chef d'équipe ou non et du type de data event (data challenge ou data battle)
+                        // texte à afficher en fonction du statut de l'utilisateur (chef d'équipe ou non)
                         if (isset($_SESSION["chefEquipe"]) && ($_SESSION["chefEquipe"] == true)) {
-                            if ($resultatDataEvent["typeDataEvent"] == "DataChallenge") {
-                                $textePartieEquipe = "Si vous désirez accéder au profil de votre équipe, cliquez ci-dessous. Vous pourrez non seulement accéder à la liste de vos coéquipiers et à la messagerie mais, en tant que chef d'équipe, vous pourrez également gérer les membres (ajout ou suppression) et contacter les gestionnaires.";
-                            }
-                            else if ($resultatDataEvent["typeDataEvent"] == "DataBattle") {
-                                $textePartieEquipe = "Si vous désirez accéder au profil de votre équipe, cliquez ci-dessous. Vous pourrez non seulement accéder à la liste de vos coéquipiers et à la messagerie mais, en tant que chef d'équipe, vous pourrez également gérer les membres (ajout ou suppression) et contacter les gestionnaires. De plus, comme vous avez décidé de participer à une data battle, vous devrez répondre au questionnaire ci-contre. Chaque réponse est notée sur un point. L'envoi du questionnaire est définitif, relisez-vous bien !";
-                            }
+                            $textePartieEquipe = "Si vous désirez accéder au profil de votre équipe, cliquez ci-dessous. Vous pourrez non seulement accéder à la liste de vos coéquipiers et à la messagerie mais, en tant que chef d'équipe, vous pourrez également gérer les membres (ajout ou suppression) et contacter les gestionnaires.";
                         }
                         else if (isset($_SESSION["chefEquipe"]) && ($_SESSION["chefEquipe"] == false)) {
                             $textePartieEquipe = "Si vous désirez accéder au profil de votre équipe, cliquez ci-dessous. Vous pourrez alors accéder à la liste de vos coéquipiers et à la messagerie.";
@@ -666,14 +670,28 @@ Récapitulatif :
                             // récupération des intitulés des questions
                             // note : on ne vérifie pas que c'est une data battle, pas besoin si la base de données est correcte
                             $conn = connexion($serveur, $bdd, $user, $pass);
-                            $requeteQuestions = "SELECT idQuestion, intitule FROM Question NATURAL JOIN Questionnaire WHERE idDataEvent=".$idDataEvent.";";
+                            $requeteQuestions = "SELECT idQuestion, intitule, descriptQuestionnaire FROM Question NATURAL JOIN Questionnaire WHERE idDataEvent=".$idDataEvent.";";
                             $resultatQuestions = getAllFromRequest($conn, $requeteQuestions);
                             $conn = deconnexion();
                             $_SESSION["questionsDataBattlePage"] = $resultatQuestions;
 
-                            // affichage du questionnaire
-                            if (!empty($resultatQuestions)) {
-                                
+                            // on vérifie si l'équipe a déjà répondu à ce questionnaire
+                            $conn = connexion($serveur, $bdd, $user, $pass);
+                            $requeteVerificationNonRepondu = "SELECT * FROM Reponse NATURAL JOIN Questionnaire WHERE idEquipe=".$_SESSION["idEquipeUtilisateurPage"]." AND idDataEvent=".$idDataEvent.";";
+                            $resultatVerificationNonRepondu = getAllFromRequest($conn, $requeteVerificationNonRepondu);
+                            $conn = deconnexion();
+                            
+                            // si l'équipe n'a pas encore répondu au questionnaire et qu'un questionnaire est bien relié à la data battle, elle peut y répondre
+                            if ((empty($resultatVerificationNonRepondu)) && (!empty($resultatQuestions))) {
+
+                                // texte à afficher seulement pour les data battles
+                                if ($resultatDataEvent["typeDataEvent"] == "DataBattle") {
+                                    echo "
+                                    <p class='paragraphe-presentation'>De plus, comme vous avez décidé de participer à une data battle, vous devrez répondre au questionnaire ci-contre. Chaque réponse est notée sur un point. L'envoi du questionnaire est définitif, relisez-vous bien !</p>";
+                                }
+
+                                echo "<p class='paragraphe-presentation italique'>".$resultatQuestions[0]["descriptQuestionnaire"]."</p>";
+
                                 echo "
                                 <div id='questionnaire'>
                                     <form method='POST' action='envoi-reponses.php'>";
@@ -696,6 +714,40 @@ Récapitulatif :
                                 </div>";
 
                             }
+
+                            // si l'équipe a déjà répondu au questionnaire, on l'affiche mais elle ne peut plus y répondre
+                            else if ((!empty($resultatVerificationNonRepondu)) && (!empty($resultatQuestions))) {
+
+                                // texte à afficher seulement pour les data battles
+                                if ($resultatDataEvent["typeDataEvent"] == "DataBattle") {
+                                    echo "
+                                    <p class='paragraphe-presentation'>Vous retrouverez ci-dessous les réponses au questionnaire que vous avez envoyé.</p>";
+                                }
+                                
+                                echo "<p class='paragraphe-presentation italique'>".$resultatQuestions[0]["descriptQuestionnaire"]."</p>";
+                                
+                                echo "
+                                <div id='questionnaire-repondu'>";
+
+                                $i = 1;
+                                foreach ($resultatQuestions as $question) {
+                                    foreach ($resultatVerificationNonRepondu as $reponse) {
+                                        if ($reponse["idQuestion"] == $question["idQuestion"]) {
+                                            echo "
+                                            <div class='question'>
+                                                <label for='question".$i."'><span class='gras'>".$i."</span>. ".$question["intitule"]."</label>
+                                                <input type='text' name='question".$i."' placeholder='Votre réponse...' value=".$reponse["reponse"]." readonly>
+                                            </div>";
+                                            $i++;
+                                        }
+                                    }
+                                }
+                                
+                                echo "
+                                </div>";
+                                
+                            }
+
                         }
                     }
 

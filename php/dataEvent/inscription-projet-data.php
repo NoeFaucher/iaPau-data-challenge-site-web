@@ -56,7 +56,7 @@
 
                 foreach ($resultatUtilisateursAjoutables as $utilisateur) {
                     echo "
-                    <option value='".$utilisateur["prenom"]." ".$utilisateur["nom"]."'>";
+                    <option value='".$utilisateur["prenom"]." ".$utilisateur["nom"]."' data-info='".$utilisateur["idUtilisateur"]."'>";
                 }
                 echo "
                             </datalist>
