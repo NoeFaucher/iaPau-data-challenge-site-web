@@ -2,11 +2,10 @@
 include("varSession.inc.php");
 ?>
 <link rel="stylesheet" type="text/css" href="/css/header.css" />
-<script src="/js/header.js"></script>
 <header>
     <div class="banniere">
         <a href="/index.php">
-            <!-- à remettre : <img src="/img/iapau_round.png" id="logo"/> -->
+            <img src="/img/iapau_round.png" id="logo"/>
         </a>
         <div class="text"></a>
             <h1>IA PAU</h1>

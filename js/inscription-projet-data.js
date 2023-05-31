@@ -2,10 +2,10 @@
 function ajouterEtudiant() {
 
     // récupération de tous les étudiants "ajoutables" (même s'ils ont déjà été ajoutés)
-    var etudiantsAjoutables = document.querySelectorAll("#datalist-etudiants option");
+    var etudiantsAjoutablesNoms = document.querySelectorAll("#datalist-etudiants option");
     var valeursEtudiantsAjoutables = [];
-    for (var i = 0; i < etudiantsAjoutables.length; i++) {
-        var valeurEtudiant = etudiantsAjoutables[i].value;
+    for (var i = 0; i < etudiantsAjoutablesNoms.length; i++) {
+        var valeurEtudiant = etudiantsAjoutablesNoms[i].value;
         valeursEtudiantsAjoutables.push(valeurEtudiant);
     }
 
@@ -18,9 +18,9 @@ function ajouterEtudiant() {
         valeursSpanEtudiantAjoute.push(valeurSpan);
     }
 
-    // récupération du texte de l'input sélectionné
-    var input = document.getElementById("nouveau-membre-equipe");
-    var valeurInput = input.value;
+    // récupération du texte de l'input de l'utilisateur sélectionné
+    var inputTexte = document.getElementById("nouveau-membre-equipe");
+    var valeurInput = inputTexte.value;
 
     // cas 1 : aucun étudiant n'a été inscrit 
     if (!valeursEtudiantsAjoutables.includes(valeurInput)) {
@@ -65,7 +65,7 @@ function ajouterEtudiant() {
     listeEtudiantsAjoutes.appendChild(nouvelEtudiant);
 
     // réinitialisation de la valeur du "input"
-    input.value = "";
+    inputTexte.value = "";
 
 }
 
@@ -77,16 +77,12 @@ function supprimerEtudiant(div) {
 
 // alerte si moins de 3 étudiants en tout
 function verifierEquipe(event) {
-
     // Sélectionne la liste des étudiants ajoutés à l'équipe
     var nombreEtudiants = document.getElementById('etudiants-ajoutes').childNodes.length;
 
-    // vérifier s'il y a moins de deux étudiants dans l'équipe
-    if (nombreEtudiants <= 2) {
+    // Vérifie s'il y a moins de deux étudiants dans l'équipe
+    if (nombreEtudiants < 2) {
         alert("Vous devez ajouter au moins deux étudiants à votre équipe !");
         event.preventDefault();
-        return(false);
-    } 
-    
-    return(true);
-} 
+    }
+}

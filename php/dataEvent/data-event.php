@@ -60,29 +60,17 @@
 
     // partie temporaire
     $loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-    $lienProjetRendu = 'https://gitlab.com/exemple';
-    /*
-    $_SESSION["inscrit"] = false;
-    $_SESSION["chefEquipe"] = false;
-    $_SESSION["rendu"] = false;
-    */
-    function afficherVarSession() {
-        foreach ($_SESSION as $nomVariable => $valeurVariable) {
-            echo $nomVariable . ' : ' . $valeurVariable . '<br>';
-        }
-    }
-    // afficherVarSession();
 
 ?>
 
 <!-- 
 Récapitulatif :
     -> présentation du data event : nom, entreprise, dates, description
+    -> affichage des données, consignes et conseils du data event
     - data battle
         -> podium
     - utilisateur connecté
         - inscrit au data event ou gestionnaire ou admin
-            -> affichage des données, consignes et conseils du data event
             - étudiant et chef d'équipe
                 - n'a encore rien rendu
                     -> affichage de la section de rendu
@@ -111,10 +99,13 @@ Récapitulatif :
         <link rel="stylesheet" type="text/css" href="/css/general-data-event.css" />
         <link rel="stylesheet" type="text/css" href="/css/header.css" />
         <link rel="stylesheet" type="text/css" href="/css/footer.css" />
+        <!--
         <link rel="stylesheet" type="text/css" href="/css/podium.css" />
         <link rel="stylesheet" type="text/css" href="/css/description-data.css" />
         <link rel="stylesheet" type="text/css" href="/css/partie-equipe.css" />
+        -->
         <link rel="stylesheet" type="text/css" href="/css/data-event.css" />
+        <script src="../../js/rendu.js"></script>
     </head>
     <body>
         <?php
@@ -134,7 +125,7 @@ Récapitulatif :
                 echo "
                 <section>";
 
-                // description des data events - accessible à tous
+                // description des data events
                 echo "
                 <div id='presentation-data-challenge'>
                     <h3>".$resultatDataEvent["titre"]."</h3>
@@ -142,86 +133,136 @@ Récapitulatif :
                         <span>Organisé par ".$resultatDataEvent["entreprise"]." - Du ".$resultatDataEvent["dateDebut"]." au ".$resultatDataEvent["dateFIN"]."</span>
                     </div>
                     <p class='paragraphe-presentation'>".$resultatDataEvent["descript"]."</p>";
+
+                // partie données
+                echo "
+                <div class='sous-titre-evenement'>
+                    <span>Données</span>
+                </div>
+                <p class='paragraphe-presentation'>".$resultatDataEvent["donnees"]."</p>";
+
+                // partie consignes
+                echo "
+                <div class='sous-titre-evenement'>
+                    <span>Consignes</span>
+                </div>
+                <p class='paragraphe-presentation'>".$resultatDataEvent["consignes"]."</p>";
+
+                // partie conseils
+                echo "
+                <div class='sous-titre-evenement'>
+                    <span>Conseils</span>
+                </div>
+                <p class='paragraphe-presentation'>".$resultatDataEvent["conseils"]."</p>";
             
                 // cas 1 : l'utilisateur est connecté
                 if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
 
                     // cas 1.1 : l'utilisateur est inscrit à l'évènement OU il est gestionnaire/admin
-                    if ((((isset($_SESSION["inscrit"])) && ($_SESSION["inscrit"]) == true)) || ((isset($_SESSION["typeUtilisateur"])) && (($_SESSION["typeUtilisateur"] == "administrateur") || ($_SESSION["typeUtilisateur"] == "gestionnaire")))) {
-                        
-                        // partie données
+                    if ((isset($_SESSION["inscrit"])) && (($_SESSION["inscrit"]) == true)) {
+
                         echo "
                         <div class='sous-titre-evenement'>
-                            <span>Données</span>
+                            <span>Rendus</span>
                         </div>
-                        <p class='paragraphe-presentation'>".$resultatDataEvent["donnees"]."</p>";
+                        <p class='paragraphe-presentation'>Une fois votre travail terminé, vous pouvez rendre ci-dessous un lien vers un fichier RAW (archive Gitlab ou GitHub). Votre code sera alors analysé et vous pourrez immédiatement consulter vos résultats. Notez que tout rendu est définitif et ne peut pas être annulé.</p>";
 
-                        // partie consignes
-                        echo "
-                        <div class='sous-titre-evenement'>
-                            <span>Consignes</span>
-                        </div>
-                        <p class='paragraphe-presentation'>".$resultatDataEvent["consignes"]."</p>";
+                        // cas 1.1.1 : l'équipe de l'utilisateur a déjà rendu quelque chose
+                        // input du lien avec son lien + message de traitement de code ok + boutons "afficher mes résultats" et "consulter mon code"
+                        // note : rendu = true => typeUtilisateur = normal
+                        if ($_SESSION["rendu"] == true) {
 
-                        // partie conseils
-                        echo "
-                        <div class='sous-titre-evenement'>
-                            <span>Conseils</span>
-                        </div>
-                        <p class='paragraphe-presentation'>".$resultatDataEvent["conseils"]."</p>";
+                            // cas 1.1.1.1 : l'utilisateur est étudiant et chef d'équipe, il peut donc rendre une archive GitLab
+                            // note : chefEquipe => etudiant donc pas besoin de vérifier qu'il est étudiant
+                            if ((isset($_SESSION["chefEquipe"])) && ($_SESSION["chefEquipe"] == true)) {
 
-                        // cas 1.1.1 : l'utilisateur est étudiant et chef d'équipe, il peut donc rendre une archive GitLab
-                        // note : chefEquipe => etudiant donc pas besoin de vérifier qu'il est étudiant
-                        if ((isset($_SESSION["chefEquipe"])) && ($_SESSION["chefEquipe"] == true)) {
-
-                            echo "
-                            <div class='sous-titre-evenement'>
-                                <span>Rendu</span>
-                            </div>
-                            <p class='paragraphe-presentation'>Une fois votre travail terminé, vous pouvez rendre ci-dessous un lien vers un fichier RAW (archive Gitlab ou GitHub). Votre code sera alors analysé et vous pourrez immédiatement consulter vos résultats. Notez que tout rendu est définitif et ne peut pas être annulé.</p>
-                            ";
-
-                            // cas 1.1.1.1 : l'étudiant n'a encore rien rendu
-                            // --> bouton "envoyer" + input du lien
-                            if ($_SESSION["rendu"] == false) {
                                 echo "
-                                <form method='POST' action='envoi-code.php' id='lien-code-gitlab'>
-                                    <div id='texte-input-lien-gitlab'>
-                                        <label for='nom'>Lien d'hébergement de votre code :</label>
-                                        <input type='text' name='lien_code_gitlab' placeholder='Entrez ici le lien vers votre fichier...' required>
-                                    </div>
-                                    <div class='boutons-rendu'>
-                                        <button type='submit'>Envoyer</button>
-                                    </div>
-                                </form>";
+                                <p class='paragraphe-presentation'>Vous avez déjà envoyé du code, vous pouvez donc à présent consulter vos résultats.</p>
+                                <div id='texte-input-lien-gitlab'>
+                                    <label for='nom'>Lien d'hébergement de votre code :</label>
+                                    <input type='text' name='lien_code_gitlab' id='lien_code_gitlab' placeholder='Entrez ici le lien vers votre fichier...' required>  
+                                </div>
+                                <div id='message-erreur-ou-reussite'>
+                                    <p id='retour-sur-envoi'></p>
+                                </div>
+                                <div class='boutons-rendu'>
+                                    <input type='button' onclick='envoyerCode(this,".$_SESSION["idEquipeUtilisateurPage"].")' value='Envoyer'>
+                                    <a href='rendu.php?equipe=".$_SESSION["idEquipeUtilisateurPage"]."'>Consulter mes résultats</a>
+                                </div>";
 
                             }
 
-                            // cas 1.1.1.2 : l'étudiant a déjà rendu un lien d'hébergement du code
-                            // input du lien avec son lien + message de traitement de code ok + boutons "afficher mes résultats" et "consulter mon code"
+                            // cas 1.1.1.2 : l'utilisateur n'est pas chef d'équipe
                             else {
                                 echo "
-                                <p class='paragraphe-presentation'>Traitement de votre code terminé ! Vous pouvez à présent consulter vos résultats.</p>
-                                <div id='lien-code-gitlab'>
-                                    <div id='texte-input-lien-gitlab'>
-                                        <label for='nom'>Lien d'hébergement de votre code :</label>
-                                        <input type='text' name='lien_code_gitlab' value='".$resultatRendu["lienRendu"]."' readonly>
-                                    </div>
-                                    <div class='boutons-rendu'>
-                                        <a href='".$resultatRendu["lienRendu"]."'>Afficher mon code</a>
-                                        <a href='#'>Consulter mes résultats</a>
-                                    </div>
+                                <p class='paragraphe-presentation'>Votre chef d'équipe a déjà envoyé du code, vous pouvez donc à présent consulter vos résultats.</p>
+                                <div class='boutons-rendu'>
+                                    <input type='button' onclick='envoyerCode(this,".$_SESSION["idEquipeUtilisateurPage"].")' value='Envoyer'>
+                                    <a href='rendu.php?equipe=".$_SESSION["idEquipeUtilisateurPage"]."'>Consulter mes résultats</a>
+                                </div>";
+                            }
+
+                            // récupération de tous les rendus réalisés par l'équipe de l'utilisateur
+                            $conn = connexion($serveur, $bdd, $user, $pass);
+                            $requeteRendusEquipe = "SELECT idRendu, dateRendu, lienRendu FROM Rendu WHERE idEquipe=".$_SESSION["idEquipeUtilisateurPage"].";";
+                            $resultatRendusEquipe = getAllFromRequest($conn, $requeteRendusEquipe);
+                            $conn = deconnexion();
+
+                            // affichage de tous les rendus réalisés par l'équipe de l'utilisateur
+                            echo "
+                            <div id='rendus-equipe'>
+                                <div id='titre-rendus-equipe'>
+                                    <span>Rendus de mon équipe</span>
                                 </div>
-                                ";
+                                <ul id='liste-rendus-equipe'>";
+
+                            foreach ($resultatRendusEquipe as $rendu) {
+                                echo "
+                                <li class='paragraphe-presentation'>".$rendu["dateRendu"]." : <a href='".$rendu["lienRendu"]."'>".$rendu["lienRendu"]."</a></li>";
                             }
                             
+                            echo "
+                                </ul>
+                            </div>";
                         }
+
+                        // cas 1.1.2 : l'équipe de l'utilisateur n'a encore rien rendu
+                        else {
+
+                            // cas 1.1.2.1 : l'utilisateur est étudiant et chef d'équipe, il peut donc rendre une archive GitLab
+                            // note : chefEquipe => etudiant donc pas besoin de vérifier qu'il est étudiant
+                            if ((isset($_SESSION["chefEquipe"])) && ($_SESSION["chefEquipe"] == true)) {
+
+                                echo "
+                                <p class='paragraphe-presentation'>Vous pourrez consulter vos résultats après votre premier rendu.</p>
+                                <div id='texte-input-lien-gitlab'>
+                                    <label for='nom'>Lien d'hébergement de votre code :</label>
+                                    <input type='text' name='lien_code_gitlab' id='lien_code_gitlab' placeholder='Entrez ici le lien vers votre fichier...' required>
+                                </div>
+                                <div id='message-erreur-ou-reussite'>
+                                    <p id='retour-sur-envoi'></p>
+                                </div>
+                                <div class='boutons-rendu'>
+                                    <input type='button' onclick='envoyerCode(this,".$_SESSION["idEquipeUtilisateurPage"].")' value='Envoyer'>
+                                </div>";
+
+                            }
+
+                            // cas 1.1.2.2 : l'utilisateur n'est pas chef d'équipe
+                            else {
+
+                                echo "
+                                <p class='paragraphe-presentation'>Votre chef d'équipe n'a encore rien rendu, revenez plus tard.</p>";
+
+                            }
+
+                        }
+
                     }
 
                     // cas 1.2 : l'utilisateur n'est pas inscrit à l'évènement mais est étudiant
                     // il peut donc s'inscrire en créant une équipe et en devenant chef d'équipe
-                    // note : l'inverse de "inscrit OU (gestionnaire OU admin)" est "non inscrit et etudiant" donc on peut mettre un simple "else"
-                    else {
+                    else if ((isset($_SESSION["typeUtilisateur"])) && (($_SESSION["typeUtilisateur"]) == "normal")) {
 
                         // récupération des projets data associés au data event de la page
                         $conn = connexion($serveur, $bdd, $user, $pass);
@@ -240,7 +281,7 @@ Récapitulatif :
 
                             echo "
                             <div id='choix-projet-data'>
-                                <div id='bouton-inscription' class='bouton-data-event'>
+                                <div class='bouton-data-event'>
                                     <a href='inscription-projet-data.php?idProjetData=".$resultatProjetsData[0]["idProjetData"]."'>M'inscrire à ce projet data</a>
                                 </div>
                             </div>";
@@ -265,7 +306,7 @@ Récapitulatif :
                                         <span>".$projetData["titreProjetData"]."</span>
                                     </div>
                                     <p>".$projetData["descriptProjet"]."</p>
-                                    <div id='bouton-inscription' class='bouton-data-event'>
+                                    <div class='bouton-data-event'>
                                         <a href='inscription-projet-data.php?idProjetData=".$projetData["idProjetData"]."'>M'inscrire à ce projet data</a>
                                     </div>
                                 </div>";
@@ -282,20 +323,58 @@ Récapitulatif :
                 // cas 2 : l'utilisateur n'est pas connecté
                 // note : pas de "else" au cas où la variable de session "estConnecte" ne serait pas définie
                 if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == false)) {
-                    
-                    // détermination de la fin du message demandant de s'authentifier pour s'inscrire à l'évènement
-                    if (isset($resultatDataEvent["typeDataEvent"]) && ($resultatDataEvent["typeDataEvent"] == "DataChallenge")) {
-                        $finMsg = "ce data challenge";
-                    }
-                    else if (isset($resultatDataEvent["typeDataEvent"]) && ($resultatDataEvent["typeDataEvent"] == "DataBattle")) {
-                        $finMsg = "cette data battle";
+
+                    // récupération des projets data associés au data event de la page
+                    $conn = connexion($serveur, $bdd, $user, $pass);
+                    $requeteProjetsData = "SELECT * FROM ProjetData WHERE idDataEvent=".$idDataEvent.";";
+                    $resultatProjetsData = getAllFromRequest($conn, $requeteProjetsData);
+                    $conn = deconnexion();
+
+                    // cas 1.2.1 : l'évènement est une data battle
+                    if ((isset($resultatDataEvent["typeDataEvent"])) && ($resultatDataEvent["typeDataEvent"] == "DataBattle")) {
+
+                        echo "
+                        <div class='sous-titre-evenement'>
+                            <span>Projet data associé - ".$resultatProjetsData[0]["titreProjetData"]."</span>
+                        </div>
+                        <p class='paragraphe-presentation'>".$resultatProjetsData[0]["descriptProjet"]."</p>";
+
+                        echo "
+                        <div id='choix-projet-data'>
+                            <div class='bouton-data-event'>
+                                <a href='../connexion/connexion.php'>M'inscrire à ce projet data</a>
+                            </div>
+                        </div>";
+
                     }
 
-                    // affichage du message demandant de s'authentifier pour s'inscrire à l'évènement
-                    echo "
-                    <div id='message-connexion'>
-                        <span>Veuillez vous connecter pour vous inscrire à ".$finMsg.".</span>
-                    </div>";
+                    // cas 1.2.2 : l'évènement est un data challenge
+                    else if ((isset($resultatDataEvent["typeDataEvent"])) && ($resultatDataEvent["typeDataEvent"] == "DataChallenge")) {
+
+                        echo "
+                        <div class='sous-titre-evenement'>
+                            <span>Choix du projet data</span>
+                        </div>
+                        <p class='paragraphe-presentation'>".$loremIpsum."</p>";
+
+                        echo "
+                        <div id='choix-projet-data'>";
+                        foreach ($resultatProjetsData as $projetData) {
+                            echo "
+                            <div class='projet-data'>
+                                <div class='titre-projet-data'>
+                                    <span>".$projetData["titreProjetData"]."</span>
+                                </div>
+                                <p>".$projetData["descriptProjet"]."</p>
+                                <div class='bouton-data-event'>
+                                    <a href='../connexion/connexion.php'>M'inscrire à ce projet data</a>
+                                </div>
+                            </div>";
+                        }
+                        echo "
+                        </div>";
+
+                    }
 
                 }
                 
@@ -313,26 +392,6 @@ Récapitulatif :
                     $requetePodium = "SELECT idEquipe, nomEquipe, SUM(note) AS score FROM Reponse NATURAL JOIN Question NATURAL JOIN Questionnaire NATURAL JOIN Equipe WHERE idDataEvent=".$idDataEvent." GROUP BY idEquipe, idDataEvent ORDER BY score DESC;";
                     $resultatPodium = getAllFromRequest($conn, $requetePodium);
                     $conn = deconnexion();
-
-                    /*
-                    $resultatPodium = array(
-                        array(
-                            "idEquipe" => 1,
-                            "nomEquipe" => "Les Faucons Électriques",
-                            "score" => 4, 
-                        ), 
-                        array(
-                            "idEquipe" => 8,
-                            "nomEquipe" => "Les Ombres Éternelles",
-                            "score" => 3, 
-                        ),
-                        array(
-                            "idEquipe" => 11,
-                            "nomEquipe" => "Les Sorciers du Ciel", 
-                            "score" => 2, 
-                        )
-                    );
-                    */
 
                     echo "
                     <section>";
@@ -481,23 +540,21 @@ Récapitulatif :
                         <div class='sous-titre-evenement'>
                             <span>Équipes participantes</span>
                         </div>
-                        <p class='paragraphe-presentation'>
-                            En tant que gestionnaire, vous avez ici la possibilité de suivre la progression de l'événement pour chaque équipe. Vous trouverez ci-dessous la liste des équipes participantes ainsi que le projet data auquel elles sont inscrites. Pour les équipes qui ont déjà soumis leur code, la date de rendu ainsi que les liens vers leur code et leurs résultats seront également disponibles.
-                        </p>";
+                        <p class='paragraphe-presentation'>En tant que gestionnaire, vous avez ici la possibilité de suivre la progression de l'événement pour chaque équipe. Vous trouverez ci-dessous la liste des équipes participantes ainsi que le projet data auquel elles sont inscrites. Pour les équipes qui ont déjà soumis leur code, la date de rendu ainsi que les liens vers leur code et leurs résultats seront également disponibles.</p>";
 
                         // affichage de la liste des équipes participantes
                         echo "
                         <div id='conteneur-liste-equipes'>
                             <div id='bouton-gestion-equipes' class='bouton-data-event'>
-                                <a href='#'>Gérer les équipes</a>
+                                <a href='../equipe/equipe.php'>Gérer les équipes</a>
                             </div>
                             <div id='liste-equipes'>";
 
                         // première requête : liste des équipes à afficher
                         // seconde requête : détail des équipes (lien éventuel du code + résultat + date de rendu)
                         $conn = connexion($serveur, $bdd, $user, $pass);
-                        $requeteListeEquipesParticipantes = "SELECT nomEquipe FROM Equipe NATURAL JOIN ProjetData WHERE idDataEvent=".$idDataEvent.";";
-                        $requeteRendus = "SELECT dateRendu, lienRendu, resultatJson, nomEquipe, titreProjetData FROM Rendu NATURAL JOIN ProjetData NATURAL JOIN Equipe WHERE idDataEvent=".$idDataEvent.";";
+                        $requeteListeEquipesParticipantes = "SELECT idEquipe, nomEquipe FROM Equipe NATURAL JOIN ProjetData WHERE idDataEvent=".$idDataEvent.";";
+                        $requeteRendus = "SELECT dateRendu, lienRendu, nomEquipe, titreProjetData FROM Rendu NATURAL JOIN ProjetData NATURAL JOIN Equipe WHERE idDataEvent=".$idDataEvent.";";
                         $resultatListeEquipesParticipantes = getAllFromRequest($conn, $requeteListeEquipesParticipantes);
                         $resultatRendus = getAllFromRequest($conn, $requeteRendus);
                         $conn = deconnexion();
@@ -512,30 +569,52 @@ Récapitulatif :
                                 <div class='projet-rendu'>";
 
                             $projetRenduEquipe = false;
+                            $tableauRendusEquipe = array();
                             foreach ($resultatRendus as $rendu) {
 
                                 // une archive a été rendue
                                 if ($rendu['nomEquipe'] == $equipe['nomEquipe']) {
 
-                                    echo "
-                                    <div class='date-rendu-et-code'>
-                                        <span>Date du rendu : ".$rendu["dateRendu"]."</span>
-                                    </div>
-                                    <div class='date-rendu-et-code'>
-                                        <span>Lien du code : <a href='".$rendu["lienRendu"]."'>".$rendu["lienRendu"]."</a></span>
-                                    </div>
-                                    <div class='bouton-data-event'>
-                                        <a href='".$rendu["resultatJson"]."'>Accéder aux résultats de cette équipe</a>
-                                    </div>";
                                     $projetRenduEquipe = true;
-                                    break;
+                                    array_push($tableauRendusEquipe, $rendu);
 
                                 }
 
                             }
 
+                            // une archive a été rendue
+                            if ($projetRenduEquipe == true) {
+
+                                // récupération du dernier rendu
+                                $dernierLienRendu = end($tableauRendusEquipe)["lienRendu"];
+                                $derniereDateRendu = end($tableauRendusEquipe)["dateRendu"];
+
+                                // raccourcissement éventuel du lien rendu
+                                $longueurMaximale = 40;
+
+                                if (strlen($dernierLienRendu) > $longueurMaximale) {
+                                    $texteLienFinal = substr($dernierLienRendu, 0, $longueurMaximale)."...";
+                                } 
+                                else {
+                                    $texteLienFinal = $dernierLienRendu;
+                                }
+
+                                // affichage du rendu
+                                echo "
+                                <div class='date-rendu-et-code'>
+                                    <span>Date du dernier rendu : ".$derniereDateRendu."</span>
+                                </div>
+                                <div class='date-rendu-et-code'>
+                                    <p>Lien du dernier code : <a href='".$dernierLienRendu."'>".$texteLienFinal."</a></p>
+                                </div>
+                                <div class='bouton-data-event'>
+                                    <a href='rendu.php?equipe=".$equipe["idEquipe"]."'>Accéder aux résultats de cette équipe</a>
+                                </div>";
+                                
+                            }
+
                             // aucune archive n'a été rendue
-                            if ($projetRenduEquipe == false) {
+                            else {
                                 echo "
                                 <div class='partie-code-non-rendu'>
                                     <p>Aucun code n'a encore été rendu par cette équipe.</p>
@@ -578,26 +657,27 @@ Récapitulatif :
                         // bouton d'accès à la page de l'équipe pour le data event sélectionné
                         echo "
                         <div id='bouton-acces-equipe' class='bouton-data-event'>
-                            <a href='#'>Accéder au profil de mon équipe</a>
+                            <a href='../equipe/equipe.php'>Accéder au profil de mon équipe</a>
                         </div>";
 
-                        // l'étudiant est le chef de son équipe et il s'agit d'une data battle
+                        // l'étudiant est le chef de son équipe
                         if ((isset($_SESSION["chefEquipe"])) && ($_SESSION["chefEquipe"] == true)) {
 
                             // récupération des intitulés des questions
-                            // note : on ne vérifie pas que c'est une data battle, pas besoin si la BDD est correcte
+                            // note : on ne vérifie pas que c'est une data battle, pas besoin si la base de données est correcte
                             $conn = connexion($serveur, $bdd, $user, $pass);
                             $requeteQuestions = "SELECT idQuestion, intitule FROM Question NATURAL JOIN Questionnaire WHERE idDataEvent=".$idDataEvent.";";
                             $resultatQuestions = getAllFromRequest($conn, $requeteQuestions);
                             $conn = deconnexion();
                             $_SESSION["questionsDataBattlePage"] = $resultatQuestions;
 
+                            // affichage du questionnaire
                             if (!empty($resultatQuestions)) {
                                 
-                                // affichage du questionnaire
                                 echo "
                                 <div id='questionnaire'>
                                     <form method='POST' action='envoi-reponses.php'>";
+
                                 $i = 1;
                                 foreach ($resultatQuestions as $question) {
                                     echo "
@@ -607,6 +687,7 @@ Récapitulatif :
                                     </div>";
                                     $i++;
                                 }
+                                
                                 echo "
                                         <div id='bouton-envoi-questionnaire' class='bouton-data-event'>
                                             <button type='submit'>Envoyer mes réponses</button>

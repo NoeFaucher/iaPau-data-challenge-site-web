@@ -13,14 +13,11 @@
             
             $cnx = connexion($serveur,$bdd,$user,$pass);
 
-            $_SESSION["idUtilisateur"] = 4;
-            $_SESSION["typeUtilisateur"] = 'normal';
-
             if ($_SESSION["typeUtilisateur"] == 'gestionnaire') {
 
-                $req = 'SELECT Equipe.idEquipe, nomEquipe, DataEvent.idDataEvent, DataEvent.titre, idChefEquipe
+                $req = 'SELECT Equipe.idEquipe, nomEquipe, Equipe.idProjetData, DataEvent.titre, idChefEquipe
                 FROM DataEvent INNER JOIN Equipe 
-                on Equipe.idDataEvent=DataEvent.idDataEvent 
+                on Equipe.idProjetData=DataEvent.idDataEvent 
                 and DataEvent.idDataEvent = any 
                 (SELECT idDataEvent 
                 FROM DataEvent INNER JOIN Utilisateur 
@@ -28,15 +25,15 @@
                 and DataEvent.idGestionnaire = '.$_SESSION["idUtilisateur"].');';
             }elseif ($_SESSION["typeUtilisateur"] == 'administrateur') {
 
-                $req = 'SELECT Equipe.idEquipe, nomEquipe, DataEvent.idDataEvent, DataEvent.titre, idChefEquipe
+                $req = 'SELECT Equipe.idEquipe, nomEquipe, Equipe.idProjetData,DataEvent.idDataEvent, DataEvent.titre, idChefEquipe
                 FROM DataEvent INNER JOIN Equipe 
-                on Equipe.idDataEvent=DataEvent.idDataEvent;';
+                on Equipe.idProjetData=DataEvent.idDataEvent;';
             }else {
 
-                $req = 'SELECT Equipe.idEquipe, nomEquipe, Equipe.idDataEvent, DataEvent.titre, idChefEquipe
+                $req = 'SELECT Equipe.idEquipe, nomEquipe, Equipe.idProjetData, DataEvent.titre, idChefEquipe
                 FROM UtilisateurAppartientEquipe 
                 INNER JOIN Equipe ON UtilisateurAppartientEquipe.idEquipe = Equipe.idEquipe
-                INNER JOIN DataEvent ON Equipe.idDataEvent = DataEvent.idDataEvent
+                INNER JOIN DataEvent ON Equipe.idProjetData = DataEvent.idDataEvent
                 WHERE UtilisateurAppartientEquipe.idUtilisateur ='.$_SESSION["idUtilisateur"].';';
             }
 
@@ -69,6 +66,7 @@
                 ";
 
                 $tab3 = getAllFromRequest($cnx, $req3);
+                
 
 
 
@@ -85,7 +83,7 @@
                         <p class='membres'>Membres :</p>
                     ";
                     foreach($tab3 as $util) {
-                        echo "<p>". $util["nom"]." ".$util["prenom"]."</p>";
+                        echo "<p>". $util["prenom"]." ".$util["nom"]."</p>";
                     }
 
                     echo "
@@ -94,7 +92,7 @@
                     ";
                     if ($estChef || ($_SESSION["typeUtilisateur"] != 'normal')) {
                         echo "
-                        <button class='btnStyle' onclick='ajouterMembre(this,".$ligne["idEquipe"].",".$_SESSION["idUtilisateur"].",".$ligne["idDataEvent"].");'>Ajouter un membre</button>
+                        <button class='btnStyle' onclick='ajouterMembre(this,".$ligne["idEquipe"].",".$_SESSION["idUtilisateur"].",".$ligne["idProjetData"].");'>Ajouter un membre</button>
                         <button class='btnStyle' onclick='supprimerMembre(this,".$ligne["idEquipe"].",".$_SESSION["idUtilisateur"].");'>Retirer un membre</button>
                         <input type='text' list='destinataires-list' class='searchInp' placeholder='Recherche rapide'>";
                         
@@ -102,7 +100,7 @@
                         <datalist id='destinataires-list' class='dataL'>
                         ";
                         foreach($tab2 as $util) {
-                            $nom_prenom = $util["nom"].' '.$util["prenom"];
+                            $nom_prenom = $util["prenom"].' '.$util["nom"];
                             $idUtil = $util['idUtilisateur'];
                             echo '<option value="'.$nom_prenom.'" data-id="'.$idUtil.'">'.$nom_prenom.'</option>';
                         }
@@ -143,6 +141,15 @@
                 }
 
             }
+
+            document.addEventListener('keydown', function(event) {
+                var tabKeyCode = 9;
+            
+                if (event.keyCode === tabKeyCode) {
+                event.preventDefault(); // Empêche le comportement par défaut de la touche Tabulation
+                // Votre code personnalisé ici
+                }
+            });
         </script>
         <script src="/js/ajaxEquipes.js"></script>
     </body>

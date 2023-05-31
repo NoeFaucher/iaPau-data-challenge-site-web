@@ -1,4 +1,5 @@
 <?php
+
     session_start();
     include("../bdd.php");
     include("varSession.inc.php");
@@ -20,4 +21,5 @@
     // redirection vers la page d'avant
     header("Location: data-event.php?idDataEvent=".$_SESSION["idDataEventPage"]);
     exit();
+    
 ?>

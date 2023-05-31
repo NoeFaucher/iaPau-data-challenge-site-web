@@ -17,7 +17,7 @@
     $conn = connexion($serveur, $bdd, $user, $pass);
     $requeteAjoutReponse = "INSERT INTO Reponse (note, reponse, idEquipe, idQuestion) VALUES ";
     for ($i=0; $i<count($_SESSION["questionsDataBattlePage"]); $i++) {
-        $requeteAjoutReponse .= "(FLOOR(RAND() * 2), \"".$tableauReponses[$i]."\", ".$_SESSION["idEquipeUtilisateurPage"].", ".$_SESSION["questionsDataBattlePage"][$i]["idQuestion"].")";
+        $requeteAjoutReponse .= "(NULL, \"".$tableauReponses[$i]."\", ".$_SESSION["idEquipeUtilisateurPage"].", ".$_SESSION["questionsDataBattlePage"][$i]["idQuestion"].")";
         if ($i != count($_SESSION["questionsDataBattlePage"])-1) {
             $requeteAjoutReponse .= ", ";
         }
