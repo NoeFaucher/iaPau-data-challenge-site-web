@@ -10,45 +10,56 @@
         <?php
             include '../header.php';
 
+
+
             include '../bdd.php';
             $conn = connexion($serveur, $bdd, $user, $pass);
 
 
             //On récupère le tableau des gestionnaires pour les inputs des data events
             $req2 = 
-                "SELECT U.nom, U.prenom, U.idUtilisateur
+                "SELECT *
                 FROM Utilisateur U
                 WHERE U.typeUtilisateur = 'gestionnaire';
                 ";
 
             $tab2 = getAllFromRequest($conn, $req2);
+
+
+
+            $req3 = 
+                "SELECT *
+                FROM Utilisateur U
+                WHERE U.typeUtilisateur = 'normal';
+                ";
+
+            $tab3 = getAllFromRequest($conn, $req3);
         ?>
 
+
+        <!-- A Faire formulaire de modification données perso -->
         <div id="util-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('util-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
-                <form id="form-modif-util" action="modifDataEvent.php" method="post">
+                <form id="form-modif-util" action="modifInfoPerso.php" method="post">
                     <h1>Modifier mes informations</h1>
                     <label>Prénom :</label><br>
-                    <input type="text" name="prenom">
+                    <input type="text" name="prenom" value=<?php echo $_SESSION["prenom"]; ?>>
                     <label>Nom :</label><br>
-                    <input type="text" name="nom">
-                    <label>Mot de passe actuel :</label><br>
-                    <input type="text" name="mdp">
-                    <label>Nouveau mot de passe :</label><br>
-                    <input type="text" name="newMdp">
+                    <input type="text" name="nom" value=<?php echo $_SESSION["nom"]; ?>>
+                    <label>Email :</label><br>
+                    <input type="text" name="email" value=<?php echo $_SESSION["email"]; ?>>
+                    <label>Téléphone :</label><br>
+                    <input type="text" name="telephone" value=<?php echo $_SESSION["telephone"]; ?>>
+                    
 
                     <?php if ($_SESSION["typeUtilisateur"] == "normal"): ?>
-                        <label>Email :</label><br>
-                        <input type="text" name="mail">
-                        <label>Téléphone :</label><br>
-                        <input type="text" name="telephone">
                         <label>Ecole :</label><br>
-                        <input type="text" name="ecole">
+                        <input type="text" name="ecole" value=<?php echo $_SESSION["ecole"]; ?>>
                         <label>Ville :</label><br>
-                        <input type="text" name="ville">
+                        <input type="text" name="ville" value=<?php echo $_SESSION["ville"]; ?>>
                         <label>Niveau d'étude :</label><br>
-                        <select id="niveau-etude" name="nivEtude">
+                        <select id="niveau-etude" name="nivEtude" value=<?php echo $_SESSION["nivEtude"]; ?>>
                             <option value="L1">L1</option>
                             <option value="L2">L2</option>
                             <option value="L3">L3</option>
@@ -58,10 +69,10 @@
                         </select><br>
                     <?php endif; ?>
 
-                    <?php if ($_SESSION["typeUtilisateur"] == "gestionnaire"): ?>
-                        <label>Entreprise :</label><br>
-                        <input type="text" name="entreprise">
-                    <?php endif; ?>
+                    <label>Mot de passe actuel : * </label><br>
+                    <input type="password" name="mdp" require>
+                    <label>Nouveau mot de passe :</label><br>
+                    <input type="password" name="newMdp">
                     
                     <button type="submit" style="margin-top:2vh;" class="btnStyle">Valider les modifications</button>
                 </form>
@@ -69,6 +80,7 @@
         </div>
 
 
+    
         <!-- modification d'un Data-Challenge-->
         <div id="data-chall-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('data-chall-overlay')" title="Close Overlay">×</span>
@@ -130,7 +142,7 @@
                     <input type="text" name="conseils">
 
                     <label>Choix du gestionnaire :</label>
-                    <input type='text' list='destinataires-list' class='searchInp' placeholder='Recherche rapide' require>
+                    <input type='text' list='destinataires-list' name="gestionnaire" class='searchInp' placeholder='Recherche rapide' require>
                     <datalist id='destinataires-list' class='dataL'>
                         <?php
                         foreach($tab2 as $util) {
@@ -141,7 +153,7 @@
                         ?>
 
                     </datalist>
-                    
+                    <input type="hidden" name="typeDataEvent" value="DataChallenge">
                     <button type="submit" style="margin-top:2vh;" class="btnStyle">créer un nouveau data challenge</button>
                 </form>
             </div>
@@ -218,7 +230,7 @@
                         ?>
 
                     </datalist>
-                    
+                    <input type="hidden" name="typeDataEvent" value="DataBattle">
                     <button type="submit" style="margin-top:2vh;" class="btnStyle">créer un nouveau data battle</button>
                 </form>
             </div>
@@ -270,6 +282,93 @@
         </div>
 
 
+        <!-- Modifier utilisateur NORMAL-->
+        <div id="util-normal-admin-overlay" class="overlay">
+            <span class="closebtn" onclick="closeModal('util-normal-admin-overlay')" title="Close Overlay">×</span>
+            <div class="overlay-content">
+                <form id="form-modif-util-normal" action="modifDataEvent.php" method="post">
+                    
+                    <input type='text' list='destinataires2-list' class='searchInp' placeholder='Liste des utilisateurs'>
+                    <datalist id='destinataires2-list' class='dataL'>
+                        <?php
+                        foreach($tab3 as $util) {
+                            $nom_prenom = $util["prenom"].' '.$util["nom"];
+                            $idUtil = $util['idUtilisateur'];
+                            echo '<option value="'.$nom_prenom.'" data-id="'.$idUtil.'">'.$nom_prenom.'</option>';
+                        }
+                        ?>
+                    </datalist>
+
+
+                    <h1>Modifier mes informations</h1>
+                    <label>Prénom :</label><br>
+                    <input type="text" name="prenom">
+                    <label>Nom :</label><br>
+                    <input type="text" name="nom">
+                    <label>Nouveau mot de passe :</label><br>
+                    <input type="text" name="newMdp">
+                    <label>Email :</label><br>
+                    <input type="text" name="mail">
+                    <label>Téléphone :</label><br>
+                    <input type="text" name="telephone">
+
+                    <label>Ecole :</label><br>
+                    <input type="text" name="ecole">
+                    <label>Ville :</label><br>
+                    <input type="text" name="ville">
+                    <label>Niveau d'étude :</label><br>
+                    <select id="niveau-etude" name="nivEtude">
+                        <option value="L1">L1</option>
+                        <option value="L2">L2</option>
+                        <option value="L3">L3</option>
+                        <option value="M1">M1</option>
+                        <option value="M2">M2</option>
+                        <option value="D">D</option>
+                    </select><br>
+                        
+                    <button type="submit" style="margin-top:2vh;" class="btnStyle">Valider les modifications</button>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- Modifier utilisateur GESTIONNAIRE-->
+        <div id="util-gestionnaire-admin-overlay" class="overlay">
+            <span class="closebtn" onclick="closeModal('util-gestionnaire-admin-overlay')" title="Close Overlay">×</span>
+            <div class="overlay-content">
+                <form id="form-modif-util-gestionnaire" action="modifDataEvent.php" method="post">
+                    <h1>Modifier mes informations</h1>
+
+                    <input type='text' list='destinataires-list' class='searchInp' placeholder='Liste des gestionnaires'>
+                    <datalist id='destinataires-list' class='dataL'>
+                    <?php
+                    foreach($tab2 as $util) {
+                        $nom_prenom = $util["prenom"].' '.$util["nom"].' - '.$util["email"].' - '.$util["telephone"];
+                        $idUtil = $util['idUtilisateur'];
+                        echo '<option value="'.$nom_prenom.'" data-id="'.$idUtil.'">'.$nom_prenom.'</option>';
+                    }
+                    ?>
+                    </datalist>
+                    <button class='btnStyle' onclick='' style='background-color: red;'>supprimer</button>
+
+                    <label>Prénom :</label><br>
+                    <input type="text" name="prenom">
+                    <label>Nom :</label><br>
+                    <input type="text" name="nom">
+                    <label>Nouveau mot de passe :</label><br>
+                    <input type="text" name="newMdp">
+
+                    <label>Email :</label><br>
+                    <input type="text" name="mail">
+                    <label>Téléphone :</label><br>
+                    <input type="text" name="telephone">
+
+                    <button type="submit" style="margin-top:2vh;" class="btnStyle">Valider les modifications</button>
+                </form>
+            </div>
+        </div>
+
+
         <div class="left-menu">
             <ul>
                 <li><a title='Informations' href='#infos'>Informations</a></li>
@@ -281,7 +380,7 @@
                     echo "<li><a title='Utilisateurs' href='#util'>Utilisateurs</a></li>";
                 }
                 ?>
-                <li><a title='Messagerie' href='#'>Messagerie</a></li>
+                <li><a title='Messagerie' href='#utilAdmin'>Messagerie</a></li>
             </ul>
         </div>
 
@@ -291,19 +390,11 @@
                 <h1>Votre profil</h1>
                 <button class="btnStyle" onclick="window.location = '/php/connexion/deconnexion.php';">deconnexion</button>
                 <?php
+                echo '<p>Prénom : '.$_SESSION['prenom'] . ' | Nom : ' . $_SESSION['nom'] .' | Téléphone : '.$_SESSION["telephone"] . ' | Email : '.$_SESSION["email"]."</p>";
+                // info supplementaire si l'utilisateur est etudiant
                 if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "normal")) {
 
-                    echo '<p>Prénom : '.$_SESSION['prenom'] . ' | Nom : ' . $_SESSION['nom'] .' | Téléphone : '.$_SESSION["telephone"]."</p>";
                     echo '<p>Niveau d\'étude : '.$_SESSION['nivEtude']. ' | Etablissement : ' . $_SESSION['ecole']. ' | Ville : ' . $_SESSION['ville']."</p>";
-                }
-                    // l'utilisateur est un gestionnaire
-                if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "gestionnaire")) {
-
-                    echo '<p>Prénom : '.$_SESSION['prenom'] . ' | Nom : ' . $_SESSION['nom'] ."</p>";
-                }
-                    // l'utilisateur est un admin
-                if ((isset($_SESSION["typeUtilisateur"])) && ($_SESSION["typeUtilisateur"] == "administrateur")) {
-                    echo '<p>Prénom : '.$_SESSION['prenom'] . ' | Nom : ' . $_SESSION['nom'] ."</p>";
                 }
                 ?>
                 <br>
@@ -468,11 +559,26 @@
                 
             </div>
 
+            <?php if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>
+            <div id="utilAdmin">
+                <h1>Utilisateurs inscrits</h1>
+                <button class='btnStyle' onlclick=''>créer un utilisateur</button>
 
-            <div>
 
+                <button class='btnStyle' onclick='openModal(0,"util-gestionnaire-admin-overlay","form-modif-util-gestionnaire");' style='background-color: blue;'>Modifier un gestionnaire</button>
+
+                <button class='btnStyle' onclick='openModal(0,"util-normal-admin-overlay","form-modif-util-normal");' style='background-color: blue;'>Modifier un utilisateur</button>
+                
             </div>
+            <?php endif; 
+            
+            
+            if (isset($_GET["erreur"]) && ($_GET["erreur"] == 1)) {
+                echo "<script>alert('Mot de passe incorrect');</script>";
+            }
 
+            
+            ?>
 
         </div>
         <script>
@@ -488,7 +594,8 @@
                 document.getElementById(form).appendChild(input);
 
                 document.getElementById(overlay).style.display = "block";
-             }       
+             } 
+             
 
             function closeModal(overlay) {
                 document.getElementById(overlay).style.display = "none";

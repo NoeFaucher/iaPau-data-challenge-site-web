@@ -76,6 +76,21 @@ function getUtilisateurByEmail($mysqlClient,$utilisateurEmail) {
     }
 }
 
+function getUtilisateurById($mysqlClient,$idUtilisateur) {
+    $sqlQuery = 'SELECT * FROM Utilisateur WHERE idUtilisateur = :email';
+    try {
+        $statement = $mysqlClient->prepare($sqlQuery);
+        $statement->execute([
+            'email' => $idUtilisateur,
+        ]);
+        $tableau = $statement->fetchAll();
+        return $tableau[0];
+    }
+    catch(Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+}
+
 function getUtilisateurByTelephone($mysqlClient,$utilisateurTelephone) {
     $sqlQuery = 'SELECT * FROM Utilisateur WHERE telephone = :telephone';
     try {
@@ -111,5 +126,20 @@ function addUser($mysqlClient,$telephone,$email,$mdp,$typeUtilisateur,$etude,$no
         die('Erreur : ' . $e->getMessage());
     }
 
+}
+
+function getIdGestionnaireByNom($mysqlClient, $prenom, $nom) {
+    try {
+        $sqlQuery = 'SELECT idUtilisateur FROM Utilisateur  WHERE prenom = :prenom AND nom = :nom';
+        $updateDataEvent = $mysqlClient -> prepare($sqlQuery);
+        $updateDataEvent ->execute([
+            'prenom' => $prenom,
+            'nom' => $nom,
+        ]);
+        $tableau = $updateDataEvent->fetchAll();
+        return $tableau[0];
+    } catch (Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
 }
 ?>
