@@ -22,7 +22,7 @@ if ($nomEquipe == ""){
 }
 
 
-$reqQuestion = 'SELECT Question.intitule, Reponse.reponse, Reponse.note 
+$reqQuestion = 'SELECT Question.intitule, Reponse.reponse, Reponse.note, Reponse.idReponse
                 FROM Question JOIN Reponse ON Question.idQuestion = Reponse.idQuestion
                 JOIN Questionnaire ON Questionnaire.idQuestionnaire = Question.idQuestionnaire
                 JOIN ProjetData ON ProjetData.idDataEvent = Questionnaire.idDataEvent
@@ -33,39 +33,37 @@ $mysqlClient = connexion($serveur, $bdd, $user, $pass);
 
 $tabQuestion = getAllFromRequest($mysqlClient, $reqQuestion);
 
-var_dump($tabQuestion);
 
 include "../header.php";
 ?>
 
 <link rel="stylesheet" href="/css/profil.css">
-    <form id="form-correc-questionnaire-gestionnaire" action="correcEquipe.php" method="post" style="margin-left:4vh;">
+    <form id="form-correc-questionnaire-gestionnaire" action="correction.php" method="post" style="margin-left:4vh;">
         <h1>Correction Questionnaire</h1>
+        
         <?php 
-        foreach($tabQuestion as $Question)
-            echo $Question["intitule"]."<br>";
+        foreach($tabQuestion as $Question) : ?>
+            <hr>
+            <p>Question : 
+            <?php echo $Question["intitule"]; ?>
+            </p>
+            <p>Réponse de l'équipe à la question : 
+            <?php echo $Question["reponse"]; ?>
+            </p>
 
-            echo $Question["reponse"]."<br>";
-            
-            echo $Question["note"]."<br>";
+            <label for="vrai">Vrai</label>
+            <input type="radio" id="vrai" name="reponse-<?php echo $Question["idReponse"]?>" value="1" checked style="width:4vh;margin-top:-30px;margin-left:10vh;">
+            <br>
+            <label for="faux">Faux</label>
+            <input type="radio" id="faux" name="reponse-<?php echo $Question["idReponse"]?>" value="0" style="width:4vh;margin-top:-30px;margin-left:10vh;"><br>
+            <br>
+        
+        <?php endforeach; ?>
+        <hr>
 
-
-        ?>
+        <input type="hidden" name="idQuestionnaire" value="<?php echo $idQuestionnaire ?>">
+        <input type="hidden" name="nomEquipe" value="<?php echo $nomEquipe ?>">
         <button type="submit" style="margin-top:2vh;" class="btnStyle">Valider Correction</button>
-
-
-        <label>Choix de l'equipe a corriger</label><br>
-        <input type='text' id="listUtil" list='Equipe-list' class='searchInp' name="nomEquipe" placeholder='Liste des Equipes'>
-        <datalist id='Equipe-list' class='dataL'>
-        <?php
-        foreach($tab as $util) {
-            $nomEquipe =  $util["nomEquipe"];
-            
-            echo '<option value="' . $nomEquipe . '">' . $nomEquipe . '</option>';
-        }
-        ?>
-        </datalist>
-        <button type="submit" style="margin-top:2vh;" class="btnStyle">Corriger Questionnaire</button>
     </form>
 <?php
     include "../footer.php";
