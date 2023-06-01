@@ -35,6 +35,38 @@ h3 {
 /* cas 1 : l'utilisateur est connecté */
 /* cas 1.1 : l'utilisateur est inscrit au data event ou est gestionnaire/admin */
 
+/* tableau de contacts */
+
+#div-table-contacts {
+    margin: 20px;
+}
+
+#table-contacts {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+#table-contacts th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#table-contacts td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+#table-contacts tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* partie rendu */
+
 .boutons-rendu {
     display: flex;
     justify-content: center;
@@ -235,7 +267,7 @@ h3 {
     border-radius: 15px;
     padding: 15px;
     margin: 10px;
-    height: 150px;
+    height: 195px;
     font-size: 17px;
 }
 
@@ -266,10 +298,8 @@ h3 {
 
 /* équipes pour lesquelles aucun code n'a pas encore été rendu */
 #liste-equipes .partie-code-non-rendu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 40px;
+    text-align: center;
+    transform: translateY(30px);
 }
 
 /* cas 2 : l'utilisateur est un étudiant inscrit au data event de la page */

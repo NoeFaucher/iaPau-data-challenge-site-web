@@ -10,7 +10,6 @@
         <title>IA PAU</title>
         <link rel="stylesheet" type="text/css" href="/css/general-data-event.css" />
         <link rel="stylesheet" type="text/css" href="/css/header.css" />
-        <link rel="stylesheet" type="text/css" href="/css/footer.css" />
         <link rel="stylesheet" type="text/css" href="/css/liste-data-events.css" />
     </head>
     <body>
@@ -43,7 +42,7 @@
                             <div class='titre-event'>
                                 <span>".$dataEvent["titre"]."</span>
                             </div>
-                            <p class='infos-entreprise-dates'>Par ".$dataEvent["entreprise"]." | ".$dataEvent["dateDebut"]." - ".$dataEvent["dateFIN"]."</p>
+                            <p class='infos-entreprise-dates'>Par ".$dataEvent["entreprise"]." | ".$dataEvent["dateDebut"]." - ".$dataEvent["dateFin"]."</p>
                             <p>".$dataEvent["descript"]."</p>
                         </a>
                     </div>";
