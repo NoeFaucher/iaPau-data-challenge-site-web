@@ -7,9 +7,11 @@ include "../bdd.php";
 if ($_SESSION["estConnecte"]) {
     if ($_SESSION["typeUtilisateur"] != 'administrateur'){
         header("Location: profil.php");
+        exit();
     }
 } else {
     header("Location: ../connexion/connexion.php");
+    exit();
 }
 
 

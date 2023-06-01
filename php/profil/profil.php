@@ -37,7 +37,7 @@
         ?>
 
 
-        <!-- A Faire formulaire de modification données perso -->
+        <!--  modification données perso -->
         <div id="util-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('util-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
@@ -286,9 +286,9 @@
         <div id="util-normal-admin-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('util-normal-admin-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
-                <form id="form-modif-util-normal" action="modifDataEvent.php" method="post">
+                <form id="form-modif-util-normal" action="modifUtil.php" method="post">
                     
-                    <input type='text' list='destinataires2-list' class='searchInp' placeholder='Liste des utilisateurs'>
+                    <input type='text' id="listUtil" list='destinataires2-list' class='searchInp' name="nomUtil" placeholder='Liste des utilisateurs'>
                     <datalist id='destinataires2-list' class='dataL'>
                         <?php
                         foreach($tab3 as $util) {
@@ -298,6 +298,7 @@
                         }
                         ?>
                     </datalist>
+                    <input type="button" class='btnStyle' value="supprimer" onclick='if(document.getElementById("listUtil").value != ""){window.location="supprimerUtil.php?name="+document.getElementById("listUtil").value+"";}' style='background-color: red;'>
 
 
                     <h1>Modifier mes informations</h1>
@@ -325,7 +326,8 @@
                         <option value="M2">M2</option>
                         <option value="D">D</option>
                     </select><br>
-                        
+                    
+                    <input type="hidden" name="typeUtil" value="normal">
                     <button type="submit" style="margin-top:2vh;" class="btnStyle">Valider les modifications</button>
                 </form>
             </div>
@@ -336,10 +338,10 @@
         <div id="util-gestionnaire-admin-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('util-gestionnaire-admin-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
-                <form id="form-modif-util-gestionnaire" action="modifDataEvent.php" method="post">
+                <form id="form-modif-util-gestionnaire" action="modifUtil.php" method="post">
                     <h1>Modifier mes informations</h1>
 
-                    <input type='text' list='destinataires-list' class='searchInp' placeholder='Liste des gestionnaires'>
+                    <input type='text' id="listUtil2" list='destinataires-list' class='searchInp' name="nomUtil" placeholder='Liste des gestionnaires'>
                     <datalist id='destinataires-list' class='dataL'>
                     <?php
                     foreach($tab2 as $util) {
@@ -349,7 +351,7 @@
                     }
                     ?>
                     </datalist>
-                    <button class='btnStyle' onclick='' style='background-color: red;'>supprimer</button>
+                    <input type="button" class='btnStyle' value="supprimer" onclick='if(document.getElementById("listUtil2").value != ""){window.location="supprimerUtil.php?name="+document.getElementById("listUtil2").value+"";}' style='background-color: red;'>
 
                     <label>Prénom :</label><br>
                     <input type="text" name="prenom">
@@ -357,6 +359,31 @@
                     <input type="text" name="nom">
                     <label>Nouveau mot de passe :</label><br>
                     <input type="text" name="newMdp">
+
+                    <label>Email :</label><br>
+                    <input type="text" name="mail">
+                    <label>Téléphone :</label><br>
+                    <input type="text" name="telephone">
+
+                    <input type="hidden" name="typeUtil" value="gestionnaire">
+                    <button type="submit" style="margin-top:2vh;" class="btnStyle">Valider les modifications</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Nouveau utilisateur GESTIONNAIRE-->
+        <div id="new-util-gestionnaire-admin-overlay" class="overlay">
+            <span class="closebtn" onclick="closeModal('new-util-gestionnaire-admin-overlay')" title="Close Overlay">×</span>
+            <div class="overlay-content">
+                <form id="form-new-util-gestionnaire" action="creeGestionnaire.php" method="post">
+                    <h1>Créer un gestionnaire</h1>
+
+                    <label>Prénom :</label><br>
+                    <input type="text" name="prenom">
+                    <label>Nom :</label><br>
+                    <input type="text" name="nom">
+                    <label>Mot de passe :</label><br>
+                    <input type="text" name="mdp">
 
                     <label>Email :</label><br>
                     <input type="text" name="mail">
@@ -559,10 +586,11 @@
                 
             </div>
 
+            <!-- Partie utilisateur pour admin -->
             <?php if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>
             <div id="utilAdmin">
                 <h1>Utilisateurs inscrits</h1>
-                <button class='btnStyle' onlclick=''>créer un utilisateur</button>
+                <button class='btnStyle' onclick='openModal(0,"new-util-gestionnaire-admin-overlay","form-new-util-gestionnaire");'>créer un gestionnaire</button>
 
 
                 <button class='btnStyle' onclick='openModal(0,"util-gestionnaire-admin-overlay","form-modif-util-gestionnaire");' style='background-color: blue;'>Modifier un gestionnaire</button>

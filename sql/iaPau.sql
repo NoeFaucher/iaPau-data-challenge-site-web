@@ -31,7 +31,7 @@ create table DataEvent (
     consignes TEXT,
     conseils TEXT,
     idGestionnaire INTEGER,
-    foreign key fk_Gestionnaire(idGestionnaire) references Utilisateur(idUtilisateur)
+    foreign key fk_Gestionnaire(idGestionnaire) references Utilisateur(idUtilisateur) on delete cascade
 );
 
 create table Ressource (

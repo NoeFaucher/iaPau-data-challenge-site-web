@@ -108,25 +108,4 @@ if ($modifValide) {
 }
 
 header("Location: profil.php");
-
-function modifUser($mysqlClient,$idUtilisateur,$telephone,$email,$mdp,$nivEtude,$nom,$prenom,$ecole,$ville){
-    try {
-        
-        $sqlQuery = 'UPDATE Utilisateur SET telephone = :telephone, email = :email, mdp = :mdp, nivEtude = :nivEtude, nom = :nom, prenom = :prenom, ecole = :ecole, ville = :ville WHERE idUtilisateur = :idUtilisateur';
-
-        $updateDataEvent = $mysqlClient -> prepare($sqlQuery);
-        $updateDataEvent ->execute([
-            'telephone' => $telephone,
-            'email' => $email,
-            'mdp' => $mdp,
-            'nivEtude' => $nivEtude,
-            'nom' => $nom,
-            'prenom' => $prenom,
-            'ecole' => $ecole,
-            'ville' => $ville,
-            'idUtilisateur' => $idUtilisateur,
-        ]);
-    } catch (Exception $e) {
-        die('Erreur : ' . $e->getMessage());
-    }
-}
+?>
