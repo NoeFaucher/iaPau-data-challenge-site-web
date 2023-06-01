@@ -69,43 +69,7 @@
 
 ?>
 
-<!-- 
-Récapitulatif :
-    -> présentation du data event : nom, entreprise, dates, description
-    -> affichage des données, consignes et conseils du data event
-    - data battle
-        -> podium
-    - utilisateur connecté
-        - inscrit au data event (=> étudiant)
-            -> rappel du projet data auquel il est inscrit
-            -> affichage des contacts liés à ce projet data (contacts externes, gestionnaires, administrateurs)
-            - l'équipe de l'utilisateur a déjà rendu quelque chose
-                - l'utilisateur est chef d'une équipe qui participe au data event de la page
-                    -> il peut consulter tous les liens qu'il a déjà envoyé
-                    -> il peut rendre un nouveau lien
-                - l'utilisateur n'est pas le chef de son équipe (celle qui participe au data event de la page)
-                    -> il peut consulter les différents codes que son chef d'équipe a déjà rendu
-            - l'équipe de l'utilisateur n'a encore rien rendu
-                - l'utilisateur est chef d'une équipe qui participe au data event de la page
-                    -> il peut rendre un nouveau lien
-                - l'utilisateur n'est pas le chef de son équipe (celle qui participe au data event de la page)
-                    -> message qui lui dit qu'aucun code n'a encore été rendu par son chef d'équipe
-            -> accès au profil de son équipe
-            - chef d'équipe et data battle
-                - a déjà répondu au questionnaire
-                - n'a pas encore répondu au questionnaire
-                    -> accès au questionnaire
-                - a déjà répondu au questionnaire
-                    -> peut voir ses réponses mais ne peut pas le renvoyer à nouveau
-        - non inscrit ou admin ou gestionnaire
-            -> affichage de tous les projets data
-            - étudiant
-                -> boutons pour s'inscrire aux projets data
-        - gestionnaire ou admin
-            -> affichage de toutes les équipes qui participent au data event, avec le projet data qu'elles ont choisi + la date du dernier rendu + liens vers leurs résultats et leur dernier rendu
-    - utilisateur non connecté
-        - affichage de tous les projets data, le bouton pour s'inscrire redirige vers la page de connexion
--->
+
 
 <!DOCTYPE HTML>
 <html>
