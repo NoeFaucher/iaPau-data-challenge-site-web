@@ -34,6 +34,14 @@
                 ";
 
             $tab3 = getAllFromRequest($conn, $req3);
+
+            $req4 =
+                "SELECT *
+                FROM DataEvent 
+                WHERE typeDataEvent = 'DataBattle';
+                ";
+
+            $tab4 = getAllFromRequest($conn, $req4);
         ?>
 
 
@@ -390,6 +398,37 @@
             </div>
         </div>
 
+        <div id="new-questionnaire-gestionnaire-overlay" class="overlay">
+            <span class="closebtn" onclick="closeModal('new-questionnaire-gestionnaire-overlay')" title="Close Overlay">×</span>
+            <div class="overlay-content">
+                <form id="form-new-questionnaire-gestionnaire" action="creeQuestionnaire.php" method="post">
+                    <h1>Créer Questionnaire</h1>
+                    <datalist id='dataBattle-list' class='dataL'>
+                    <?php
+                    foreach($tab4 as $util) {
+                        $nom_prenom = $util["idDataEvent"].' '.$util["nom"];
+                        $id_titre = $util['idUtilisateur'].' '.$util["titre"];
+                        echo '<option value="'.$id_titre.'">'.$id_titre.'</option>';
+                    }
+                    ?>
+                    </datalist>
+                    <label>Titre</label><br>
+                    <input type="text" name="titre">
+                    <label>Question 1: </label><br>
+                    <input type="text" name="q1">
+                    <label>Question 2: </label><br>
+                    <input type="text" name="q2">
+                    <label>Question 3: </label><br>
+                    <input type="text" name="q3">
+                    <label>Question 4: </label><br>
+                    <input type="text" name="q4">
+                    <label>Question 5 (Optionniel) : </label><br>
+                    <input type="text" name="q5">
+
+                    <button type="submit" style="margin-top:2vh;" class="btnStyle">Soumettre le questionnaire</button>
+                </form>
+            </div>
+        </div>
 
         <div class="left-menu">
             <ul>
@@ -565,6 +604,49 @@
                 ?>  
 
             </div>
+
+
+            <!-- Partie Questionnaire pour Gestionnaire -->
+            <?php if ($_SESSION["typeUtilisateur"] == "gestionnaire"): ?>
+            <div id="Questionnaire">
+                <h1>Vos Questionnaires</h1>
+                <button class='btnStyle' onclick='openModal(0,"new-questionnaire-gestionnaire-overlay","form-new-questionnaire-gestionnaire");' style='background-color: blue;'>Creer questionnaire</button>
+                <?php
+                    //Select pour récuperer tout les Data Challenge du gestionnaire (remplacer au niveau du "where" par data battle
+                    $requete = "SELECT Questionnaire.idQuestionnaire, Questionnaire.titre FROM Questionnaire 
+                    jOIN DataEvent 
+                    ON Questionnaire.idDataEvent = DataEvent.idDataEvent
+                    WHERE DataEvent.idGestionnaire =".$_SESSION["idUtilisateur"].";
+                    ";
+
+                $resultat = getAllFromRequest($conn, $requete);
+                $nbrResultats = count($resultat);
+
+                if (!$nbrResultats) {
+                    echo "<p> Aucun Questionnaire.</p>";
+                }else{
+                    echo "<div id='liste-events'>";
+                    for ($i=0; $i<$nbrResultats; $i++) {
+
+                        echo "
+                        <div class='event'>
+                            <a href='/php/dataEvent/data-event.php?idDataEvent=".$resultat[$i]["idQuestionnaire"]."'>
+                                <div class='titre-event'>
+                                    <span>".$resultat[$i]["titre"]."</span>
+                                </div>
+                            </a>
+                        "; ?>
+                        <br>
+                        <button class='btnStyle' onclick='window.location="supQuestionnaire.php?idQuestionnaire=<?php echo $resultat[$i]["idQuestionnaire"] ?>";' style='background-color: red;'>supprimer</button>
+                        <?php
+                        echo" </div>";
+                    }
+                    echo "</div>";
+                }
+                ?>
+            </div>
+            <?php endif; ?>
+
             
             <!-- Partie Projet Data pour admin -->
             <?php if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>
