@@ -130,7 +130,7 @@ Récapitulatif :
                 <div id='presentation-data-challenge'>
                     <h3>".$resultatDataEvent["titre"]."</h3>
                     <div id='infos-data-challenge'>
-                        <span>Organisé par ".$resultatDataEvent["entreprise"]." - Du ".$resultatDataEvent["dateDebut"]." au ".$resultatDataEvent["dateFIN"]."</span>
+                        <span>Organisé par ".$resultatDataEvent["entreprise"]." - Du ".$resultatDataEvent["dateDebut"]." au ".$resultatDataEvent["dateFin"]."</span>
                     </div>
                     <p class='paragraphe-presentation'>".$resultatDataEvent["descript"]."</p>";
 
