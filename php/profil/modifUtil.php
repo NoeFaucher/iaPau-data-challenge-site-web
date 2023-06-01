@@ -20,7 +20,7 @@ $words = explode(" ", $_POST["nomUtil"]);
 $prenom = $words[0]; // "prenom"
 $nom = $words[1]; // "nom"
 
-$resultat = getIdGestionnaireByNom($cnx, $prenom, $nom);
+$resultat = getIdUtilisateurByNom($cnx, $prenom, $nom);
 
 $idUtilisateur = $resultat["idUtilisateur"];
 
