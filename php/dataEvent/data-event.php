@@ -328,62 +328,6 @@
 
                     }
 
-
-                        /*
-                <!-- 
-Récapitulatif :
-    -> présentation du data event : nom, entreprise, dates, description
-    -> affichage des données, consignes et conseils du data event
-    - data battle
-        -> podium
-    - utilisateur connecté
-        - inscrit au data event (=> étudiant)
-            -> rappel du projet data auquel il est inscrit
-            -> affichage des contacts liés à ce projet data (contacts externes, gestionnaires, administrateurs)
-            - l'équipe de l'utilisateur a déjà rendu quelque chose
-                - l'utilisateur est chef d'une équipe qui participe au data event de la page
-                    -> il peut consulter tous les liens qu'il a déjà envoyé
-                    -> il peut rendre un nouveau lien
-                - l'utilisateur n'est pas le chef de son équipe (celle qui participe au data event de la page)
-                    -> il peut consulter les différents codes que son chef d'équipe a déjà rendu
-            - l'équipe de l'utilisateur n'a encore rien rendu
-                - l'utilisateur est chef d'une équipe qui participe au data event de la page
-                    -> il peut rendre un nouveau lien
-                - l'utilisateur n'est pas le chef de son équipe (celle qui participe au data event de la page)
-                    -> message qui lui dit qu'aucun code n'a encore été rendu par son chef d'équipe
-        - non inscrit ou admin ou gestionnaire
-            - étudiant
-                -> 
-            - gestionnaire ou admin
-
-                
-
-
-
-                    
-            - étudiant et chef d'équipe
-                - n'a encore rien rendu
-                    -> affichage de la section de rendu
-                - a déjà rendu quelque chose
-                    -> liens pour afficher son code et ses résultats + message accusant réception de son code
-        - étudiant non inscrit
-            - data challenge
-                -> choix du projet data
-            - data battle
-                -> inscription au projet data
-        - gestionnaire ou admin
-            -> affichage des équipes participantes, de leur rang, du lien d'hébergement de leur code qu'elles ont éventuellement rendu et de leurs résultats
-        - etudiant
-            -> accès au profil de son équipe
-            - chef d'équipe et data battle
-                -> accès au questionnaire
-    - utilisateur non connecté
-        -> message qui lui demande de se connecter
--->
-                        */
-
-
-
                     // cas 1.2 : l'utilisateur n'est pas inscrit à l'évènement (donc étudiant non inscrit ou admin)
                     // il peut donc s'inscrire en créant une équipe et en devenant chef d'équipe (pour les étudiants seulement)
                     else {
@@ -796,14 +740,14 @@ Récapitulatif :
                             // récupération des intitulés des questions
                             // note : on ne vérifie pas que c'est une data battle, pas besoin si la base de données est correcte
                             $conn = connexion($serveur, $bdd, $user, $pass);
-                            $requeteQuestions = "SELECT idQuestion, intitule, descriptQuestionnaire FROM Question NATURAL JOIN Questionnaire WHERE idDataEvent=".$idDataEvent.";";
+                            $requeteQuestions = "SELECT idQuestion, intitule, titre FROM Question NATURAL JOIN Questionnaire WHERE idDataEvent=".$idDataEvent." AND idQuestionnaire=(SELECT idQuestionnaire FROM Questionnaire WHERE idDataEvent=".$idDataEvent." ORDER BY dateCreation DESC LIMIT 1);";
                             $resultatQuestions = getAllFromRequest($conn, $requeteQuestions);
                             $conn = deconnexion();
                             $_SESSION["questionsDataBattlePage"] = $resultatQuestions;
 
                             // on vérifie si l'équipe a déjà répondu à ce questionnaire
                             $conn = connexion($serveur, $bdd, $user, $pass);
-                            $requeteVerificationNonRepondu = "SELECT * FROM Reponse NATURAL JOIN Questionnaire WHERE idEquipe=".$_SESSION["idEquipeUtilisateurPage"]." AND idDataEvent=".$idDataEvent.";";
+                            $requeteVerificationNonRepondu = "SELECT * FROM Reponse NATURAL JOIN Questionnaire WHERE idEquipe=".$_SESSION["idEquipeUtilisateurPage"]." AND idDataEvent=".$idDataEvent." AND idQuestionnaire=(SELECT idQuestionnaire FROM Questionnaire WHERE idDataEvent=".$idDataEvent." ORDER BY dateCreation DESC LIMIT 1);";
                             $resultatVerificationNonRepondu = getAllFromRequest($conn, $requeteVerificationNonRepondu);
                             $conn = deconnexion();
                             
@@ -816,7 +760,7 @@ Récapitulatif :
                                     <p class='paragraphe-presentation'>De plus, comme vous avez décidé de participer à une data battle, vous devrez répondre au questionnaire ci-contre. Chaque réponse est notée sur un point. L'envoi du questionnaire est définitif, relisez-vous bien !</p>";
                                 }
 
-                                echo "<p class='paragraphe-presentation italique'>".$resultatQuestions[0]["descriptQuestionnaire"]."</p>";
+                                echo "<p class='paragraphe-presentation italique'>".$resultatQuestions[0]["titre"]."</p>";
 
                                 echo "
                                 <div id='questionnaire'>
@@ -850,7 +794,7 @@ Récapitulatif :
                                     <p class='paragraphe-presentation'>Vous retrouverez ci-dessous les réponses au questionnaire que vous avez envoyé.</p>";
                                 }
                                 
-                                echo "<p class='paragraphe-presentation italique'>".$resultatQuestions[0]["descriptQuestionnaire"]."</p>";
+                                echo "<p class='paragraphe-presentation italique'>".$resultatQuestions[0]["titre"]."</p>";
                                 
                                 echo "
                                 <div id='questionnaire-repondu'>";
@@ -862,13 +806,13 @@ Récapitulatif :
                                             echo "
                                             <div class='question'>
                                                 <label for='question".$i."'><span class='gras'>".$i."</span>. ".$question["intitule"]."</label>
-                                                <input type='text' name='question".$i."' placeholder='Votre réponse...' value=".$reponse["reponse"]." readonly>
+                                                <input type='text' name='question".$i."' placeholder='Votre réponse...' value='".$reponse["reponse"]."' readonly>
                                             </div>";
                                             $i++;
                                         }
                                     }
                                 }
-                                
+
                                 echo "
                                 </div>";
                                 
