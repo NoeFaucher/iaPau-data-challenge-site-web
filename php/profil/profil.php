@@ -78,8 +78,6 @@
                 </form>
             </div>
         </div>
-
-
     
         <!-- modification d'un Data-Challenge-->
         <div id="data-chall-overlay" class="overlay">
@@ -268,9 +266,6 @@
                     <h1>Créer un Projet Data</h1>
                     <label>Titre :</label><br>
                     <input type="text" name="titre">
-                    <label>Dates de début et de fin :</label><br>
-                    <input type="date" name="debut">
-                    <input type="date" name="fin">
                     <label>Description :</label><br>
                     <textarea name="description" style="resize:none;width: 50%; height:10vh;"></textarea>
                     <label>Images :</label><br>
@@ -401,10 +396,13 @@
                 <li><a title='Informations' href='#infos'>Informations</a></li>
                 <li><a title='Equipe(s)' href='#equ'>Equipe(s)</a></li>
                 <li><a title='Challenge' href='#challenge'>Challenge</a></li>
-                <li><a title='Battle' href=' '>Battle</a></li>
+                <li><a title='Battle' href='#battle'>Battle</a></li>
                 <?php
                 if ($_SESSION["typeUtilisateur"] == "administrateur") {
-                    echo "<li><a title='Utilisateurs' href='#util'>Utilisateurs</a></li>";
+                    echo "<li><a title='Projet Data' href='#projetdata'>Projets Data</a></li>";
+                    echo "<li><a title='Utilisateurs' href='#utilAdmin'>Utilisateurs</a></li>";
+
+                    
                 }
                 ?>
                 <li><a title='Messagerie' href='#utilAdmin'>Messagerie</a></li>
@@ -445,24 +443,18 @@
                     $requete = "SELECT * FROM DataEvent WHERE typeDataEvent='DataChallenge';";
                 }elseif($_SESSION["typeUtilisateur"] == "gestionnaire"){
                     //Select pour récuperer tout les Data Challenge du gestionnaire (remplacer au niveau du "where" par data battle
-                    $requete = "SELECT *
-                    FROM DataEvent INNER JOIN Equipe 
-                    on Equipe.idProjetData=DataEvent.idDataEvent 
+                    $requete = "SELECT * FROM DataEvent 
                     WHERE typeDataEvent='DataChallenge'
-                    and DataEvent.idDataEvent = any 
-                    (SELECT idDataEvent 
-                    FROM DataEvent INNER JOIN Utilisateur 
-                    on Utilisateur.idUtilisateur = DataEvent.idDataEvent 
-                    and DataEvent.idGestionnaire = '".$_SESSION["idUtilisateur"]."');";
+                    and idGestionnaire=".$_SESSION["idUtilisateur"].";";
 
                 }elseif ($_SESSION["typeUtilisateur"] == "normal") {
                     //Select pour récuperer tout les data Challenges d'un utilisateur normal (pareil pour data battle faut remplacer le type)
-                    $requete = "SELECT *
-                    FROM UtilisateurAppartientEquipe 
-                    INNER JOIN Equipe ON UtilisateurAppartientEquipe.idEquipe = Equipe.idEquipe
-                    INNER JOIN DataEvent D ON Equipe.idProjetData = D.idDataEvent
-                    WHERE UtilisateurAppartientEquipe.idUtilisateur ='".$_SESSION["idUtilisateur"]."'
-                    AND D.typeDataEvent='DataChallenge';";
+                    $requete = "SELECT * FROM Equipe 
+                    NATURAL JOIN ProjetData 
+                    NATURAL JOIN DataEvent 
+                    NATURAL JOIN UtilisateurAppartientEquipe 
+                    WHERE typeDataEvent='DataChallenge'
+                    and idUtilisateur=".$_SESSION["idUtilisateur"].";";
                 }
 
 
@@ -493,7 +485,7 @@
                             </a>
                         ";
                         if ($_SESSION["typeUtilisateur"] != "normal"): ?>
-                            <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idDataEvent"] ?>,"data-chall-overlay","form-modif-chall");' style='background-color: blue;'>Modifier</button>
+                            <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idDataEvent"] ?>,"data-chall-overlay","form-modif-chall");' style='background-color: blue; margin-top:3vh;'>Modifier</button>
                         <?php endif;
                         if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>
                             <button class='btnStyle' onclick='window.location="supDataEvent.php?idDataEvent=<?php echo $resultat[$i]["idDataEvent"] ?>";' style='background-color: red;'>supprimer</button>
@@ -516,24 +508,18 @@
                         $requete = "SELECT * FROM DataEvent WHERE typeDataEvent='DataBattle';";
                     }elseif($_SESSION["typeUtilisateur"] == "gestionnaire"){
                         //Select pour récuperer tout les Data Challenge du gestionnaire (remplacer au niveau du "where" par data battle
-                        $requete = "SELECT *
-                        FROM DataEvent INNER JOIN Equipe 
-                        on Equipe.idProjetData=DataEvent.idDataEvent 
+                        $requete = "SELECT * FROM DataEvent 
                         WHERE typeDataEvent='DataBattle'
-                        and DataEvent.idDataEvent = any 
-                        (SELECT idDataEvent 
-                        FROM DataEvent INNER JOIN Utilisateur 
-                        on Utilisateur.idUtilisateur = DataEvent.idDataEvent 
-                        and DataEvent.idGestionnaire = '".$_SESSION["idUtilisateur"]."');";
+                        and idGestionnaire=".$_SESSION["idUtilisateur"].";";
 
                     }elseif ($_SESSION["typeUtilisateur"] == "normal") {
                         //Select pour récuperer tout les data Challenges d'un utilisateur normal (pareil pour data battle faut remplacer le type)
-                        $requete = "SELECT *
-                        FROM UtilisateurAppartientEquipe 
-                        INNER JOIN Equipe ON UtilisateurAppartientEquipe.idEquipe = Equipe.idEquipe
-                        INNER JOIN DataEvent D ON Equipe.idProjetData = D.idDataEvent
-                        WHERE UtilisateurAppartientEquipe.idUtilisateur ='".$_SESSION["idUtilisateur"]."'
-                        AND D.typeDataEvent='DataBattle';";
+                        $requete = "SELECT * FROM Equipe 
+                        NATURAL JOIN ProjetData 
+                        NATURAL JOIN DataEvent 
+                        NATURAL JOIN UtilisateurAppartientEquipe 
+                        WHERE typeDataEvent='DataBattle'
+                        and idUtilisateur=".$_SESSION["idUtilisateur"].";";
                     }
 
 
@@ -564,7 +550,7 @@
                                 </a>
                             ";
                             if ($_SESSION["typeUtilisateur"] != "normal"): ?>
-                                <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idDataEvent"] ?>,"data-chall-overlay","form-modif-chall");' style='background-color: blue;'>Modifier</button>
+                                <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idDataEvent"] ?>,"data-chall-overlay","form-modif-chall");' style='background-color: blue; margin-top:3vh;'>Modifier</button>
                             <?php endif;
                             if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>
                                 <button class='btnStyle' onclick='window.location="supDataEvent.php?idDataEvent=<?php echo $resultat[$i]["idDataEvent"] ?>";' style='background-color: red;'>supprimer</button>
@@ -580,11 +566,54 @@
 
             </div>
             
+            <!-- Partie Projet Data pour admin -->
+            <?php if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>
             <div id="projetdata">
                 <h1>Vos Projets Data</h1>
                 
-                
+
+
+                <?php
+
+                $requete = "SELECT * FROM ProjetData NATURAL JOIN DataEvent;";
+                $resultat = getAllFromRequest($conn, $requete);
+
+
+                    $nbrResultats = count($resultat);
+
+                    if (!$nbrResultats) {
+                        if ($_SESSION["typeUtilisateur"] == "normal") {
+                            echo "<p> Vous n'êtes pas inscrit à des Data Battles.</p>";
+                        }elseif (($_SESSION["typeUtilisateur"] == "administrateur") || ($_SESSION["typeUtilisateur"] == "gestionnaire")) {
+                            echo "<p> Aucun Data Battle.</p>";
+                        }
+                    }else{
+                        echo "<div id='liste-events'>";
+                        for ($i=0; $i<$nbrResultats; $i++) {
+
+                            echo "
+                            <div class='event'>
+                                <a href='/php/dataEvent/data-event.php?idDataEvent=".$resultat[$i]["idDataEvent"]."'>
+                                    <div class='titre-event'>
+                                        <span>".$resultat[$i]["titreProjetData"]."</span>
+                                    </div>
+                                    <p>".$resultat[$i]["descriptProjet"]."</p>
+                                </a>
+                            ";
+                            if ($_SESSION["typeUtilisateur"] != "normal"): ?>
+                                <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idProjetData"] ?>,"data-chall-overlay","form-modif-chall");' style='background-color: blue; margin-top:3vh;'>Modifier</button>
+                            <?php endif;
+                            if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>
+                                <button class='btnStyle' onclick='window.location="supProjetData.php?idProjetData=<?php echo $resultat[$i]["idProjetData"] ?>";' style='background-color: red;'>supprimer</button>
+                            <?php endif;
+
+                            echo" </div>";
+                        }
+                        echo "</div>";
+                    }
+                    ?>
             </div>
+            <?php endif; ?>
 
             <!-- Partie utilisateur pour admin -->
             <?php if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>

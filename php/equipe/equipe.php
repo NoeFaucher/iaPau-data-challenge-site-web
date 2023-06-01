@@ -20,10 +20,6 @@
                 NATURAL JOIN ProjetData 
                 NATURAL JOIN DataEvent
                 WHERE idGestionnaire=".$_SESSION["idUtilisateur"].";";
-                
-                echo $_SESSION["idUtilisateur"];
-                echo "<br>";
-                echo $req;
 
             }elseif ($_SESSION["typeUtilisateur"] == 'administrateur') {
 
