@@ -7,6 +7,7 @@ use iaPau;
 -- Utilisateur
 create table Utilisateur (
     idUtilisateur INTEGER primary key unique not null auto_increment,
+    telephone VARCHAR(100),
     email VARCHAR(100),
     mdp VARCHAR(319),
     typeUtilisateur ENUM('gestionnaire','normal','administrateur'),
@@ -21,7 +22,7 @@ create table DataEvent (
     idDataEvent INTEGER primary key unique not null auto_increment, 
     typeDataEvent ENUM('DataChallenge','DataBattle'),
     dateDebut DATETIME,
-    dateFIN DATETIME,
+    dateFin DATETIME,
     dateCreation DATETIME,
     descript TEXT,
     entreprise VARCHAR(100),
@@ -30,7 +31,7 @@ create table DataEvent (
     consignes TEXT,
     conseils TEXT,
     idGestionnaire INTEGER,
-    foreign key fk_Gestionnaire(idGestionnaire) references Utilisateur(idUtilisateur)
+    foreign key fk_Gestionnaire(idGestionnaire) references Utilisateur(idUtilisateur) on delete cascade
 );
 
 create table Ressource (
@@ -43,7 +44,7 @@ create table RessourceAppartientDataEvent (
     idDataEvent INTEGER,
     idRessource INTEGER,
     constraint pk_AppartientDataEvent primary key (idDataEvent,idRessource),
-    foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent),
+    foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent) ON DELETE CASCADE,
     foreign key fk_Ressource(idRessource) references Ressource(idRessource)
 );
 
@@ -54,7 +55,7 @@ create table ProjetData (
     descriptProjet TEXT,
     idImage INTEGER,
     foreign key fk_image(idImage) references Ressource(idRessource),
-    foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent)
+    foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent) ON DELETE CASCADE
 );
 
 create table Equipe (
@@ -62,7 +63,7 @@ create table Equipe (
     nomEquipe VARCHAR(100),
     idProjetData INTEGER,
     idChefEquipe INTEGER,
-    foreign key fk_ChefEquipe(idChefEquipe) references Utilisateur(idUtilisateur),
+    foreign key fk_ChefEquipe(idChefEquipe) references Utilisateur(idUtilisateur) on delete cascade,
     foreign key fk_DataEvent(idProjetData) references ProjetData(idProjetData) on delete cascade
 );
 
@@ -87,7 +88,7 @@ create table RessourceAppartientProjetData (
     idProjetData INTEGER,
     idRessource INTEGER,
     constraint pk_AppartientProjetData primary key (idProjetData,idRessource),
-    foreign key fk_DataEvent(idProjetData) references ProjetData(idProjetData),
+    foreign key fk_DataEvent(idProjetData) references ProjetData(idProjetData) ON DELETE CASCADE,
     foreign key fk_Ressource(idRessource) references Ressource(idRessource)
 );
 
@@ -105,7 +106,7 @@ create table Questionnaire (
     idQuestionnaire INTEGER primary key unique not null auto_increment,
     descriptQuestionnaire TEXT,
     idDataEvent INTEGER,
-    foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent)
+    foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent) ON DELETE CASCADE
 );
 
 create table Question (

@@ -1,13 +1,13 @@
 <?php
 include ("../varSession.inc.php");
 
-$validform = true;
+$validform = true; // Variable pour indiquer si le formulaire est valide ou non
 
 if ($_SESSION["estConnecte"]){
-    header("Location: ../../index.php");
+    header("Location: ../../index.php"); // Redirection si déjà connecté
 }
 
-
+// Vérification de la validation du formulaire
 if (!$_SESSION["estConnecte"]){
     if (isset($_SESSION["validation"])){
         if(!$_SESSION["validation"]){
@@ -27,7 +27,7 @@ if (!$_SESSION["estConnecte"]){
 <body>
     <?php include "../header.php"; ?>
     <main>
-        
+        <!-- Formulaire de connexion -->
         <form method="POST" class="form" id="connexion" action="verifconnexion.php" onsubmit="return validateConnexion()">
             <h1 id="connexTitle">Connectez-vous !</h1>
             <div class="champ">
@@ -37,8 +37,9 @@ if (!$_SESSION["estConnecte"]){
                 <br>
                 <input type="email" name="email_participant" autocomplete="off"
                     <?php
+                    // Ajout des classes CSS et des valeurs des champs en fonction de la validation du formulaire
                     if($validform) {
-                        echo("class='form-email'");
+                        echo("class='form-email'"); // Ajoute la classe CSS "form-email" si le formulaire est valide
                         echo("value=" . $_SESSION["email"]);
                     } else {
                         echo("class='error'");
@@ -53,6 +54,7 @@ if (!$_SESSION["estConnecte"]){
                 </label><br>
                 <input type="password" name="mot_de_passe_participant"
                     <?php
+                    // Ajout des classes CSS et des valeurs des champs en fonction de la validation du formulaire
                     if($validform) {
                         echo("class='form-mdp'");
                     } else {

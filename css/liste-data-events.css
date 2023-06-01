@@ -1,4 +1,5 @@
 #liste-events a {
+    text-decoration: none;
     color: black;
     transition: 0.3s ease;
 }
@@ -20,7 +21,7 @@
     padding-top: 7px;
     padding-bottom: 7px;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
     padding-left: 20px;
     font-size: 20px;
     text-align: justify;
@@ -35,38 +36,12 @@
     font-size: 23px;
 }
 
-/* ancien code : 
-
-#liste-events {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+#liste-events .event p {
+    margin-bottom: 0px;
 }
 
-#liste-events a {
-    color: black;
-    transition: 0.4s ease;
+#liste-events .event .infos-entreprise-dates {
+    font-style: italic;
+    font-size: 18px;
+    margin-top: 8px;
 }
-
-#liste-events a:hover {
-    color: rgb(0, 0, 0);
-    opacity: 50%;
-}
-
-#liste-events .event {
-    width: 30%;
-    border: 2px solid rgb(56, 136, 106);
-    border-radius: 15px;
-    padding: 15px;
-    margin: 10px;
-    text-align: justify;
-}
-
-#liste-events .event .titre-event {
-    font-weight: bold;
-    font-size: 20px;
-    border-bottom: 1px solid rgb(56, 136, 106);
-    padding-bottom: 5px;
-    color: rgb(56, 136, 106);
-}
-*/

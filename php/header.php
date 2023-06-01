@@ -1,6 +1,7 @@
 <?php
-include ("varSession.inc.php");
+include("varSession.inc.php");
 ?>
+
 <script>
     var head = document.head;
     var link = document.createElement("link");

@@ -12,7 +12,6 @@
     $id_equipe = $_GET["equipe"];
     $link_to_code = urldecode(base64_decode($_GET["lien"]));
 
-
     $id_user = $_SESSION["idUtilisateur"];
 
     $cnx =  connexion($serveur,$bdd,$user,$pass);

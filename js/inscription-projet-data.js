@@ -1,10 +1,11 @@
+// ajouter un étudiant
 function ajouterEtudiant() {
 
     // récupération de tous les étudiants "ajoutables" (même s'ils ont déjà été ajoutés)
-    var etudiantsAjoutables = document.querySelectorAll("#datalist-etudiants option");
+    var etudiantsAjoutablesNoms = document.querySelectorAll("#datalist-etudiants option");
     var valeursEtudiantsAjoutables = [];
-    for (var i = 0; i < etudiantsAjoutables.length; i++) {
-        var valeurEtudiant = etudiantsAjoutables[i].value;
+    for (var i = 0; i < etudiantsAjoutablesNoms.length; i++) {
+        var valeurEtudiant = etudiantsAjoutablesNoms[i].value;
         valeursEtudiantsAjoutables.push(valeurEtudiant);
     }
 
@@ -17,9 +18,25 @@ function ajouterEtudiant() {
         valeursSpanEtudiantAjoute.push(valeurSpan);
     }
 
-    // récupération du texte de l'input sélectionné
-    var input = document.getElementById("nouveau-membre-equipe");
-    var valeurInput = input.value;
+    // récupération du texte de l'input de l'utilisateur sélectionné
+    var inputTexte = document.getElementById("nouveau-membre-equipe");
+    var valeurInput = inputTexte.value;
+
+    // récupération de l'option correspondante
+    var optionCorrespondante = null;
+    var options = document.querySelectorAll("#datalist-etudiants option");
+    for (var i = 0; i < options.length; i++) {
+        var option = options[i];
+        if (option.value === valeurInput) {
+            optionCorrespondante = option;
+            break;
+        }
+    }
+
+    // récupération du data-info de l'option correspondante
+    if (optionCorrespondante) {
+        var idEtudiant = optionCorrespondante.getAttribute("data-info");
+    }
 
     // cas 1 : aucun étudiant n'a été inscrit 
     if (!valeursEtudiantsAjoutables.includes(valeurInput)) {
@@ -54,8 +71,15 @@ function ajouterEtudiant() {
     var nouvelEtudiantSpan = document.createElement("span");
     nouvelEtudiantSpan.textContent = valeurInput;
 
-    // ajout du span à l'intérieur du "div"
+    // création d'un nouvel élément input caché
+    var nouvelEtudiantInput = document.createElement("input");
+    nouvelEtudiantInput.setAttribute("type", "hidden");
+    nouvelEtudiantInput.setAttribute("name", "tableauEtudiants[]");
+    nouvelEtudiantInput.value=idEtudiant;
+
+    // ajout du "span" et du "input" à l'intérieur du "div"
     nouvelEtudiant.appendChild(nouvelEtudiantSpan);
+    nouvelEtudiant.appendChild(nouvelEtudiantInput);
 
     // sélection de l'élément parent de nouvelEtudiant, ie le "div" "etudiants-ajoutes"
     var listeEtudiantsAjoutes = document.getElementById("etudiants-ajoutes");
@@ -64,11 +88,24 @@ function ajouterEtudiant() {
     listeEtudiantsAjoutes.appendChild(nouvelEtudiant);
 
     // réinitialisation de la valeur du "input"
-    input.value = "";
+    inputTexte.value = "";
 
 }
 
+// supprimer un étudiant
 function supprimerEtudiant(div) {
     div.remove();
     return(null);
+}
+
+// alerte si moins de 3 étudiants en tout
+function verifierEquipe(event) {
+    // Sélectionne la liste des étudiants ajoutés à l'équipe
+    var nombreEtudiants = document.getElementById('etudiants-ajoutes').childNodes.length;
+
+    // Vérifie s'il y a moins de deux étudiants dans l'équipe
+    if (nombreEtudiants < 2) {
+        alert("Vous devez ajouter au moins deux étudiants à votre équipe !");
+        event.preventDefault();
+    }
 }
