@@ -149,3 +149,23 @@ main {
 #btnDataChall:focus-visible{
     outline-offset: 1px;
 }
+
+#imageContainer {
+    position: relative;
+    display: inline-block;
+}
+
+#imageText {
+    position: absolute;
+    top: 35%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    left: 50%;
+}
+
+#pouce{
+    width: 70px;
+    height: 70px;
+}
