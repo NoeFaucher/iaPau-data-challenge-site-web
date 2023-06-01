@@ -20,10 +20,19 @@ $description = valid($_POST["description"]);
 $donnees = valid($_POST["donnees"]);
 $consignes = valid($_POST["consignes"]);
 $conseils = valid($_POST["conseils"]);
-$idGestionnaire = valid($_POST["idGestionnaire"]);
 $idDataEvent = $_POST["idDataEvent"];
 
+$prenom_nom = valid($_POST["gestionnaire"]);
+
+$string = "ARTA ERTE";
+$words = explode(" ", $prenom_nom);
+
+$prenom = $words[0]; // "prenom"
+$nom = $words[1]; // "nom"
+
 $mysqlClient = connexion($serveur, $bdd, $user, $pass);
+
+$idGestionnaire = getIdGestionnaireByNom($mysqlClient, $prenom, $nom);
 
 if (!empty($titre) and !empty($debut) and !empty($fin) and !empty($description) and !empty($donnees) and !empty($consignes) and !empty($conseils) and !empty($idGestionnaire) and !empty($idDataEvent)){
     modifDataEvent($mysqlClient,$debut, $fin, $description , $titre ,$donnees, $consignes ,$conseils ,$idGestionnaire , $idDataEvent);
