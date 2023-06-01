@@ -64,9 +64,7 @@
         
     }
 
-    // partie temporaire
-    $loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-
+    
 ?>
 
 
@@ -421,8 +419,7 @@ Récapitulatif :
                             echo "
                             <div class='sous-titre-evenement'>
                                 <span>Choix du projet data</span>
-                            </div>
-                            <p class='paragraphe-presentation'>".$loremIpsum."</p>";
+                            </div>";
 
                             echo "
                             <div id='choix-projet-data'>";
@@ -488,8 +485,7 @@ Récapitulatif :
                         echo "
                         <div class='sous-titre-evenement'>
                             <span>Choix du projet data</span>
-                        </div>
-                        <p class='paragraphe-presentation'>".$loremIpsum."</p>";
+                        </div>";
 
                         echo "
                         <div id='choix-projet-data'>";
@@ -796,7 +792,7 @@ Récapitulatif :
                             // récupération des intitulés des questions
                             // note : on ne vérifie pas que c'est une data battle, pas besoin si la base de données est correcte
                             $conn = connexion($serveur, $bdd, $user, $pass);
-                            $requeteQuestions = "SELECT idQuestion, intitule, descriptQuestionnaire FROM Question NATURAL JOIN Questionnaire WHERE idDataEvent=".$idDataEvent.";";
+                            $requeteQuestions = "SELECT idQuestion, intitule, titre FROM Question NATURAL JOIN Questionnaire WHERE idDataEvent=".$idDataEvent.";";
                             $resultatQuestions = getAllFromRequest($conn, $requeteQuestions);
                             $conn = deconnexion();
                             $_SESSION["questionsDataBattlePage"] = $resultatQuestions;
@@ -816,7 +812,7 @@ Récapitulatif :
                                     <p class='paragraphe-presentation'>De plus, comme vous avez décidé de participer à une data battle, vous devrez répondre au questionnaire ci-contre. Chaque réponse est notée sur un point. L'envoi du questionnaire est définitif, relisez-vous bien !</p>";
                                 }
 
-                                echo "<p class='paragraphe-presentation italique'>".$resultatQuestions[0]["descriptQuestionnaire"]."</p>";
+                                echo "<p class='paragraphe-presentation italique'>".$resultatQuestions[0]["titre"]."</p>";
 
                                 echo "
                                 <div id='questionnaire'>
@@ -850,7 +846,7 @@ Récapitulatif :
                                     <p class='paragraphe-presentation'>Vous retrouverez ci-dessous les réponses au questionnaire que vous avez envoyé.</p>";
                                 }
                                 
-                                echo "<p class='paragraphe-presentation italique'>".$resultatQuestions[0]["descriptQuestionnaire"]."</p>";
+                                echo "<p class='paragraphe-presentation italique'>".$resultatQuestions[0]["titre"]."</p>";
                                 
                                 echo "
                                 <div id='questionnaire-repondu'>";

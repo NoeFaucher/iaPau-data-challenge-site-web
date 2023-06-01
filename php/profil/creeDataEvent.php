@@ -39,7 +39,6 @@ $idGestionnaire = getIdUtilisateurByNom($mysqlClient, $prenom, $nom);
 
 $idGestionnaire = $idGestionnaire["idUtilisateur"];
 
-
 $fin = $fin . " 23:59:59";
 if (!empty($titre) and !empty($debut) and !empty($fin) and !empty($description) and !empty($entreprise) and !empty($donnees) and !empty($consignes) and !empty($conseils) and !empty($idGestionnaire)){
     addDataEvent($mysqlClient, $typeDataEvent, $debut, $fin, $description ,$entreprise , $titre ,$donnees, $consignes ,$conseils ,$idGestionnaire);
@@ -60,7 +59,7 @@ if ($typeDataEvent === "DataChallenge") {
 
 
 function addDataEvent($mysqlClient, $typeDataEvent, $dateDebut, $dateFin, $descript, $entreprise, $titre , $donnees, $consignes, $conseils, $idGestionnaire){
-    $date = date('d-m-y h:i:s');
+    $date = date('y-m-d h:i:s');
     try {
 
         $sqlQuery = 'INSERT INTO DataEvent(typeDataEvent, dateDebut, dateFin , dateCreation , descript , entreprise ,titre , donnees , consignes , conseils , idGestionnaire)  VALUES  (:typeDataEvent, :dateDebut, :dateFin , :dateCreation , :descript , :entreprise ,:titre , :donnees , :consignes , :conseils , :idGestionnaire)';

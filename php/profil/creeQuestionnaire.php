@@ -55,7 +55,7 @@ $mysqlClient = deconnexion();
 header("Location: profil.php#questionnaire");
 
 function addQuestionnaire($mysqlClient,$titre,$idDataEvent){
-    $dateCreation = date('d-m-y h:i:s');
+    $dateCreation = date('y-m-d h:i:s');
     try {
         $sqlQuery = 'INSERT INTO Questionnaire (titre, idDataEvent, dateCreation)  VALUES  (:titre, :idDataEvent, :dateCreation)';
 

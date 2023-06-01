@@ -3,7 +3,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/profil.css">
     <link rel="stylesheet" href="/css/liste-data-events.css">
-
     <title>Profil - Ia Pau</title>
 </head>
     <body>
@@ -249,7 +248,7 @@
             </div>
         </div>
 
-        <!-- modification d'un projet Data  A FAIRE -->
+        <!-- modification d'un projet Data  -->
         <div id="projet-data-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('projet-data-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
@@ -441,7 +440,9 @@
                 </form>
             </div>
         </div>
-
+        
+        <!-- Correction Form -->
+        
         <div class="left-menu">
             <ul>
                 <li><a title='Informations' href='#infos'>Informations</a></li>
@@ -651,6 +652,7 @@
                             </a>
                         "; ?>
                         <br>
+                        <button class='btnStyle' onclick='window.location="correcQuestionnaire.php?idQuestionnaire=<?php echo $resultat[$i]["idQuestionnaire"] ?>";' style='background-color: green;'>corriger</button>
                         <button class='btnStyle' onclick='window.location="supQuestionnaire.php?idQuestionnaire=<?php echo $resultat[$i]["idQuestionnaire"] ?>";' style='background-color: red;'>supprimer</button>
                         <?php
                         echo" </div>";
