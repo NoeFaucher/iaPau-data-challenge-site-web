@@ -51,23 +51,30 @@
   font-weight: bold;
 }
 
-
+/* Style pour le selecteur de vision */
+#selecteur-vision {
+  margin-bottom: 5px;
+}
+#selecteur-vision label{
+  margin-top: 10px;
+  font-weight: bold;
+}
 
 /* Style pour le form de la messagerie */
-form {
+#messagerie-form {
   display: flex;
   flex-direction: column;
   max-width: 400px;
   margin: 0 auto;
 }
 
-label {
+#messagerie-form label{
   margin-top: 10px;
   font-weight: bold;
 }
 
-input[type="text"],
-textarea {
+#messagerie-form input[type="text"],
+#messagerie-form textarea {
   width: 100%;
   padding: 5px;
   margin-top: 5px;
@@ -75,7 +82,7 @@ textarea {
   border-radius: 4px;
 }
 
-input[type="submit"] {
+#messagerie-form input[type="submit"] {
   margin-top: 10px;
   padding: 10px 20px;
   background-color: #4CAF50;
@@ -84,8 +91,7 @@ input[type="submit"] {
   border-radius: 4px;
   cursor: pointer;
 }
-
-input[type="submit"]:hover {
+#messagerie-form input[type="submit"]:hover {
   background-color: #45a049;
 }
 

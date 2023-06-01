@@ -155,14 +155,15 @@ const envoyerCode = (element,equipe) => {
     .then(response => response.text())
     .then(result => {
         let pEnvoi = document.getElementById("retour-sur-envoi");
-        if (result === "sucess") {
+        console.log(result);
+
+        if (result === "success") {
             pEnvoi.innerHTML = "Le rendu a bien été envoyé.";
             pEnvoi.style.color = "green";
         }else {
             pEnvoi.innerHTML = "Une erreur s'est produite dans l'envoi du rendu.";
             pEnvoi.style.color = "red";
         }
-        console.log(result);
     });
 
 }
