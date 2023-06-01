@@ -1,5 +1,5 @@
 <?php
-    include("../bdd.php");
+    include("../../bdd.php");
     
     session_start();
 
@@ -23,8 +23,6 @@
         exit;
     }
 
-    if (! isset($_GET["equipe"])) {
-    }
 
     $cnx = connexion($serveur,$bdd,$user,$pass);
 
