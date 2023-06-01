@@ -15,32 +15,30 @@ if ($_SESSION["estConnecte"]) {
 
 $cnx = connexion($serveur, $bdd, $user, $pass);
 
-$words = explode(" ", $_GET["name"]);
-
-$prenom = $words[0]; // "prenom"
-$nom = $words[1]; // "nom"
-
-$resultat = getIdGestionnaireByNom($cnx, $prenom, $nom);
-
-$idUtilisateur = $resultat["idUtilisateur"];
-
-supUtil($cnx, $idUtilisateur);
+$idProjetData = $_GET["idProjetData"];
 
 
-function supUtil($mysqlClient, $idUtilisateur){
+
+supProjetData($cnx, $idProjetData);
+
+
+function supProjetData($mysqlClient, $idProjetData){
     try {
         
-        $sqlQuery = 'DELETE FROM Utilisateur WHERE idUtilisateur = :idUtilisateur';
+        $sqlQuery = 'DELETE FROM ProjetData WHERE idProjetData = :idProjetData';
 
         $updateDataEvent = $mysqlClient -> prepare($sqlQuery);
         $updateDataEvent ->execute([
-            'idUtilisateur' => $idUtilisateur,
+            'idProjetData' => $idProjetData,
         ]);
     } catch (Exception $e) {
         die('Erreur : ' . $e->getMessage());
     }
 }
 
-header("Location: profil.php#utilAdmin");
+$cnx = deconnexion();
+
+header("Location: profil.php#projetdata");
+
 
 ?>
