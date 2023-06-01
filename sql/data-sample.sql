@@ -142,7 +142,7 @@ INSERT INTO Equipe (nomEquipe, idProjetData, idChefEquipe) VALUES
 
 -- table des rendus
 -- note : pas d'attribut idProjetData car chaque équipe ne peut participer qu'à un projet data + Equipe et ProjetData liés
-INSERT INTO Rendu (dateRendu, idEquipe,lienRendu,resultatJson)
+INSERT INTO Rendu (dateRendu, idEquipe, lienRendu, resultatJson)
 VALUES
     ('2022-06-08', 1,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 49,"nbFonction" : 5,"nbLigneMinFonction" : 5,"nbLigneMaxFonction" : 12,"nbLigneMoyenFonction" : 8.2}'),
     ('2022-07-23', 1,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 40,"nbFonction" : 3,"nbLigneMinFonction" : 8,"nbLigneMaxFonction" : 10,"nbLigneMoyenFonction" : 9.2}'),
