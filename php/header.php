@@ -12,6 +12,9 @@ include("varSession.inc.php");
 
     head.appendChild(link);
 </script>
+<head>
+    <link rel="shortcut icon" href="/img/iapau_round.png" type="image/x-icon">
+</head>
 <header>
     <div class="banniere">
         <a href="/index.php">
