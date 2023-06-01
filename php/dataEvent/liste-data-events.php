@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>IA PAU</title>
+        <title>Data <?php echo $_GET["typeDataEvent"]; ?>s</title>
         <link rel="stylesheet" type="text/css" href="/css/general-data-event.css" />
         <link rel="stylesheet" type="text/css" href="/css/header.css" />
         <link rel="stylesheet" type="text/css" href="/css/liste-data-events.css" />
@@ -15,10 +15,23 @@
     <body>
         <?php 
             include("../header.php");
+            // on regarde s'il existe des data events (si non, on affiche un message d'erreur)
+            $conn = connexion($serveur, $bdd, $user, $pass);
+            $requeteDataEvents = "SELECT * FROM DataEvent";
+            $resultatDataEvents = getAllFromRequest($conn, $requeteDataEvents);
+            $conn = deconnexion();
+            if (empty($resultatDataEvents)) {
+                echo "
+                <div id='message-erreur-bdd-vide'>
+                    <p>Erreur : aucun data event disponible !</p>
+                </div>";
+                include("../footer.php");
+                exit;
+            }
         ?>
         <main>
             <?php
-                
+
                 // récupération de tous les data challenges (resp. toutes les data battles)
                 $conn = connexion($serveur, $bdd, $user, $pass);
                 if ($_GET["typeDataEvent"] == "challenge") {

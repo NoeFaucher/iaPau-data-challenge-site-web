@@ -9,12 +9,12 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>IA PAU</title>
+        <title>S'inscrire à un projet data</title>
         <link rel="stylesheet" type="text/css" href="../../css/general-data-event.css" />
         <link rel="stylesheet" type="text/css" href="../../css/header.css" />
         <link rel="stylesheet" type="text/css" href="../../css/inscription-projet-data.css" />
-            <script src="../../js/inscription-projet-data.js"></script>
-            <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+        <script src="../../js/inscription-projet-data.js"></script>
+        <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
     </head>
     <body>
         <?php 

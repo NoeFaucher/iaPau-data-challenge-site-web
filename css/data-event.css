@@ -267,7 +267,7 @@ h3 {
     border-radius: 15px;
     padding: 15px;
     margin: 10px;
-    height: 195px;
+    min-height: 195px;
     font-size: 17px;
 }
 
