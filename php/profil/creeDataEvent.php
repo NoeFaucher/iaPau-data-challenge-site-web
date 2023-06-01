@@ -39,6 +39,8 @@ $idGestionnaire = getIdUtilisateurByNom($mysqlClient, $prenom, $nom);
 
 $idGestionnaire = $idGestionnaire["idUtilisateur"];
 
+
+$fin = $fin . " 23:59:59";
 if (!empty($titre) and !empty($debut) and !empty($fin) and !empty($description) and !empty($entreprise) and !empty($donnees) and !empty($consignes) and !empty($conseils) and !empty($idGestionnaire)){
     addDataEvent($mysqlClient, $typeDataEvent, $debut, $fin, $description ,$entreprise , $titre ,$donnees, $consignes ,$conseils ,$idGestionnaire);
 }

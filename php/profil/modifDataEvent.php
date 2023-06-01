@@ -23,6 +23,7 @@ $donnees = valid($_POST["donnees"]);
 $consignes = valid($_POST["consignes"]);
 $conseils = valid($_POST["conseils"]);
 
+$fin = $fin . " 23:59:59";
 
 $idDataEvent = $_POST["idDataEvent"];
 
@@ -34,8 +35,6 @@ $prenom = $words[0]; // "prenom"
 $nom = $words[1]; // "nom"
 
 $mysqlClient = connexion($serveur, $bdd, $user, $pass);
-
-
 
 $idGestionnaire = getIdUtilisateurByNom($mysqlClient, $prenom, $nom);
 
