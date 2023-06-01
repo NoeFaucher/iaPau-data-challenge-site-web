@@ -2,6 +2,7 @@
 
     session_start();
     include("../bdd.php");
+    include("../verification.php");
     
     $objet = ($_GET["objet"]);
     $contenu = ($_GET["contenu"]);
