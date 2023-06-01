@@ -102,7 +102,7 @@
                     <input type="text" name="conseils">
                     
                     <label>Choix du gestionnaire :</label>
-                    <input type='text' list='destinataires-list' class='searchInp' placeholder='Recherche rapide' require>
+                    <input type='text' list='destinataires-list' name="gestionnaire" class='searchInp' placeholder='Recherche rapide' require>
                     <datalist id='destinataires-list' class='dataL'>
                         <?php
                         foreach($tab2 as $util) {
@@ -219,7 +219,7 @@
                     <input type="text" name="conseils">
 
                     <label>Choix du gestionnaire :</label>
-                    <input type='text' list='destinataires-list' class='searchInp' placeholder='Recherche rapide' require>
+                    <input type='text' list='destinataires-list' name='gestionnaire' class='searchInp' placeholder='Recherche rapide' require>
                     <datalist id='destinataires-list' class='dataL'>
                         <?php
                         foreach($tab2 as $util) {
@@ -374,7 +374,7 @@
                 <li><a title='Informations' href='#infos'>Informations</a></li>
                 <li><a title='Equipe(s)' href='#equ'>Equipe(s)</a></li>
                 <li><a title='Challenge' href='#challenge'>Challenge</a></li>
-                <li><a title='Battle' href='#battle'>Battle</a></li>
+                <li><a title='Battle' href=' '>Battle</a></li>
                 <?php
                 if ($_SESSION["typeUtilisateur"] == "administrateur") {
                     echo "<li><a title='Utilisateurs' href='#util'>Utilisateurs</a></li>";

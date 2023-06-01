@@ -23,7 +23,6 @@ $consignes = valid($_POST["consignes"]);
 $conseils = valid($_POST["conseils"]);
 $idGestionnaire = valid($_POST["idGestionnaire"]);
 
-$idGestionnaire = 1;
 
 $mysqlClient = connexion($serveur, $bdd, $user, $pass);
 
@@ -32,6 +31,7 @@ if (!empty($titre) and !empty($debut) and !empty($fin) and !empty($description) 
 }
 
 header("Location: profil.php");
+$mysqlClient = deconnexion();
 
 
 
