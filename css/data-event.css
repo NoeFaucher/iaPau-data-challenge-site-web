@@ -1,5 +1,6 @@
-/***** classes réutilisées dans plusieurs fichiers différentes *****/
+/******************** classes générales ********************/
 
+/* sous-titres verts (par exemple "données", "consignes", ... */
 .sous-titre-evenement {
     font-weight: bold;
     font-size: 24px;
@@ -7,7 +8,318 @@
     border-bottom: 1px solid rgb(56,136,106);
 }
 
+/* paragraphes généraux */
 .paragraphe-presentation {
     text-align: justify;
     font-size: 20px;
+}
+
+/******************** première section ********************/
+/* description de l'évènement : présentation générale, consignes, données, conseils, rendu (éventuellement) */
+
+/* titre de l'évènement : nom du data event */
+h3 {
+    margin: 0px;
+    padding: 0px;
+    font-size: 45px;
+    margin-bottom: 10px; /* écart entre le titre et le nom de l'entreprise */
+}
+
+/* informations sur l'évènement : dates de début et de fin, entreprise */
+#infos-data-challenge {
+    font-weight: bold;
+    font-style: italic;
+    font-size: 25px;
+}
+
+/* cas 1 : l'utilisateur est connecté */
+/* cas 1.1 : l'utilisateur est inscrit au data event ou est gestionnaire/admin */
+
+.boutons-rendu {
+    display: flex;
+    justify-content: center;
+}
+
+.boutons-rendu input, .boutons-rendu a {
+    display: inline-block;
+    outline: 0;
+    cursor: pointer;
+    border: none;
+    padding: 0 56px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 7px;
+    background-color: #0e8769;
+    color: white;
+    transition: 0.2s ease,color 0.2s ease,box-shadow 0.2s ease;
+    text-transform: uppercase;
+    font-size: 16px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.boutons-rendu input:hover {
+    cursor: pointer;
+}
+
+/* cas 1.1.1 : l'équipe de l'utilisateur a déjà rendu du code */
+
+#rendus-equipe {
+    margin-top: 30px;
+}
+
+#rendus-equipe #titre-rendus-equipe {
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#rendus-equipe #liste-rendus-equipe {
+    margin-top: 0px;
+}
+
+/* cas 1.1.1.1/1.1.2.1 : l'utilisateur est le chef de son équipe */
+
+#texte-input-lien-gitlab {
+    margin-top: 20px; /* écart entre la demande de l'URL GitLab et le sous-titre "Rendu" */
+    font-size: 20px;
+    /* les trois lignes ci-dessous permettent d'aligner verticalement les conteneurs "texte URL + input" et "bouton-envoi" */ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#texte-input-lien-gitlab input {
+    margin-left: 10px; /* écart entre le texte et le "input" */
+    padding: 2px;
+    padding-left: 5px;
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 450px;
+    height: 22px;
+    font-size: 18px;
+}
+
+#message-erreur-ou-reussite p {
+    display: flex;
+    justify-content: center;
+    margin: 0px;
+    padding-top: 10px;
+    padding-bottom: 7px;
+    height: 30px;
+    font-size: 20px;
+}
+
+/* cas 1.2/2 : l'utilisateur est un étudiant non inscrit au data event ou est non connecté */
+
+#choix-projet-data {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; 
+}
+
+.projet-data {
+    border: 2px solid black;
+    border-radius: 15px;
+    width: 30%;
+    margin: 10px;
+    padding: 15px;
+    text-align: justify;
+}
+
+.titre-projet-data {
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 1px solid rgb(99, 99, 99);
+    padding-bottom: 5px;
+}
+
+/******************** seconde section ********************/
+/* podium (seulement pour les data battles) */
+
+/* conteneur général du podium */
+#podium {
+    display: flex; /* alignement horizontal des différentes places */
+    justify-content: center; 
+    align-items: flex-end; /* aligner les sous-conteneurs "place" avec le bas du conteneur "podium" */
+    padding-top: 30px;
+    padding-bottom: 30px;
+    width: 100%; /* pour que ça prenne toute la largeur de la page */
+}
+
+/* place de chaque utilisateur : colonne + rang + nom de l'équipe + score */
+#podium .place {
+    width: 125px;
+    bottom: 0px;
+    margin-right: 9px;
+    margin-left: 9px;
+}
+
+/* colonnes de score */
+#podium .place .barre-score {
+    height: 80px;
+    border-radius: 15px 15px 0px 0px; /* ordre : haut gauche, haut droit, bas droit, bas gauche */
+    margin-bottom: 10px; /* écart entre la barre de score et le rang */
+    box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.6); /* ordre : droite, bas,  */
+}
+
+/* colonnes de scores de chacune des trois premières équipes */
+#podium .place #barre-score-premier {
+    background-color: rgb(228, 195, 9);
+}
+#podium .place #barre-score-second {
+    background-color: rgb(192, 192, 192);
+}
+#podium .place #barre-score-troisieme {
+    background-color: rgb(205, 127, 50);
+}
+
+/* textes associés aux utilisateurs du podium : rang = nom de l'équipe + score */
+#podium .place .infos-score {
+    text-align: center;
+    height: 150px;
+}
+
+/* rang : 1er, 2ème ou 3ème */
+#podium .place .infos-score .rang {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+/* couleurs du rang pour chaque équipe */
+#podium .place .infos-score .rang #premier {
+    color: rgb(228, 195, 9);
+}
+#podium .place .infos-score .rang #second {
+    color: rgb(192, 192, 192);
+}
+#podium .place .infos-score .rang #troisieme {
+    color: rgb(205, 127, 50);
+}
+
+/* noms des équipes */
+#podium .place .infos-score .nom-equipe {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+/* score des équipes */
+#podium .place .infos-score .score {
+    font-size: 19px;
+}
+
+/******************** troisième section ********************/
+/* questionnaire (data battle + étudiant) + bouton pour gérer l'équipe (étudiant) + synthèse des projets data pour les gestionnaires/admin */
+
+/* cas 1 : l'utilisateur est un administrateur ou un gestionnaire */
+
+/*  conteneur du bouton de gestion des équipes pour les gestionnaires */
+#conteneur-liste-equipes #bouton-gestion-equipes {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 10px;
+}
+
+/* conteneur de la liste des équipes qui participent au data event */
+#liste-equipes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* avec le "width: 30%" de la classe "equipe", permet de revenir de mettre maximum trois équipes par ligne */
+}
+
+/* conteneur des différentes équipes */
+#liste-equipes .equipe {
+    width: 30%;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 15px;
+    margin: 10px;
+    height: 150px;
+    font-size: 17px;
+}
+
+/* nom de l'équipe */
+#liste-equipes .equipe .nom-equipe {
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 1px solid rgb(99, 99, 99);
+    padding-bottom: 3px;
+    margin-bottom: 8px;
+}
+
+/* bouton pour accéder aux résultats de l'équipe */
+#liste-equipes .equipe .bouton-data-event {
+    transform: translateY(-6px);
+}
+
+/* date de dernier rendu et lien vers le dernier code de l'équipe */
+#liste-equipes .date-rendu-et-code {
+    margin-top: 12px;
+}
+
+/* boutons d'accès aux résultats de chaque équipe (prend toute la longueur de la case) */
+#liste-equipes .bouton-data-event {
+    margin-top: 12px;
+    font-size: 15px;
+}
+
+/* équipes pour lesquelles aucun code n'a pas encore été rendu */
+#liste-equipes .partie-code-non-rendu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+/* cas 2 : l'utilisateur est un étudiant inscrit au data event de la page */
+
+/*  conteneur du bouton pour accéder au profil de son équipe */
+#bouton-acces-equipe {
+    display: flex;
+    justify-content: center;
+}
+
+#questionnaire {
+    display: flex;
+    justify-content: center;
+}
+
+.question {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
+    margin: 10px;
+}
+
+.question label {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.question input {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 500px;
+    height: 30px;
+    font-size: 20px;
+    padding: 3px;
+    padding-left: 7px;
+}
+
+#bouton-envoi-questionnaire {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#bouton-envoi-questionnaire:hover button {
+    cursor: pointer;
+}
+
+#questionnaire-repondu, #questionnaire {
+    transform: translateY(-20px);
 }

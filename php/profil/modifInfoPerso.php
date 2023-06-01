@@ -133,5 +133,3 @@ header("Location: profil.php#infos");
 $mysqlClient = deconnexion();
 exit();
 ?>
-
-
