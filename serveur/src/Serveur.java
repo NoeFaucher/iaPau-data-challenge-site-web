@@ -71,7 +71,10 @@ public class Serveur {
             OutputStream outputStream = httpExchange.getResponseBody();
 
             String code = requestParamValue;
+
             String htmlResponse = (new VerificateurCodePython(code)).jsonResult();
+
+
            
             LOGGER.info(htmlResponse);
 

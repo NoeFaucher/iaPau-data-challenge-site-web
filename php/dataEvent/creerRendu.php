@@ -4,7 +4,7 @@
     session_start();
 
     if (!(isset($_GET["lien"])) || !isset($_GET["equipe"])) {
-        echo "fail";
+        echo "fail not enouth argument";
         exit(1);
     }
 
@@ -20,7 +20,7 @@
 
     // verification que l'utilisateur est bien le chef d'equipe    
     if (count($res) == 0) {
-        echo "fail";
+        echo "fail not allow";
         exit(1);
     }
 
@@ -54,7 +54,8 @@
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         // EXECUTE:
         $result = curl_exec($curl);
-        if(!$result){die("Connection Failure");}
+
+        if(empty($result)){die("Connection Failure");}
         curl_close($curl);
         return $result;
     }
@@ -64,7 +65,7 @@
 
     // "https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py";
     if (preg_match("\s*",$link_to_code)) {
-        echo "fail";
+        echo "fail lien vide";
         exit(1);
     }
 
@@ -73,7 +74,7 @@
 
 
     if (strpos($src_code, "404: Not Found") !== false) {
-        echo "fail";
+        echo "fail lien invalide";
         exit(1);
     }
 
@@ -90,5 +91,5 @@
     setFromRequest($cnx,$req);
     $cnx = deconnexion();
     
-    echo "sucess";
+    echo "success";
 ?>

@@ -1,16 +1,14 @@
 <?php
 
-    include("bdd.php");
-    include("verification.php");
+    session_start();
+    include("../bdd.php");
+    include("../verification.php");
+    
+    $objet = ($_GET["objet"]);
+    $contenu = ($_GET["contenu"]);
+    $destinataires = json_decode(urldecode($_GET["destinataires"]));
+    $envoyeur = $_SESSION["idUtilisateur"];
 
-    $referer = $_SERVER['HTTP_REFERER'];
-
-    // $objet = valid($_POST["objet"]);
-    // $contenu = valid($_POST["contenu"]);
-    $objet = ($_POST["objet"]);
-    $contenu = ($_POST["contenu"]);
-    $destinataires = json_decode($_POST["destinataires"]);
-    $envoyeur = 2;
 
     if ($destinataires !== [] && $destinataires != null) {
         $req = "insert into Message (dateEnvoi,objet,contenu,idEnvoyeur) values
@@ -33,10 +31,9 @@
     
         $cnx = deconnexion();
 
-        header("Location: $referer");
+        echo "success";
     }else {
-
-        header("Location: $referer");
+        echo "destvide";
     }
 
 ?>

@@ -5,3 +5,5 @@
 php/bddData.php
 
 *.class
+
+serveur/dist/*

@@ -1,68 +1,23 @@
-    <?php
-        $curent_user = 2;
+   <?php
+        $curent_user = $_SESSION["idUtilisateur "];
     ?>
-    <meta>
-        <link rel="stylesheet" href="/css/messagerie.css">
-    </meta>
 
     <script src="/js/messagerie.js"></script>
 
-    <div class="message-conteneur">
 
-        <?php
-            include("bdd.php");
+    <div id="selecteur-vision" >
+        <label for="selecteur-vision">Selectionnez votre messagerie :</label>
+        <select name="selecteur-vision" id="select-selecteur-vision" onchange="recuperationDestinataire();recuperationMessage()">
 
-            $req = "select * from Message inner join Utilisateur on idEnvoyeur = idUtilisateur order by dateEnvoi DESC ";
-
-            $cnx = connexion($serveur,$bdd,$user,$pass);
-
-            $tab = getAllFromRequest($cnx,$req);
-
-
-
-            foreach($tab as $msg) {
-
-                // Recupération nom envoyeur 
-                    
-                $nomEnvoyeur = $msg["nom"] ." ". $msg["prenom"];
-                
-                $req = "select * from MessageDestinataire inner join Utilisateur on idUtilisateur = idDestinataire where idMessage = ".$msg["idMessage"].";";
-
-                $rowsReceveur = getAllFromRequest($cnx,$req);
-                $numrow = count($rowsReceveur);
-                
-                $receveurs = ""; 
-                for($i=0;$i<$numrow;$i++) {
-                    $receveur = $rowsReceveur[$i];
-                    $nomReceveur = $receveur["nom"]." ".$receveur["prenom"];
-                    $receveurs = $receveurs.$nomReceveur;
-                    if ($i!= $numrow-1){
-                        $receveurs = $receveurs.", ";
-                    }
-                }
-
-
-
-                echo "
-                        <div class='message'>
-                            <p class='envoyeur' ><span>De: </span>".$nomEnvoyeur." <span>à</span> ".$receveurs."</p>
-                            <p class='objet' ><span>Objet:</span> ".$msg["objet"]."</p>
-                            <p class='date' >".$msg["dateEnvoi"]."</p>
-                            <p class='contenu' >".$msg["contenu"]."</p>
-                        </div>
-
-
-                ";
-
-            }
-
-        ?>
-
-
+            <option value="1">GROUPE 1</option>
+        </select>
+    </div>
+    <!-- div qui contient les messages -->
+    <div class="message-conteneur" id="message-conteneur">
     </div>
     
-   
-    <form action="envoiMessage.php" method="post">
+    <!-- Formulaire d'evoie des messages -->
+    <form id="messagerie-form" action="envoiMessage.php" method="post">
 
         <label for="objet">Objet:</label>
         <input type="text" name="objet" id="in-objet" required>
@@ -72,27 +27,7 @@
         <div class="gestion-destinataire">
             <input type="text" id="input-current-destinataire" name="list-destinataire" list="destinataires-list" autocomplete="on" >
             <datalist id="destinataires-list">
-                <?php
-
-                    $req = "select nom,prenom,idUtilisateur from Utilisateur;";
-
-
-
-
-
-                    // $numrow = mysqli_num_rows($result);
-                    $tab = getAllFromRequest($cnx,$req);
-
-
-                    foreach($tab as $util) {
-                        $nom_prenom = $util["nom"].' '.$util["prenom"];
-                        $idDestinataire = $util['idUtilisateur'];
-                        echo '<option value="'.$nom_prenom.'" data-id="'.$idDestinataire.'">'.$nom_prenom.'</option>;';
-                    }
-                    
-                
-                    $cnx = deconnexion();
-                ?>
+            
             </datalist>
             <input type="button" value="Ajouter destinataire" onclick="ajouterDestinataire()">
             <p>
@@ -106,25 +41,14 @@
 
         </div>
 
-        
-
-
-
+    
         <label for="contenu">Message:</label>
         <textarea name="contenu" id="input-message" cols="30" rows="10"></textarea>
-        <input type="submit" value="Envoyer">
+        <input type="button" onclick="envoyerMessage()" value="Envoyer">
+        
+        <p id="retour-sur-envoi-mess"></p>
 
     </form>
 
 
-
     
-    <!-- <?php
-        if(isset($_GET["send"])){
-            if ($_GET["send"] == "true") {
-                echo "message envoyé";
-            }else {
-                echo "problème dans l'envoie du message";
-            }
-        }
-    ?> -->

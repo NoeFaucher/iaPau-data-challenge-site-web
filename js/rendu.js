@@ -155,7 +155,8 @@ const envoyerCode = (element,equipe) => {
     .then(response => response.text())
     .then(result => {
         let pEnvoi = document.getElementById("retour-sur-envoi");
-        if (result === "sucess") {
+
+        if (result === "success") {
             pEnvoi.innerHTML = "Le rendu a bien été envoyé.";
             pEnvoi.style.color = "green";
 

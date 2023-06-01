@@ -118,7 +118,7 @@ INSERT INTO ProjetData (idDataEvent, titreProjetData, descriptProjet, idImage) V
 - une équipe ne peut être liée qu'à un seul projet data à la fois (pour le cas ci-dessus : l'utilisateur est dans différentes équipes)
 */
 INSERT INTO Equipe (nomEquipe, idProjetData, idChefEquipe) VALUES
-    ("Les Faucons Électriques", 7, 7),
+    ("Les Faucons Électriques", 1, 1),
     ("Les Vagues Mystiques", 7, 1),
     ("Les Tigres d'Argent", 13, 11),
     ("Les Éclairs Lunaires", 13, 20),
@@ -144,10 +144,10 @@ INSERT INTO Equipe (nomEquipe, idProjetData, idChefEquipe) VALUES
 -- note : pas d'attribut idProjetData car chaque équipe ne peut participer qu'à un projet data + Equipe et ProjetData liés
 INSERT INTO Rendu (dateRendu, idEquipe, lienRendu, resultatJson)
 VALUES
-    ('2022-06-08', 1,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 49,"nbFonction" : 5,"nbLigneMinFonction" : 5,"nbLigneMaxFonction" : 12,"nbLigneMoyenFonction" : 8.2}'),
-    ('2022-07-23', 1,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 40,"nbFonction" : 3,"nbLigneMinFonction" : 8,"nbLigneMaxFonction" : 10,"nbLigneMoyenFonction" : 9.2}'),
+    ('2022-06-08', 7,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 49,"nbFonction" : 5,"nbLigneMinFonction" : 5,"nbLigneMaxFonction" : 12,"nbLigneMoyenFonction" : 8.2}'),
+    ('2022-07-23', 7,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 40,"nbFonction" : 3,"nbLigneMinFonction" : 8,"nbLigneMaxFonction" : 10,"nbLigneMoyenFonction" : 9.2}'),
     ('2022-08-18', 3,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 49,"nbFonction" : 5,"nbLigneMinFonction" : 5,"nbLigneMaxFonction" : 2,"nbLigneMoyenFonction" : 10.2}'),
-    ('2022-09-12', 1,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 70,"nbFonction" : 10,"nbLigneMinFonction" : 9,"nbLigneMaxFonction" : 18,"nbLigneMoyenFonction" : 14.2}'),
+    ('2022-09-12', 7,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 70,"nbFonction" : 10,"nbLigneMinFonction" : 9,"nbLigneMaxFonction" : 18,"nbLigneMoyenFonction" : 14.2}'),
     ('2022-10-08', 5,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 49,"nbFonction" : 5,"nbLigneMinFonction" : 5,"nbLigneMaxFonction" : 2,"nbLigneMoyenFonction" : 4.2}'),
     ('2022-11-22', 6,"https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py", '{"nbLigne" : 49,"nbFonction" : 5,"nbLigneMinFonction" : 5,"nbLigneMaxFonction" : 2,"nbLigneMoyenFonction" : 4.2}');
 

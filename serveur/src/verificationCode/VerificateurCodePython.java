@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.regex.*;
 
 
+
 public class VerificateurCodePython implements VerificateurCode{
     private String strCode;
 
@@ -20,9 +21,12 @@ public class VerificateurCodePython implements VerificateurCode{
      * @param strCode code source python
      */    
     public VerificateurCodePython(String strCode) {
+
         this.strCode = strCode;
 
-        for (String ligne : this.strCode.split("\n")) {
+        String[] tempslignes = this.strCode.split("\n"); 
+
+        for (String ligne : tempslignes) {
             if (estValideLigne(ligne)) {
                 String ligneSansCommentaire = ligne.replaceAll("#.*","");
                 String ligneSansCommentaireSansTab = ligneSansCommentaire.replaceAll("\t"," ");
@@ -79,13 +83,13 @@ public class VerificateurCodePython implements VerificateurCode{
                 fonction.add(lignes.get(index));
                 index++;
 
+                if (index == nbLigne) break;
+
                 nombreIndentLigne = lignes.get(index).replaceAll("\\b\\S.*","").length();
             }while (nombreIndentFonction <= nombreIndentLigne);
 
             fonctions.add(fonction);
         }
-
-
     }
 
     
@@ -148,6 +152,7 @@ public class VerificateurCodePython implements VerificateurCode{
     }
 
     public String jsonResult() {
+        System.out.println("test");
         return toString();
     }
 
