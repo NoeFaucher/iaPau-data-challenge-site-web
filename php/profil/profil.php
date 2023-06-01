@@ -185,6 +185,7 @@
                     <label>Conseils :</label><br>
                     <input type="text" name="conseils">
 
+                    <label>Choix du gestionnaire :</label>
                     <input type='text' list='destinataires-list' class='searchInp' name="gestionnaire" placeholder='Recherche rapide' require>
                     <datalist id='destinataires-list' class='dataL'>
                         <?php
@@ -398,17 +399,22 @@
             </div>
         </div>
 
+        <!-- Nouveau Questionnaire -->
         <div id="new-questionnaire-gestionnaire-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('new-questionnaire-gestionnaire-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
                 <form id="form-new-questionnaire-gestionnaire" action="creeQuestionnaire.php" method="post">
                     <h1>Créer Questionnaire</h1>
+                    <label>Data battle</label><br>
+                    <input type='text' id="listUtil" list='dataBattle-list' class='searchInp' name="id_titreDataEvent" placeholder='Liste des Data Battles'>
                     <datalist id='dataBattle-list' class='dataL'>
                     <?php
                     foreach($tab4 as $util) {
-                        $nom_prenom = $util["idDataEvent"].' '.$util["nom"];
-                        $id_titre = $util['idUtilisateur'].' '.$util["titre"];
-                        echo '<option value="'.$id_titre.'">'.$id_titre.'</option>';
+                        if ($util["idGestionnaire"] === $_SESSION["idUtilisateur"]) {
+                            $id_titre = $util['idDataEvent'] . ' ' . $util["titre"];
+                            var_dump($id_titre);
+                            echo '<option value="' . $id_titre . '">' . $id_titre . '</option>';
+                        }
                     }
                     ?>
                     </datalist>
@@ -442,6 +448,8 @@
                     echo "<li><a title='Utilisateurs' href='#utilAdmin'>Utilisateurs</a></li>";
 
                     
+                } else if ($_SESSION["typeUtilisateur"] == "gestionnaire"){
+                    echo "<li><a title='Questionnaire' href='#questionnaire'>Questionnaire</a></li>";
                 }
                 ?>
                 <li><a title='Messagerie' href='#utilAdmin'>Messagerie</a></li>
@@ -589,7 +597,7 @@
                                 </a>
                             ";
                             if ($_SESSION["typeUtilisateur"] != "normal"): ?>
-                                <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idDataEvent"] ?>,"data-chall-overlay","form-modif-chall");' style='background-color: blue; margin-top:3vh;'>Modifier</button>
+                                <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idDataEvent"] ?>,"data-battle-overlay","form-modif-battle");' style='background-color: blue; margin-top:3vh;'>Modifier</button>
                             <?php endif;
                             if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>
                                 <button class='btnStyle' onclick='window.location="supDataEvent.php?idDataEvent=<?php echo $resultat[$i]["idDataEvent"] ?>";' style='background-color: red;'>supprimer</button>
@@ -608,7 +616,7 @@
 
             <!-- Partie Questionnaire pour Gestionnaire -->
             <?php if ($_SESSION["typeUtilisateur"] == "gestionnaire"): ?>
-            <div id="Questionnaire">
+            <div id="questionnaire">
                 <h1>Vos Questionnaires</h1>
                 <button class='btnStyle' onclick='openModal(0,"new-questionnaire-gestionnaire-overlay","form-new-questionnaire-gestionnaire");' style='background-color: blue;'>Creer questionnaire</button>
                 <?php

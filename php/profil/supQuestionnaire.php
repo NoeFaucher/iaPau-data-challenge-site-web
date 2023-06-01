@@ -21,7 +21,7 @@ supQuestionnaire($mysqlClient, $idQuestionnaire);
 
 $mysqlClient = deconnexion();
 
-header("Location: profil.php#Questionnaire");
+header("Location: profil.php#questionnaire");
 
 function supQuestionnaire($mysqlClient, $idQuestionnaire){
     try {
