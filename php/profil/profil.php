@@ -42,6 +42,12 @@
                 ";
 
             $tab4 = getAllFromRequest($conn, $req4);
+            
+
+            $reqDataEvent = "SELECT * from DataEvent;";
+
+            $tabDataEvent = getAllFromRequest($conn, $reqDataEvent);
+      
         ?>
 
 
@@ -108,8 +114,8 @@
                     <input type="text" name="conseils">
                     
                     <label>Choix du gestionnaire :</label>
-                    <input type='text' list='destinataires-list' name="gestionnaire" class='searchInp' placeholder='Recherche rapide' require>
-                    <datalist id='destinataires-list' class='dataL'>
+                    <input type='text' list='gestio-list' name="gestionnaire" class='searchInp' placeholder='Recherche rapide' require>
+                    <datalist id='gestio-list' class='dataL'>
                         <?php
                         foreach($tab2 as $util) {
                             $nom_prenom = $util["prenom"].' '.$util["nom"];
@@ -148,8 +154,8 @@
                     <input type="text" name="conseils">
 
                     <label>Choix du gestionnaire :</label>
-                    <input type='text' list='destinataires-list' name="gestionnaire" class='searchInp' placeholder='Recherche rapide' require>
-                    <datalist id='destinataires-list' class='dataL'>
+                    <input type='text' list='gestio-list' name="gestionnaire" class='searchInp' placeholder='Recherche rapide' require>
+                    <datalist id='gestio-list' class='dataL'>
                         <?php
                         foreach($tab2 as $util) {
                             $nom_prenom = $util["prenom"].' '.$util["nom"];
@@ -184,7 +190,7 @@
                     <input type="text" name="consignes">
                     <label>Conseils :</label><br>
                     <input type="text" name="conseils">
-
+                  
                     <label>Choix du gestionnaire :</label>
                     <input type='text' list='destinataires-list' class='searchInp' name="gestionnaire" placeholder='Recherche rapide' require>
                     <datalist id='destinataires-list' class='dataL'>
@@ -226,8 +232,8 @@
                     <input type="text" name="conseils">
 
                     <label>Choix du gestionnaire :</label>
-                    <input type='text' list='destinataires-list' name='gestionnaire' class='searchInp' placeholder='Recherche rapide' require>
-                    <datalist id='destinataires-list' class='dataL'>
+                    <input type='text' list='gestio-list' name='gestionnaire' class='searchInp' placeholder='Recherche rapide' require>
+                    <datalist id='gestio-list' class='dataL'>
                         <?php
                         foreach($tab2 as $util) {
                             $nom_prenom = $util["prenom"].' '.$util["nom"];
@@ -247,40 +253,40 @@
         <div id="projet-data-overlay" class="overlay">
             <span class="closebtn" onclick="closeModal('projet-data-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
-                <form action="newProjetData.php" method="post">
+                <form action="modifProjetData.php" id="form-modif-projet-data" method="post">
                     <h1>Modifier le Projet Data</h1>
                     <label>Titre :</label><br>
-                    <input type="text" name="titre">
+                    <input type="text" name="titreProjetData">
                     <label>Description :</label><br>
-                    <textarea name="description" style="resize:none;width: 50%; height:10vh;"></textarea>
-                    <label>Image :</label><br>
-                    <input type="text" name="entreprise">
-                    <label>Données :</label><br>
-                    <input type="text" name="donnees">
-                    <label>Consignes :</label><br>
-                    <input type="text" name="consignes">
-                    <label>Conseils :</label><br>
-                    <input type="text" name="conseils">
+                    <textarea name="descriptProjet" style="resize:none;width: 50%; height:10vh;"></textarea><br>
                     
-                    <button type="submit" style="margin-top:2vh;" class="btnStyle">créer un nouveau data challenge</button>
+                    <button type="submit" style="margin-top:2vh;" class="btnStyle">modifier le projet data</button>
                 </form>
             </div>
         </div>
 
-        <!-- Creation d'un Projet Data A FAIRE -->
-        <div id="new-data-projet-overlay" class="overlay">
-            <span class="closebtn" onclick="closeModal('new-data-projet-overlay')" title="Close Overlay">×</span>
+        <!-- Creation d'un Projet Data -->
+        <div id="new-projet-data-overlay" class="overlay">
+            <span class="closebtn" onclick="closeModal('new-projet-data-overlay')" title="Close Overlay">×</span>
             <div class="overlay-content">
-                <form action="modifDataChall.php" method="post">
+                <form action="creeProjetData.php" id="form-new-projet-data" method="post">
                     <h1>Créer un Projet Data</h1>
                     <label>Titre :</label><br>
-                    <input type="text" name="titre">
+                    <input type="text" name="titreProjetData">
                     <label>Description :</label><br>
-                    <textarea name="description" style="resize:none;width: 50%; height:10vh;"></textarea>
-                    <label>Images :</label><br>
-                    <input type="text" name="idImage">
+                    <textarea name="descriptProjet" style="resize:none;width: 50%; height:10vh;"></textarea><br>
 
-                    <button type="submit" style="margin-top:2vh;" class="btnStyle">créer un nouveau data challenge</button>
+                    <input type='text' id="listUtil2" list='event-list' class='searchInp' name="titre" placeholder='Data Challenge ou Data Battle'>
+                    <datalist id='event-list' class='dataL'>
+                    <?php
+                    foreach($tabDataEvent as $util) {
+                        $titre = $util["titre"];
+                        echo '<option value="'.$titre.'">'.$titre.'</option>';
+                    }
+                    ?>
+                    </datalist>
+
+                    <button type="submit" style="margin-top:2vh;" class="btnStyle">créer un nouveau projet data</button>
                 </form>
             </div>
         </div>
@@ -292,8 +298,8 @@
             <div class="overlay-content">
                 <form id="form-modif-util-normal" action="modifUtil.php" method="post">
                     
-                    <input type='text' id="listUtil" list='destinataires2-list' class='searchInp' name="nomUtil" placeholder='Liste des utilisateurs'>
-                    <datalist id='destinataires2-list' class='dataL'>
+                    <input type='text' id="listUtil" list='util-list' class='searchInp' name="nomUtil" placeholder='Liste des utilisateurs'>
+                    <datalist id='util-list' class='dataL'>
                         <?php
                         foreach($tab3 as $util) {
                             $nom_prenom = $util["prenom"].' '.$util["nom"];
@@ -345,8 +351,8 @@
                 <form id="form-modif-util-gestionnaire" action="modifUtil.php" method="post">
                     <h1>Modifier mes informations</h1>
 
-                    <input type='text' id="listUtil2" list='destinataires-list' class='searchInp' name="nomUtil" placeholder='Liste des gestionnaires'>
-                    <datalist id='destinataires-list' class='dataL'>
+                    <input type='text' id="listUtil2" list='gestio-list' class='searchInp' name="nomUtil" placeholder='Liste des gestionnaires'>
+                    <datalist id='gestio-list' class='dataL'>
                     <?php
                     foreach($tab2 as $util) {
                         $nom_prenom = $util["prenom"].' '.$util["nom"].' - '.$util["email"].' - '.$util["telephone"];
@@ -452,7 +458,7 @@
                     echo "<li><a title='Questionnaire' href='#questionnaire'>Questionnaire</a></li>";
                 }
                 ?>
-                <li><a title='Messagerie' href='#utilAdmin'>Messagerie</a></li>
+                <li><a title='Messagerie' href='#messagerie'>Messagerie</a></li>
             </ul>
         </div>
 
@@ -660,7 +666,7 @@
             <?php if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>
             <div id="projetdata">
                 <h1>Vos Projets Data</h1>
-                
+                <button class='btnStyle' onclick="openModal(0,'new-projet-data-overlay','form-new-projet-data');">créer un projet data</button>
 
 
                 <?php
@@ -691,7 +697,7 @@
                                 </a>
                             ";
                             if ($_SESSION["typeUtilisateur"] != "normal"): ?>
-                                <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idProjetData"] ?>,"data-chall-overlay","form-modif-chall");' style='background-color: blue; margin-top:3vh;'>Modifier</button>
+                                <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idProjetData"] ?>,"projet-data-overlay","form-modif-projet-data");' style='background-color: blue; margin-top:3vh;'>Modifier</button>
                             <?php endif;
                             if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>
                                 <button class='btnStyle' onclick='window.location="supProjetData.php?idProjetData=<?php echo $resultat[$i]["idProjetData"] ?>";' style='background-color: red;'>supprimer</button>
@@ -727,6 +733,14 @@
             
             ?>
 
+
+            <div id="messagerie">
+            <h1>Messagerie</h1>
+                <?php 
+                include "../messagerie/messagerie.php";
+
+                ?>
+            </div>
         </div>
         <script>
             function openModal(idDataEv,overlay,form) {
