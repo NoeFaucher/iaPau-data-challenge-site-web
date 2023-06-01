@@ -179,7 +179,7 @@
                     <label>Conseils :</label><br>
                     <input type="text" name="conseils">
 
-                    <input type='text' list='destinataires-list' class='searchInp' placeholder='Recherche rapide' require>
+                    <input type='text' list='destinataires-list' class='searchInp' name="gestionnaire" placeholder='Recherche rapide' require>
                     <datalist id='destinataires-list' class='dataL'>
                         <?php
                         foreach($tab2 as $util) {
