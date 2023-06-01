@@ -152,13 +152,50 @@ function modifUser($mysqlClient,$idUtilisateur,$telephone,$email,$mdp,$nivEtude,
 
 function getIdGestionnaireByNom($mysqlClient, $prenom, $nom) {
     try {
-        $sqlQuery = 'SELECT idUtilisateur FROM Utilisateur  WHERE prenom = :prenom AND nom = :nom';
+
+        $sqlQuery = 'UPDATE Utilisateur SET telephone = :telephone, email = :email, mdp = :mdp, nivEtude = :nivEtude, nom = :nom, prenom = :prenom, ecole = :ecole, ville = :ville WHERE idUtilisateur = :idUtilisateur';
+
         $updateDataEvent = $mysqlClient -> prepare($sqlQuery);
         $updateDataEvent ->execute([
+            'telephone' => $telephone,
+            'email' => $email,
+            'mdp' => $mdp,
+            'nivEtude' => $nivEtude,
+            'nom' => $nom,
+            'prenom' => $prenom,
+            'ecole' => $ecole,
+            'ville' => $ville,
+            'idUtilisateur' => $idUtilisateur,
+        ]);
+    } catch (Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+}
+
+function getIdUtilisateurByNom($mysqlClient, $prenom, $nom) {
+    try {
+        $sqlQuery = 'SELECT idUtilisateur FROM Utilisateur  WHERE prenom = :prenom AND nom = :nom';
+        $idUtilisateur = $mysqlClient -> prepare($sqlQuery);
+        $idUtilisateur ->execute([
             'prenom' => $prenom,
             'nom' => $nom,
         ]);
-        $tableau = $updateDataEvent->fetchAll();
+        $tableau = $idUtilisateur->fetchAll();
+        return $tableau[0];
+    } catch (Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+}
+
+
+function getTypeDataEventById($mysqlClient,$idDataEvent) {
+    try {
+        $sqlQuery = 'SELECT typeDataEvent FROM DataEvent WHERE  idDataEvent = :idDataEvent';
+        $idTypeDataEvent = $mysqlClient -> prepare($sqlQuery);
+        $idTypeDataEvent -> execute([
+            'idDataEvent' => $idDataEvent,
+        ]);
+        $tableau = $idTypeDataEvent->fetchAll();
         return $tableau[0];
     } catch (Exception $e) {
         die('Erreur : ' . $e->getMessage());
