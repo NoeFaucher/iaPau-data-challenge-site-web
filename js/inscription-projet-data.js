@@ -98,14 +98,60 @@ function supprimerEtudiant(div) {
     return(null);
 }
 
-// alerte si moins de 3 étudiants en tout
-function verifierEquipe(event) {
-    // Sélectionne la liste des étudiants ajoutés à l'équipe
-    var nombreEtudiants = document.getElementById('etudiants-ajoutes').childNodes.length;
+// vérification du nom de l'équipe : alerte si une équipe avec le même nom existe déjà
+function validerNomEquipe() {
+    var nomEquipe = $('#nom-equipe-input').val().trim();
+    if (nomEquipe == "") {
+        messageErreurCouleurNomEquipe(1, "Vous ne pouvez pas choisir un nom d'équipe vide !")
+        return(null);
+    }
+    $.ajax({
+        url: 'verification-nom-equipe.php',
+        method: 'POST',
+        data: { nomEquipe: nomEquipe },
+        success: function(response) {
+            messageErreurCouleurNomEquipe((response === 'existe'), "Une autre équipe possède déjà ce nom !")
+            return(null);
+        },
+        error: function() {
+            alert("Une erreur s'est produite lors de la vérification. Veuillez réessayer plus tard. Si le problème persiste, contactez un gestionnaire ou l'administrateur.");
+            return(null);
+        }
+    });
+}
 
-    // Vérifie s'il y a moins de deux étudiants dans l'équipe
+// fonction annexe à la fonction validerNomEquipe, affichage du message d'erreur et mise de la couleur sur le "input"
+// bool = 1 : erreur, bool = 0 : pas d'erreur
+function messageErreurCouleurNomEquipe(bool, message) {
+    var input = document.getElementById('nom-equipe-input');
+    var messageErreur = document.getElementById('texte-erreur-nom-equipe');
+    if (bool) {
+        input.style.border = "2px solid red";
+        messageErreur.textContent = message;
+        messageErreur.style.color = "red";
+    }
+    else {
+        input.style.border = "2px solid green";
+        messageErreur.textContent = "Nom d'équipe valide.";
+        messageErreur.style.color = "green";
+    }
+}
+
+// alerte si moins de 3 étudiants en tout ou si le nom de l'équipe existe déjà
+function verifierEquipe(event) {
+
+    // vérifie s'il n'y a pas de message d'erreur pour le nom de l'équipe
+    var messageErreur = document.getElementById('texte-erreur-nom-equipe').textContent;
+    if (messageErreur !== "Nom d'équipe valide.") {
+        alert("Le nom de votre équipe n'est pas correct !");
+        event.preventDefault();
+    }
+
+    // vérifie s'il y a moins de deux étudiants dans l'équipe
+    var nombreEtudiants = document.getElementById('etudiants-ajoutes').childNodes.length;
     if (nombreEtudiants < 2) {
         alert("Vous devez ajouter au moins deux étudiants à votre équipe !");
         event.preventDefault();
     }
+
 }

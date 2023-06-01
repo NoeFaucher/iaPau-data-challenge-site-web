@@ -40,6 +40,7 @@ main .bouton-data-event a, main .bouton-data-event button {
     color: white;
     transition: 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
     text-transform: uppercase;
+    margin-bottom: 10px;
 }
 
 main .bouton-data-event a:hover, main .bouton-data-event button:hover {

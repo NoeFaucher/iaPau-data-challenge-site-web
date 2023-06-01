@@ -12,9 +12,9 @@
         <title>IA PAU</title>
         <link rel="stylesheet" type="text/css" href="../../css/general-data-event.css" />
         <link rel="stylesheet" type="text/css" href="../../css/header.css" />
-        <link rel="stylesheet" type="text/css" href="../../css/footer.css" />
         <link rel="stylesheet" type="text/css" href="../../css/inscription-projet-data.css" />
-        <script src="../../js/inscription-projet-data.js"></script>
+            <script src="../../js/inscription-projet-data.js"></script>
+            <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
     </head>
     <body>
         <?php 
@@ -45,12 +45,13 @@
                     <p class='italique'>".$resultatProjetData["descriptProjet"]."</p>
                     <p>Pour cela, vous devez soit être ajouté par un chef d'équipe lors de son inscription à un projet data, soit créer un nouvelle équipe ci-dessous.</p>
                     <form method='POST' id='formulaire-equipe' action='creer-equipe.php' onsubmit='verifierEquipe(event)'>
-                        <div class='question'>
+                        <div class='champ'>
                             <label for='nom-equipe'>Entrez le nom de l'équipe que vous voulez créer :</label>
-                            <input type='text' name='nom_equipe' placeholder='Nom de votre équipe...' required>
+                            <input type='text' id='nom-equipe-input' name='nom_equipe' placeholder='Nom de votre équipe...' oninput='validerNomEquipe()' required>
+                            <p id='texte-erreur-nom-equipe'></p>
                         </div>
-                        <div class='question' id='ajout-etudiants'>
-                        <label for='membres-equipes'>Invitez des étudiants à rejoindre votre équipe (min. 2 personnes, max. 7 personnes) :</label>
+                        <div class='champ' id='ajout-etudiants'>
+                            <label for='membres-equipes'>Invitez des étudiants à rejoindre votre équipe (min. 2 personnes, max. 7 personnes) :</label>
                             <input type='text' id='nouveau-membre-equipe' name='membres_equipes' list='datalist-etudiants' placeholder=\"Nom de l'étudiant...\">
                             <datalist id='datalist-etudiants'>";
 

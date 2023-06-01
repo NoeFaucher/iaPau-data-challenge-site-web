@@ -1,27 +1,32 @@
+/* titre de la page ("créer une équipe") */
 #inscription-projet-data h1 {
     color: black;
     font-family: "Montserrat", sans-serif;
     font-size: 40px;
 }
 
+/* paragraphes de la page */
 #inscription-projet-data p {
     font-size: 20px;
 }
 
-.question {
+/* conteneur : label + input + datalist (éventuellement) */
+.champ {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin: 10px;
+    margin-top: 5px;
 }
 
-.question label {
+/* labels de saisie du nom de l'équipe + des noms des étudiants à ajouter */
+.champ label {
     font-size: 20px;
-    margin: 20px;
+    margin-bottom: 10px;
 }
 
-.question input {
+/* inputs de saisie du nom de l'équipe + des noms des étudiants à ajouter */
+.champ input {
     border: 2px solid black;
     border-radius: 10px;
     width: 500px;
@@ -31,6 +36,7 @@
     padding-left: 7px;
 }
 
+/* conteneur général de tous les étudiants ajoutés */
 #etudiants-ajoutes {
     display: flex;
     justify-content: center;
@@ -39,6 +45,7 @@
     margin-top: 15px;
 }
 
+/* conteneur individuel des étudiants ajoutés (un conteneur par étudiant) */
 .etudiant-ajoute {
     padding: 10px;
     margin: 5px;
@@ -48,17 +55,23 @@
     color: rgb(56, 136, 106);
 }
 
+/* curseur en forme de croix quand on survole un étudiant, pour le supprimer */
 .etudiant-ajoute:hover {
     cursor: url("../img/Cross.cur"), auto;
 }
 
-#bouton-envoi-inscription-projet-data {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
+/* bouton d'ajout des étudiants */
 #bouton-ajout-etudiant button {
     margin-top: 10px;
+}
+
+/* bouton d'envoi du formulaire */
+#bouton-envoi-inscription-projet-data button {
     font-size: 17px;
+}
+
+/* texte d'erreur (ou de validation) pour le nom de l'équipe */
+#texte-erreur-nom-equipe {
+    margin: 10px 0px 10px 0px;
+    height: 20px;
 }

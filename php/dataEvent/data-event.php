@@ -98,12 +98,6 @@ Récapitulatif :
         <title>IA PAU</title>
         <link rel="stylesheet" type="text/css" href="/css/general-data-event.css" />
         <link rel="stylesheet" type="text/css" href="/css/header.css" />
-        <link rel="stylesheet" type="text/css" href="/css/footer.css" />
-        <!--
-        <link rel="stylesheet" type="text/css" href="/css/podium.css" />
-        <link rel="stylesheet" type="text/css" href="/css/description-data.css" />
-        <link rel="stylesheet" type="text/css" href="/css/partie-equipe.css" />
-        -->
         <link rel="stylesheet" type="text/css" href="/css/data-event.css" />
         <script src="../../js/rendu.js"></script>
     </head>
@@ -130,7 +124,7 @@ Récapitulatif :
                 <div id='presentation-data-challenge'>
                     <h3>".$resultatDataEvent["titre"]."</h3>
                     <div id='infos-data-challenge'>
-                        <span>Organisé par ".$resultatDataEvent["entreprise"]." - Du ".$resultatDataEvent["dateDebut"]." au ".$resultatDataEvent["dateFIN"]."</span>
+                        <span>Organisé par ".$resultatDataEvent["entreprise"]." - Du ".$resultatDataEvent["dateDebut"]." au ".$resultatDataEvent["dateFin"]."</span>
                     </div>
                     <p class='paragraphe-presentation'>".$resultatDataEvent["descript"]."</p>";
 
@@ -161,11 +155,68 @@ Récapitulatif :
                     // cas 1.1 : l'utilisateur est inscrit à l'évènement OU il est gestionnaire/admin
                     if ((isset($_SESSION["inscrit"])) && (($_SESSION["inscrit"]) == true)) {
 
+                        // connexion à la base de données
+                        $conn = connexion($serveur, $bdd, $user, $pass);
+
+                        // récupération du projet data auquel est inscrit l'équipe de l'utilisateur
+                        $requeteIdProjetData = "SELECT idProjetData FROM Equipe WHERE idEquipe=".$_SESSION["idEquipeUtilisateurPage"].";";
+                        $idProjetDataEquipeUtilisateur = getAllFromRequest($conn, $requeteIdProjetData)[0]["idProjetData"];
+                        
+                        // récupération des informations liées à ce projet data
+                        $requeteInfosProjetData = "SELECT * FROM ProjetData WHERE idProjetData=".$idProjetDataEquipeUtilisateur.";";
+                        $resultatInfosProjetData = getAllFromRequest($conn, $requeteInfosProjetData)[0];
+
+                        // récupération des contacts liés au projet data
+                        $requeteContacts = "SELECT * FROM Contact WHERE idProjetData=".$idProjetDataEquipeUtilisateur.";";
+                        $resultatContacts = getAllFromRequest($conn, $requeteContacts);
+
+                        // déconnexion de la base de données
+                        $conn = deconnexion();
+
+                        // affichage du projet data sélectionné
+                        echo "
+                        <div class='sous-titre-evenement'>
+                            <span>Projet data choisi - \"".$resultatInfosProjetData["titreProjetData"]."\"</span>
+                        </div>
+                        <p class='paragraphe-presentation'>Pour rappel, vous vous êtes inscrit au projet data suivant :</p>
+                        <p class='paragraphe-presentation italique'>".$resultatInfosProjetData["descriptProjet"]."</p>";
+
+                        // affichage des contacts liés au projet data
+                        if (!empty($resultatContacts)) {
+
+                            echo "
+                            <div class='sous-titre-evenement'>
+                                <span>Contacts</span>
+                            </div>
+                            <p class='paragraphe-presentation'>En cas de doute, vous pouvez contacter l'une des personnes ci-dessous par mail ou par téléphone :</p>
+                            <div id='div-table-contacts'>
+                                <table id='table-contacts'>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Email</th>
+                                        <th>Numéro de téléphone</th>
+                                    </tr>";
+                            foreach ($resultatContacts as $contact) {
+                                echo "
+                                <tr>
+                                    <td>".$contact["prenom"]." ".$contact["nom"]."</td>
+                                    <td>".$contact["email"]."</td>
+                                    <td>".$contact["telephone"]."</td>
+                                </tr>";
+                            }
+                            echo "
+                                </table>
+                            </div>";
+                        }
+                       
+
+
                         echo "
                         <div class='sous-titre-evenement'>
                             <span>Rendus</span>
                         </div>
                         <p class='paragraphe-presentation'>Une fois votre travail terminé, vous pouvez rendre ci-dessous un lien vers un fichier RAW (archive Gitlab ou GitHub). Votre code sera alors analysé et vous pourrez immédiatement consulter vos résultats. Notez que tout rendu est définitif et ne peut pas être annulé.</p>";
+
 
                         // cas 1.1.1 : l'équipe de l'utilisateur a déjà rendu quelque chose
                         // input du lien avec son lien + message de traitement de code ok + boutons "afficher mes résultats" et "consulter mon code"
@@ -284,7 +335,7 @@ Récapitulatif :
 
                             echo "
                             <div class='sous-titre-evenement'>
-                                <span>Projet data associé - ".$resultatProjetsData[0]["titreProjetData"]."</span>
+                                <span>Projet data associé - \"".$resultatProjetsData[0]["titreProjetData"]."\"</span>
                             </div>
                             <p class='paragraphe-presentation'>".$resultatProjetsData[0]["descriptProjet"]."</p>";
 
@@ -324,9 +375,7 @@ Récapitulatif :
                             </div>";
 
                         }
-
                     }
-
                 }
 
                 // cas 2 : l'utilisateur n'est pas connecté
@@ -597,13 +646,14 @@ Récapitulatif :
                                 // récupération du dernier rendu
                                 $dernierLienRendu = end($tableauRendusEquipe)["lienRendu"];
                                 $derniereDateRendu = end($tableauRendusEquipe)["dateRendu"];
+                                $titreProjetData = end($tableauRendusEquipe)["titreProjetData"];
 
                                 // raccourcissement éventuel du lien rendu
                                 $longueurMaximale = 40;
 
                                 if (strlen($dernierLienRendu) > $longueurMaximale) {
                                     $texteLienFinal = substr($dernierLienRendu, 0, $longueurMaximale)."...";
-                                } 
+                                }
                                 else {
                                     $texteLienFinal = $dernierLienRendu;
                                 }
@@ -611,9 +661,8 @@ Récapitulatif :
                                 // affichage du rendu
                                 echo "
                                 <div class='date-rendu-et-code'>
+                                    <p>Projet data choisi : ".$titreProjetData."</p>
                                     <span>Date du dernier rendu : ".$derniereDateRendu."</span>
-                                </div>
-                                <div class='date-rendu-et-code'>
                                     <p>Lien du dernier code : <a href='".$dernierLienRendu."'>".$texteLienFinal."</a></p>
                                 </div>
                                 <div class='bouton-data-event'>
@@ -625,6 +674,7 @@ Récapitulatif :
                             // aucune archive n'a été rendue
                             else {
                                 echo "
+                                <p>Projet data choisi : ".$titreProjetData."</p>
                                 <div class='partie-code-non-rendu'>
                                     <p>Aucun code n'a encore été rendu par cette équipe.</p>
                                 </div>";
@@ -645,7 +695,7 @@ Récapitulatif :
 
                         // texte à afficher en fonction du statut de l'utilisateur (chef d'équipe ou non)
                         if (isset($_SESSION["chefEquipe"]) && ($_SESSION["chefEquipe"] == true)) {
-                            $textePartieEquipe = "Si vous désirez accéder au profil de votre équipe, cliquez ci-dessous. Vous pourrez non seulement accéder à la liste de vos coéquipiers et à la messagerie mais, en tant que chef d'équipe, vous pourrez également gérer les membres (ajout ou suppression) et contacter les gestionnaires.";
+                            $textePartieEquipe = "Si vous désirez accéder au profil de votre équipe, cliquez ci-dessous. Vous pourrez non seulement accéder à la liste de vos coéquipiers et à la messagerie mais, en tant que chef d'équipe, vous pourrez également gérer les membres (ajout ou suppression).";
                         }
                         else if (isset($_SESSION["chefEquipe"]) && ($_SESSION["chefEquipe"] == false)) {
                             $textePartieEquipe = "Si vous désirez accéder au profil de votre équipe, cliquez ci-dessous. Vous pourrez alors accéder à la liste de vos coéquipiers et à la messagerie.";
