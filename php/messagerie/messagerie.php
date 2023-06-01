@@ -20,12 +20,12 @@
     <form id="messagerie-form" action="envoiMessage.php" method="post">
 
         <label for="objet">Objet:</label>
-        <input type="text" name="objet" id="in-objet" required>
+        <input type="text" name="objet" id="in-objet" required style="width:60%;> 
 
         <label for="list-destinataire">Destinataires:</label>
 
         <div class="gestion-destinataire">
-            <input type="text" id="input-current-destinataire" name="list-destinataire" list="destinataires-list" autocomplete="on" >
+            <input type="text" id="input-current-destinataire" name="list-destinataire" list="destinataires-list" autocomplete="on" style="width:60%;">
             <datalist id="destinataires-list">
             
             </datalist>
@@ -43,7 +43,7 @@
 
     
         <label for="contenu">Message:</label>
-        <textarea name="contenu" id="input-message" cols="30" rows="10"></textarea>
+        <textarea name="contenu" id="input-message" cols="30" rows="10" style="resize:none"></textarea>
         <input type="button" onclick="envoyerMessage()" value="Envoyer">
         
         <p id="retour-sur-envoi-mess"></p>

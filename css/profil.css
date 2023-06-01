@@ -133,7 +133,7 @@ li:hover a{
     color: #0E8769;
   }
   
-  form{
+form{
     text-align: left;
     margin-top: 10vh;
     margin-bottom: 10vh;
@@ -191,4 +191,5 @@ label{
     border-left: 2px solid #0e8769;  
     margin-bottom: 12px; 
   }
+  
   
