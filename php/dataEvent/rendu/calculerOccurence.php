@@ -21,7 +21,7 @@
         exit(1);
     }
 
-    $link_to_code = "https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py";
+    // $link_to_code = "https://raw.githubusercontent.com/NoeFaucher/Simulation-Variable-Aleatoire/master/exo1.py";
 
     $cnx = connexion($serveur,$bdd,$user,$pass);
 

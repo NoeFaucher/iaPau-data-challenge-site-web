@@ -29,7 +29,7 @@
                 IA Pau organise des Data Challenges avec les entreprises partenaires pour amener les meilleurs étudiants de la francophonie à travailler sur des projets concrets liés à leurs données. Les Data Challenges permettent d'explorer des ensembles de données réels, appliquer des techniques avancées d'analyse et de modélisation, et collaborer avec des professionnels. C'est une occasion unique de mettre en pratique vos connaissances et de développer de nouvelles compétences tout en travaillant sur des problèmes concrets.
                 </p>
                 <br>
-                <a href="/php/liste-data-events.php?typeDataEvent=challenge" id="btnDataChall">nos data challenges</a>
+                <a href="/php/dataEvent/liste-data-events.php?typeDataEvent=challenge" id="btnDataChall">nos data challenges</a>
                 <?php if($_SESSION["estConnecte"]) : ?>
                     <a href="/php/connexion/deconnexion.php" id="btnDataChall">Déconnexion</a>
                 <?php else: ?>
