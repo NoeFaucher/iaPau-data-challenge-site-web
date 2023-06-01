@@ -104,8 +104,9 @@ create table Contact (
 
 create table Questionnaire (
     idQuestionnaire INTEGER primary key unique not null auto_increment,
-    descriptQuestionnaire TEXT,
+    titre TEXT,
     idDataEvent INTEGER,
+    dateCreation DATETIME,
     foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent) ON DELETE CASCADE
 );
 

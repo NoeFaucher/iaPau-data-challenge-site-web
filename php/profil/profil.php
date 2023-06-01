@@ -35,11 +35,19 @@
 
             $tab3 = getAllFromRequest($conn, $req3);
 
+            $req4 =
+                "SELECT *
+                FROM DataEvent 
+                WHERE typeDataEvent = 'DataBattle';
+                ";
+
+            $tab4 = getAllFromRequest($conn, $req4);
             
 
             $reqDataEvent = "SELECT * from DataEvent;";
 
             $tabDataEvent = getAllFromRequest($conn, $reqDataEvent);
+      
         ?>
 
 
@@ -182,9 +190,10 @@
                     <input type="text" name="consignes">
                     <label>Conseils :</label><br>
                     <input type="text" name="conseils">
-
-                    <input type='text' list='gestio-list' class='searchInp' name="gestionnaire" placeholder='Recherche rapide' require>
-                    <datalist id='gestio-list' class='dataL'>
+                  
+                    <label>Choix du gestionnaire :</label>
+                    <input type='text' list='destinataires-list' class='searchInp' name="gestionnaire" placeholder='Recherche rapide' require>
+                    <datalist id='destinataires-list' class='dataL'>
                         <?php
                         foreach($tab2 as $util) {
                             $nom_prenom = $util["prenom"].' '.$util["nom"];
@@ -396,6 +405,42 @@
             </div>
         </div>
 
+        <!-- Nouveau Questionnaire -->
+        <div id="new-questionnaire-gestionnaire-overlay" class="overlay">
+            <span class="closebtn" onclick="closeModal('new-questionnaire-gestionnaire-overlay')" title="Close Overlay">×</span>
+            <div class="overlay-content">
+                <form id="form-new-questionnaire-gestionnaire" action="creeQuestionnaire.php" method="post">
+                    <h1>Créer Questionnaire</h1>
+                    <label>Data battle</label><br>
+                    <input type='text' id="listUtil" list='dataBattle-list' class='searchInp' name="id_titreDataEvent" placeholder='Liste des Data Battles'>
+                    <datalist id='dataBattle-list' class='dataL'>
+                    <?php
+                    foreach($tab4 as $util) {
+                        if ($util["idGestionnaire"] === $_SESSION["idUtilisateur"]) {
+                            $id_titre = $util['idDataEvent'] . ' ' . $util["titre"];
+                            var_dump($id_titre);
+                            echo '<option value="' . $id_titre . '">' . $id_titre . '</option>';
+                        }
+                    }
+                    ?>
+                    </datalist>
+                    <label>Titre</label><br>
+                    <input type="text" name="titre">
+                    <label>Question 1: </label><br>
+                    <input type="text" name="q1">
+                    <label>Question 2: </label><br>
+                    <input type="text" name="q2">
+                    <label>Question 3: </label><br>
+                    <input type="text" name="q3">
+                    <label>Question 4: </label><br>
+                    <input type="text" name="q4">
+                    <label>Question 5 (Optionniel) : </label><br>
+                    <input type="text" name="q5">
+
+                    <button type="submit" style="margin-top:2vh;" class="btnStyle">Soumettre le questionnaire</button>
+                </form>
+            </div>
+        </div>
 
         <div class="left-menu">
             <ul>
@@ -409,6 +454,8 @@
                     echo "<li><a title='Utilisateurs' href='#utilAdmin'>Utilisateurs</a></li>";
 
                     
+                } else if ($_SESSION["typeUtilisateur"] == "gestionnaire"){
+                    echo "<li><a title='Questionnaire' href='#questionnaire'>Questionnaire</a></li>";
                 }
                 ?>
                 <li><a title='Messagerie' href='#messagerie'>Messagerie</a></li>
@@ -556,7 +603,7 @@
                                 </a>
                             ";
                             if ($_SESSION["typeUtilisateur"] != "normal"): ?>
-                                <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idDataEvent"] ?>,"data-chall-overlay","form-modif-chall");' style='background-color: blue; margin-top:3vh;'>Modifier</button>
+                                <button class='btnStyle' onclick='openModal(<?php echo $resultat[$i]["idDataEvent"] ?>,"data-battle-overlay","form-modif-battle");' style='background-color: blue; margin-top:3vh;'>Modifier</button>
                             <?php endif;
                             if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>
                                 <button class='btnStyle' onclick='window.location="supDataEvent.php?idDataEvent=<?php echo $resultat[$i]["idDataEvent"] ?>";' style='background-color: red;'>supprimer</button>
@@ -571,6 +618,49 @@
                 ?>  
 
             </div>
+
+
+            <!-- Partie Questionnaire pour Gestionnaire -->
+            <?php if ($_SESSION["typeUtilisateur"] == "gestionnaire"): ?>
+            <div id="questionnaire">
+                <h1>Vos Questionnaires</h1>
+                <button class='btnStyle' onclick='openModal(0,"new-questionnaire-gestionnaire-overlay","form-new-questionnaire-gestionnaire");' style='background-color: blue;'>Creer questionnaire</button>
+                <?php
+                    //Select pour récuperer tout les Data Challenge du gestionnaire (remplacer au niveau du "where" par data battle
+                    $requete = "SELECT Questionnaire.idQuestionnaire, Questionnaire.titre FROM Questionnaire 
+                    jOIN DataEvent 
+                    ON Questionnaire.idDataEvent = DataEvent.idDataEvent
+                    WHERE DataEvent.idGestionnaire =".$_SESSION["idUtilisateur"].";
+                    ";
+
+                $resultat = getAllFromRequest($conn, $requete);
+                $nbrResultats = count($resultat);
+
+                if (!$nbrResultats) {
+                    echo "<p> Aucun Questionnaire.</p>";
+                }else{
+                    echo "<div id='liste-events'>";
+                    for ($i=0; $i<$nbrResultats; $i++) {
+
+                        echo "
+                        <div class='event'>
+                            <a href='/php/dataEvent/data-event.php?idDataEvent=".$resultat[$i]["idQuestionnaire"]."'>
+                                <div class='titre-event'>
+                                    <span>".$resultat[$i]["titre"]."</span>
+                                </div>
+                            </a>
+                        "; ?>
+                        <br>
+                        <button class='btnStyle' onclick='window.location="supQuestionnaire.php?idQuestionnaire=<?php echo $resultat[$i]["idQuestionnaire"] ?>";' style='background-color: red;'>supprimer</button>
+                        <?php
+                        echo" </div>";
+                    }
+                    echo "</div>";
+                }
+                ?>
+            </div>
+            <?php endif; ?>
+
             
             <!-- Partie Projet Data pour admin -->
             <?php if ($_SESSION["typeUtilisateur"] == "administrateur"): ?>

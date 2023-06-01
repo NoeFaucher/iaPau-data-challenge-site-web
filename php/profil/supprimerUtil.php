@@ -26,6 +26,7 @@ $idUtilisateur = $resultat["idUtilisateur"];
 
 supUtil($cnx, $idUtilisateur);
 
+$cnx = deconnexion();
 
 function supUtil($mysqlClient, $idUtilisateur){
     try {

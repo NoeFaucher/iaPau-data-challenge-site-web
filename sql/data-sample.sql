@@ -201,7 +201,7 @@ VALUES
 
 -- table des questionnaires
 -- note : les questionnaires ne doivent être liés qu'à des data battles
-INSERT INTO Questionnaire (descriptQuestionnaire, idDataEvent) VALUES
+INSERT INTO Questionnaire (titre, idDataEvent) VALUES
     ('Questionnaire 1', 7),
     ('Questionnaire 2', 8),
     ('Questionnaire 3', 9),
