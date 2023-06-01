@@ -63,7 +63,7 @@ create table Equipe (
     nomEquipe VARCHAR(100),
     idProjetData INTEGER,
     idChefEquipe INTEGER,
-    foreign key fk_ChefEquipe(idChefEquipe) references Utilisateur(idUtilisateur),
+    foreign key fk_ChefEquipe(idChefEquipe) references Utilisateur(idUtilisateur) on delete cascade,
     foreign key fk_DataEvent(idProjetData) references ProjetData(idProjetData) on delete cascade
 );
 
