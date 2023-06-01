@@ -6,4 +6,5 @@ footer {
     text-align: center; /* centrer le texte horizontalement */
     font-size: 18px;
     color: white;
+    margin: 0px;
 }

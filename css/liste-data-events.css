@@ -1,3 +1,11 @@
+/* cas où la base de données ne contient aucun data event */
+#message-erreur-bdd-vide {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    font-size: 19px;
+}
+
 #liste-events a {
     text-decoration: none;
     color: black;

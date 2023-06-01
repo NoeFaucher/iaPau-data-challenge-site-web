@@ -9,6 +9,12 @@
     $idDataEvent = $_GET["idDataEvent"];
     $_SESSION["idDataEventPage"] = $idDataEvent;
 
+    // récupération des informations liées au data event de la page
+    $conn = connexion($serveur, $bdd, $user, $pass);
+    $requeteDataEvent = "SELECT * FROM DataEvent WHERE idDataEvent=".$idDataEvent.";";
+    $resultatDataEvent = getAllFromRequest($conn, $requeteDataEvent)[0];
+    $conn = deconnexion();
+
     // on regarde si l'utilisateur s'il est inscrit au data event, s'il est chef d'équipe et s'il a déjà rendu quelque chose, à condition qu'il soit connecté
     if ((isset($_SESSION["estConnecte"])) && ($_SESSION["estConnecte"] == true)) {
 
@@ -63,39 +69,18 @@
 
 ?>
 
-<!-- 
-Récapitulatif :
-    -> présentation du data event : nom, entreprise, dates, description
-    -> affichage des données, consignes et conseils du data event
-    - data battle
-        -> podium
-    - utilisateur connecté
-        - inscrit au data event ou gestionnaire ou admin
-            - étudiant et chef d'équipe
-                - n'a encore rien rendu
-                    -> affichage de la section de rendu
-                - a déjà rendu quelque chose
-                    -> liens pour afficher son code et ses résultats + message accusant réception de son code
-        - étudiant non inscrit
-            - data challenge
-                -> choix du projet data
-            - data battle
-                -> inscription au projet data
-        - gestionnaire ou admin
-            -> affichage des équipes participantes, de leur rang, du lien d'hébergement de leur code qu'elles ont éventuellement rendu et de leurs résultats
-        - etudiant
-            -> accès au profil de son équipe
-            - chef d'équipe et data battle
-                -> accès au questionnaire
-    - utilisateur non connecté
-        -> message qui lui demande de se connecter
--->
+
+
+
+
+
+
 
 <!DOCTYPE HTML>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>IA PAU</title>
+        <title><?php echo $resultatDataEvent["titre"]; ?></title>
         <link rel="stylesheet" type="text/css" href="/css/general-data-event.css" />
         <link rel="stylesheet" type="text/css" href="/css/header.css" />
         <link rel="stylesheet" type="text/css" href="/css/data-event.css" />
@@ -109,12 +94,6 @@ Récapitulatif :
             <?php
 
                 /************************ DESCRIPTION DU PROJET DATA + RENDU ************************/
-
-                // récupération des informations liées au data event de la page
-                $conn = connexion($serveur, $bdd, $user, $pass);
-                $requeteDataEvent = "SELECT * FROM DataEvent WHERE idDataEvent=".$idDataEvent.";";
-                $resultatDataEvent = getAllFromRequest($conn, $requeteDataEvent)[0];
-                $conn = deconnexion();
 
                 echo "
                 <section>";
@@ -170,10 +149,18 @@ Récapitulatif :
                         $requeteContacts = "SELECT * FROM Contact WHERE idProjetData=".$idProjetDataEquipeUtilisateur.";";
                         $resultatContacts = getAllFromRequest($conn, $requeteContacts);
 
+                        // récupération du/des gestionnaire(s) associé au data event
+                        $requeteGestionnaire = "SELECT idUtilisateur, nom, prenom, email, telephone FROM Utilisateur NATURAL JOIN DataEvent WHERE DataEvent.idGestionnaire=Utilisateur.idUtilisateur AND DataEvent.idDataEvent=".$idDataEvent.";";
+                        $resultatGestionnaire = getAllFromRequest($conn, $requeteGestionnaire);
+
+                        // récupération du/des admins
+                        $requeteAdmin = "SELECT idUtilisateur, nom, prenom, email, telephone FROM Utilisateur WHERE typeUtilisateur='administrateur'";
+                        $resultatAdmin = getAllFromRequest($conn, $requeteAdmin);
+
                         // déconnexion de la base de données
                         $conn = deconnexion();
 
-                        // affichage du projet data sélectionné
+                        // affichage du projet data choisi
                         echo "
                         <div class='sous-titre-evenement'>
                             <span>Projet data choisi - \"".$resultatInfosProjetData["titreProjetData"]."\"</span>
@@ -181,42 +168,63 @@ Récapitulatif :
                         <p class='paragraphe-presentation'>Pour rappel, vous vous êtes inscrit au projet data suivant :</p>
                         <p class='paragraphe-presentation italique'>".$resultatInfosProjetData["descriptProjet"]."</p>";
 
+                        echo "
+                        <div class='sous-titre-evenement'>
+                            <span>Contacts</span>
+                        </div>
+                        <p class='paragraphe-presentation'>En cas de doute, vous pouvez contacter l'une des personnes ci-dessous par mail ou par téléphone :</p>
+                        <div id='div-table-contacts'>
+                            <table id='table-contacts'>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Role</th>
+                                    <th>Email</th>
+                                    <th>Numéro de téléphone</th>
+                                </tr>";
+
                         // affichage des contacts liés au projet data
                         if (!empty($resultatContacts)) {
-
-                            echo "
-                            <div class='sous-titre-evenement'>
-                                <span>Contacts</span>
-                            </div>
-                            <p class='paragraphe-presentation'>En cas de doute, vous pouvez contacter l'une des personnes ci-dessous par mail ou par téléphone :</p>
-                            <div id='div-table-contacts'>
-                                <table id='table-contacts'>
-                                    <tr>
-                                        <th>Nom</th>
-                                        <th>Email</th>
-                                        <th>Numéro de téléphone</th>
-                                    </tr>";
                             foreach ($resultatContacts as $contact) {
                                 echo "
                                 <tr>
                                     <td>".$contact["prenom"]." ".$contact["nom"]."</td>
+                                    <td>externe</td>
                                     <td>".$contact["email"]."</td>
                                     <td>".$contact["telephone"]."</td>
                                 </tr>";
                             }
-                            echo "
-                                </table>
-                            </div>";
                         }
+                        if (!empty($resultatGestionnaire)) {
+                            foreach ($resultatGestionnaire as $gestionnaire) {
+                                echo "
+                                <tr>
+                                    <td>".$gestionnaire["prenom"]." ".$gestionnaire["nom"]."</td>
+                                    <td>gestionnaire</td>
+                                    <td>".$gestionnaire["email"]."</td>
+                                    <td>".$gestionnaire["telephone"]."</td>
+                                </tr>";
+                            }
+                        }
+                        if (!empty($resultatAdmin)) {
+                            foreach ($resultatAdmin as $admin) {
+                                echo "
+                                <tr>
+                                    <td>".$admin["prenom"]." ".$admin["nom"]."</td>
+                                    <td>administrateur</td>
+                                    <td>".$admin["email"]."</td>
+                                    <td>".$admin["telephone"]."</td>
+                                </tr>";
+                            }
+                        }
+                        echo "
+                            </table>
+                        </div>";
                        
-
-
                         echo "
                         <div class='sous-titre-evenement'>
                             <span>Rendus</span>
                         </div>
                         <p class='paragraphe-presentation'>Une fois votre travail terminé, vous pouvez rendre ci-dessous un lien vers un fichier RAW (archive Gitlab ou GitHub). Votre code sera alors analysé et vous pourrez immédiatement consulter vos résultats. Notez que tout rendu est définitif et ne peut pas être annulé.</p>";
-
 
                         // cas 1.1.1 : l'équipe de l'utilisateur a déjà rendu quelque chose
                         // input du lien avec son lien + message de traitement de code ok + boutons "afficher mes résultats" et "consulter mon code"
@@ -307,7 +315,7 @@ Récapitulatif :
 
                             }
 
-                            // affichage de tous les rendus réalisés par l'équipe de l'utilisateur
+                            // affichage des rendus réalisés par l'équipe de l'utilisateur (aucun pour le moment mais le dernier est ajouté en AJAX donc partie nécessaire)
                             echo "
                             <div id='rendus-equipe'>
                                 <div id='titre-rendus-equipe'>
@@ -320,9 +328,65 @@ Récapitulatif :
 
                     }
 
-                    // cas 1.2 : l'utilisateur n'est pas inscrit à l'évènement mais est étudiant
-                    // il peut donc s'inscrire en créant une équipe et en devenant chef d'équipe
-                    else if ((isset($_SESSION["typeUtilisateur"])) && (($_SESSION["typeUtilisateur"]) == "normal")) {
+
+                        /*
+                <!-- 
+Récapitulatif :
+    -> présentation du data event : nom, entreprise, dates, description
+    -> affichage des données, consignes et conseils du data event
+    - data battle
+        -> podium
+    - utilisateur connecté
+        - inscrit au data event (=> étudiant)
+            -> rappel du projet data auquel il est inscrit
+            -> affichage des contacts liés à ce projet data (contacts externes, gestionnaires, administrateurs)
+            - l'équipe de l'utilisateur a déjà rendu quelque chose
+                - l'utilisateur est chef d'une équipe qui participe au data event de la page
+                    -> il peut consulter tous les liens qu'il a déjà envoyé
+                    -> il peut rendre un nouveau lien
+                - l'utilisateur n'est pas le chef de son équipe (celle qui participe au data event de la page)
+                    -> il peut consulter les différents codes que son chef d'équipe a déjà rendu
+            - l'équipe de l'utilisateur n'a encore rien rendu
+                - l'utilisateur est chef d'une équipe qui participe au data event de la page
+                    -> il peut rendre un nouveau lien
+                - l'utilisateur n'est pas le chef de son équipe (celle qui participe au data event de la page)
+                    -> message qui lui dit qu'aucun code n'a encore été rendu par son chef d'équipe
+        - non inscrit ou admin ou gestionnaire
+            - étudiant
+                -> 
+            - gestionnaire ou admin
+
+                
+
+
+
+                    
+            - étudiant et chef d'équipe
+                - n'a encore rien rendu
+                    -> affichage de la section de rendu
+                - a déjà rendu quelque chose
+                    -> liens pour afficher son code et ses résultats + message accusant réception de son code
+        - étudiant non inscrit
+            - data challenge
+                -> choix du projet data
+            - data battle
+                -> inscription au projet data
+        - gestionnaire ou admin
+            -> affichage des équipes participantes, de leur rang, du lien d'hébergement de leur code qu'elles ont éventuellement rendu et de leurs résultats
+        - etudiant
+            -> accès au profil de son équipe
+            - chef d'équipe et data battle
+                -> accès au questionnaire
+    - utilisateur non connecté
+        -> message qui lui demande de se connecter
+-->
+                        */
+
+
+
+                    // cas 1.2 : l'utilisateur n'est pas inscrit à l'évènement (donc étudiant non inscrit ou admin)
+                    // il peut donc s'inscrire en créant une équipe et en devenant chef d'équipe (pour les étudiants seulement)
+                    else {
 
                         // récupération des projets data associés au data event de la page
                         $conn = connexion($serveur, $bdd, $user, $pass);
@@ -339,13 +403,16 @@ Récapitulatif :
                             </div>
                             <p class='paragraphe-presentation'>".$resultatProjetsData[0]["descriptProjet"]."</p>";
 
-                            echo "
-                            <div id='choix-projet-data'>
-                                <div class='bouton-data-event'>
-                                    <a href='inscription-projet-data.php?idProjetData=".$resultatProjetsData[0]["idProjetData"]."'>M'inscrire à ce projet data</a>
-                                </div>
-                            </div>";
-
+                            // seuls les étudiants peuvent s'inscrire au data event
+                            if ((isset($_SESSION["typeUtilisateur"])) && (($_SESSION["typeUtilisateur"]) == "normal")) {
+                                echo "
+                                <div id='choix-projet-data'>
+                                    <div class='bouton-data-event'>
+                                        <a href='inscription-projet-data.php?idProjetData=".$resultatProjetsData[0]["idProjetData"]."'>M'inscrire à ce projet data</a>
+                                    </div>
+                                </div>";
+                            }
+                            
                         }
 
                         // cas 1.2.2 : l'évènement est un data challenge
@@ -360,17 +427,26 @@ Récapitulatif :
                             echo "
                             <div id='choix-projet-data'>";
                             foreach ($resultatProjetsData as $projetData) {
+                                
                                 echo "
                                 <div class='projet-data'>
                                     <div class='titre-projet-data'>
                                         <span>".$projetData["titreProjetData"]."</span>
                                     </div>
-                                    <p>".$projetData["descriptProjet"]."</p>
+                                    <p>".$projetData["descriptProjet"]."</p>";
+                                
+                                // seuls les étudiants peuvent s'inscrire au data event
+                                if ((isset($_SESSION["typeUtilisateur"])) && (($_SESSION["typeUtilisateur"]) == "normal")) {
+                                    echo "
                                     <div class='bouton-data-event'>
                                         <a href='inscription-projet-data.php?idProjetData=".$projetData["idProjetData"]."'>M'inscrire à ce projet data</a>
-                                    </div>
+                                    </div>";
+                                }
+
+                                echo "
                                 </div>";
                             }
+
                             echo "
                             </div>";
 
