@@ -54,5 +54,4 @@ if ($_SESSION["estConnecte"]){
     exit();
 }
 $mysqlClient = deconnexion();
-session_abort()
 ?>

@@ -1,4 +1,4 @@
-
+<?php
     // initialisation
     session_start();
     include("../bdd.php");
