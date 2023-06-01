@@ -3,8 +3,12 @@
 
     include("../bdd.php");
 
+    session_start();
+
     $cnx = connexion($serveur,$bdd,$user,$pass);
     
+    $idUtilisateur = $_SESSION["idUtilisateur"];
+
     $tab = [];
     $tab_temp = [];
 
@@ -28,32 +32,27 @@
 
         $tab_temp = getAllFromRequest($cnx,$req);
         $tab = array_merge($tab,$tab_temp);
+    }else {
+        // Cas tous les utilisateurs 
+
+        $req = "SELECT * FROM Utilisateur;";
+
+        $tab_temp = getAllFromRequest($cnx,$req);
+        $tab = array_merge($tab,$tab_temp);
+
+
     }
-
-
-
-    // $numrow = mysqli_num_rows($result);
-
-    print_r($tab);
 
     foreach($tab as $util) {
         $nom_prenom = $util["nom"].' '.$util["prenom"];
         $idDestinataire = $util['idUtilisateur'];
-        $typeDestinataire = str_replace("normal","etudiant",$util['typeUtilisateur']);
-        echo '<option value="'.$nom_prenom.'" data-id="'.$idDestinataire.'">'.$nom_prenom.' : '.$typeDestinataire.'</option>;';
+        
+        if ($idDestinataire != $idUtilisateur) {                
+            $typeDestinataire = str_replace("normal","etudiant",$util['typeUtilisateur']);
+            echo '<option value="'.$nom_prenom.'" data-id="'.$idDestinataire.'">'.$nom_prenom.' : '.$typeDestinataire.'</option>;';
+        }
     }
     
-    // if (isset($req2)) {
-    //     $tab2 = getAllFromRequest($cnx,$req2);
-    //     foreach($tab2 as $util) {
-    //         $nom_prenom = $util["nom"].' '.$util["prenom"];
-    //         $idDestinataire = $util['idUtilisateur'];
-    //         $typeDestinataire = $util['typeUtilisateur'];
-    //         echo '<option value="'.$nom_prenom.'" data-id="'.$idDestinataire.'">'.$nom_prenom .' : '.$typeDestinataire.'</option>;';
-    //     }
-
-    // }
-
 
     $cnx = deconnexion();
 ?>

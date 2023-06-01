@@ -1,11 +1,12 @@
 <?php
 
+    session_start();
     include("../bdd.php");
     
     $objet = ($_GET["objet"]);
     $contenu = ($_GET["contenu"]);
     $destinataires = json_decode(urldecode($_GET["destinataires"]));
-    $envoyeur = 2;
+    $envoyeur = $_SESSION["idUtilisateur"];
 
 
     if ($destinataires !== [] && $destinataires != null) {

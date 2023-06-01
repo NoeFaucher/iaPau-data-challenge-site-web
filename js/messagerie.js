@@ -103,6 +103,7 @@ const recuperationMessage = () => {
     fetch ("/php/messagerie/recupMessage.php"+getString)
         .then(response => response.text())
         .then(result => {
+            messageConteneur.scrollTo(0,0);
             messageConteneur.innerHTML = result;
         });
 
@@ -128,7 +129,6 @@ const recuperationDestinataire = () => {
     fetch ("/php/messagerie/recupDestinataire.php"+getString)
         .then(response => response.text())
         .then(result => {
-            console.log(result);
             datalist.innerHTML = result;
         });
 

@@ -15,11 +15,36 @@
 
     if ($typeUtilisateur == "gestionnaire") {
         // recup toutes ses equipes
-        $req = "select * from Equipe as e
-        inner join ProjetData as p on p.idProjetData = e.idProjetData
-        inner join DataEvent as d on d.idDataEvent = p.idDataEvent
-        where d.idGestionnaire = $idUtilisateur;";
+        $req = "SELECT * FROM Equipe as e
+                    JOIN ProjetData as p ON p.idProjetData = e.idProjetData
+                    JOIN DataEvent as d ON d.idDataEvent = p.idDataEvent
+                    WHERE d.idGestionnaire = $idUtilisateur;";
     
+        $tab = getAllFromRequest($cnx,$req);
+
+        echo "<option value='utilisateur' data-id=''>Mes messages :</option>;";
+
+        foreach($tab as $equipe) {
+            $nom_equipe = $equipe["nomEquipe"];
+            $id_equipe = $equipe["idEquipe"];
+            $nom_projet_data = $equipe["titreProjetData"];
+            echo "<option value='equipe' data-id='$id_equipe'>Equipe: $nom_equipe du projet $nom_projet_data :</option>;";
+        }
+ 
+
+
+
+    }else if ($typeUtilisateur == "normal") {
+        // recup toutes les equipes au quelles il appartient
+
+        $req = "SELECT * FROM Equipe as e
+                    JOIN UtilisateurAppartientEquipe as uae ON e.idEquipe = uae.idEquipe
+                    JOIN ProjetData as p ON p.idProjetData = e.idProjetData
+                    JOIN DataEvent as d ON d.idDataEvent = p.idDataEvent
+                    WHERE uae.idUtilisateur = $idUtilisateur;";
+
+
+        
         $tab = getAllFromRequest($cnx,$req);
 
         echo "<option value='utilisateur' data-id=''>Mes messages :</option>;";
@@ -34,18 +59,25 @@
 
 
 
-    }else if ($typeUtilisateur == "normal") {
-        // recup toutes les equipes au quelles il appartient
-
-
-
-
-
-
-
-
     }elseif ($typeUtilisateur == "administrateur") {
         // toutes les equipes + tous
+
+        echo "<option value='utilisateur' data-id=''>Mes messages :</option>;";
+        echo "<option value='admin' data-id=''>Tous les messages :</option>;";
+
+        $req = "SELECT * FROM Equipe as e
+                    JOIN ProjetData as p ON p.idProjetData = e.idProjetData
+                    JOIN DataEvent as d ON d.idDataEvent = p.idDataEvent;";
+
+        
+        $tab = getAllFromRequest($cnx,$req);
+
+        foreach($tab as $equipe) {
+            $nom_equipe = $equipe["nomEquipe"];
+            $id_equipe = $equipe["idEquipe"];
+            $nom_projet_data = $equipe["titreProjetData"];
+            echo "<option value='equipe' data-id='$id_equipe'>Equipe: $nom_equipe du projet $nom_projet_data :</option>;";
+        }
 
 
     }
