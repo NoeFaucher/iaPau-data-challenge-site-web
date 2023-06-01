@@ -16,22 +16,21 @@ if ($_SESSION["estConnecte"]) {
 
 $cnx = connexion($serveur, $bdd, $user, $pass);
 
-function modifDataEvent($mysqlClient, $dateDebut, $dateFin, $descript, $titre , $donnees, $consignes, $conseils, $idGestionnaire, $idDataEvent){
+$idProjetData = $_POST["idDataEvent"];
+
+
+modifProjetData($cnx,$_POST["titreProjetData"], $_POST["descriptProjet"], $idProjetData);
+
+function modifProjetData($mysqlClient, $titreProjetData, $descriptProjet, $idProjetData){
     try {
 
-        $sqlQuery = 'UPDATE ProjetData SET dateDebut = :dateDebut, dateFin = :dateFin, descript = :descript, titre = :titre, donnees = :donnees, consignes = :consignes, conseils = :conseils, idGestionnaire = :idGestionnaire WHERE idDataEvent = :idDataEvent';
+        $sqlQuery = 'UPDATE ProjetData SET descriptProjet = :descriptProjet, titreProjetData = :titreProjetData WHERE idProjetData = :idProjetData';
 
         $updateDataEvent = $mysqlClient -> prepare($sqlQuery);
         $updateDataEvent ->execute([
-            'dateDebut' => $dateDebut,
-            'dateFin' => $dateFin,
-            'descript' => $descript,
-            'titre' => $titre,
-            'donnees' => $donnees,
-            'consignes' => $consignes,
-            'conseils' => $conseils,
-            'idGestionnaire' => $idGestionnaire,
-            'idDataEvent' => $idDataEvent,
+            'descriptProjet' => $descriptProjet,
+            'titreProjetData' => $titreProjetData,
+            'idProjetData' => $idProjetData,
         ]);
     } catch (Exception $e) {
         die('Erreur : ' . $e->getMessage());
@@ -39,4 +38,5 @@ function modifDataEvent($mysqlClient, $dateDebut, $dateFin, $descript, $titre , 
 }
 
 
+header("Location: profil.php#projetdata");
 ?>

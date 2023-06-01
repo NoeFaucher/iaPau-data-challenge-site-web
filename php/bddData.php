@@ -2,7 +2,7 @@
 
     $serveur = "localhost";
     $user = "leo";
-    $pass = "";
+    $pass = "142420";
     $bdd = "iaPau";
 
 ?>

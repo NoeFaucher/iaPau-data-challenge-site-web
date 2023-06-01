@@ -247,7 +247,7 @@
                 <form action="modifProjetData.php" id="form-modif-projet-data" method="post">
                     <h1>Modifier le Projet Data</h1>
                     <label>Titre :</label><br>
-                    <input type="text" name="titreDataProjet">
+                    <input type="text" name="titreProjetData">
                     <label>Description :</label><br>
                     <textarea name="descriptProjet" style="resize:none;width: 50%; height:10vh;"></textarea><br>
                     
