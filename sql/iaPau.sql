@@ -80,7 +80,7 @@ create table  UtilisateurAppartientEquipe (
     idUtilisateur INTEGER,
     idEquipe INTEGER,
     constraint pk_AppartientEquipe primary key (idUtilisateur,idEquipe),
-    foreign key fk_Utilisateur(idUtilisateur) references Utilisateur(idUtilisateur),
+    foreign key fk_Utilisateur(idUtilisateur) references Utilisateur(idUtilisateur) on delete cascade,
     foreign key fk_Equipe(idEquipe) references Equipe(idEquipe) on delete cascade
 );
 

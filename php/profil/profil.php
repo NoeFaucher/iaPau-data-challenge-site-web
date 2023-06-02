@@ -191,8 +191,8 @@
                     <input type="text" name="conseils">
                   
                     <label>Choix du gestionnaire :</label>
-                    <input type='text' list='destinataires-list' class='searchInp' name="gestionnaire" placeholder='Recherche rapide' require>
-                    <datalist id='destinataires-list' class='dataL'>
+                    <input type='text' list='gestio-list' class='searchInp' name="gestionnaire" placeholder='Recherche rapide' require>
+                    <datalist id='gestio-list' class='dataL'>
                         <?php
                         foreach($tab2 as $util) {
                             $nom_prenom = $util["prenom"].' '.$util["nom"];
@@ -350,7 +350,7 @@
                 <form id="form-modif-util-gestionnaire" action="modifUtil.php" method="post">
                     <h1>Modifier mes informations</h1>
 
-                    <input type='text' id="listUtil2" list='gestio-list' class='searchInp' name="nomUtil" placeholder='Liste des gestionnaires'>
+                    <input type='text' id="listUtil10" list='gestio-list' class='searchInp' name="nomUtil" placeholder='Liste des gestionnaires'>
                     <datalist id='gestio-list' class='dataL'>
                     <?php
                     foreach($tab2 as $util) {
@@ -360,7 +360,13 @@
                     }
                     ?>
                     </datalist>
-                    <input type="button" class='btnStyle' value="supprimer" onclick='if(document.getElementById("listUtil2").value != ""){window.location="supprimerUtil.php?name="+document.getElementById("listUtil2").value+"";}' style='background-color: red;'>
+                    <input type="button" class='btnStyle' value="supprimer" onclick='
+                    if(document.getElementById("listUtil10").value != ""){
+                        window.location="supprimerUtil.php?name="+document.getElementById("listUtil10").value+"";
+                    }
+                    
+                    
+                    ' style='background-color: red;'>
 
                     <label>Prénom :</label><br>
                     <input type="text" name="prenom">
