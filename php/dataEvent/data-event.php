@@ -777,7 +777,7 @@ Récapitulatif :
                             $requeteVerificationNonRepondu = "SELECT * FROM Reponse NATURAL JOIN Questionnaire WHERE idEquipe=".$_SESSION["idEquipeUtilisateurPage"]." AND idDataEvent=".$idDataEvent." AND idQuestionnaire=(SELECT idQuestionnaire FROM Questionnaire WHERE idDataEvent=".$idDataEvent." ORDER BY dateCreation DESC LIMIT 1);";
                             $resultatVerificationNonRepondu = getAllFromRequest($conn, $requeteVerificationNonRepondu);
                             $conn = deconnexion();
-                            
+
                             // si l'équipe n'a pas encore répondu au questionnaire et qu'un questionnaire est bien relié à la data battle, elle peut y répondre
                             if ((empty($resultatVerificationNonRepondu)) && (!empty($resultatQuestions))) {
 

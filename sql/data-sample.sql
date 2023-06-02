@@ -117,14 +117,3 @@ INSERT INTO Question (intitule, idQuestionnaire) VALUES
     ('Question 3', 4),
     ('Question 4', 4);
 
--- table des réponses des équipes
-INSERT INTO Reponse (note, reponse, idEquipe, idQuestion) VALUES
-    -- seule équipe inscrite à un data battle : tigres d'argent => idEquipe = 3
-    -- est inscrite au data battle 3 => Questionnaires 1, 3, et 4 => Questions 1 à 18 (sauf 5 à 9)
-    -- on va supposer qu'elle n'a répondu qu'au questionnaire 3 => 
-    -- notes aléatoires
-    (1, "Réponse 1", 3, 10),
-    (1, "Réponse 2", 3, 11),
-    (1, "Réponse 3", 3, 12),
-    (1, "Réponse 4", 3, 13),
-    (1, "Réponse 5", 3, 14);
