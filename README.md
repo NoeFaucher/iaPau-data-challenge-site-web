@@ -55,3 +55,7 @@ Un gestionnaire test a pour identifiant :
     
 - email : user3@example.com
 - mdp : password3
+
+Pour garantir le bon fonctionnement de toutes les fonctionnalités du site web, il faut avoir :
+- une version de java 11
+- php_curl installé: `$ sudo apt-get install php-curl`
