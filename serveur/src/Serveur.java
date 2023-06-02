@@ -11,8 +11,11 @@ import java.net.InetSocketAddress;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 
 
@@ -23,7 +26,7 @@ public class Serveur {
     private static final Logger LOGGER = Logger.getLogger( Serveur.class.getName() );
     private static final String SERVEUR = "localhost"; // url de base du service
     private static final int PORT = 8001; // port serveur
-    private static final String URL = "/test"; // url de base du service
+    private static final String URL = "/"; // url de base du service
     
     /** 
      * @param args
@@ -49,29 +52,100 @@ public class Serveur {
         /**
          * Manage GET request param
          * @param httpExchange
-         * @return first value
+         * @return la map de la get requete
          */
-        private String handleGetRequest(HttpExchange httpExchange) throws UnsupportedEncodingException{
-            String codedValue = httpExchange.getRequestURI()
+        private Map<String,String> handleGetRequest(HttpExchange httpExchange) throws UnsupportedEncodingException{
+            String[] codedCoupleValues = httpExchange.getRequestURI()
                     .toString()
                     .split("\\?")[1]
-                    .split("=")[1];
+                    .split("&");
 
-            // decode les valeurs données en paramètre
-            return URLDecoder.decode(codedValue, StandardCharsets.UTF_8.toString());
+            String[] codedValues = new String[(codedCoupleValues.length) *2];
+
+            for (int i = 0; i < codedCoupleValues.length; i++) {
+                String[] couple = codedCoupleValues[i].split("=");
+                
+
+                codedValues[2*i] = couple[0];
+                codedValues[2*i+1] = couple[1];
+
+            }
+
+            // decode les valeurs données en paramètre 
+            String[] decodedValues = new String[codedValues.length];
+
+            for (int i = 0; i < decodedValues.length; i++) {
+                if (i % 2 != 0) {
+                    decodedValues[i] = URLDecoder.decode(codedValues[i],StandardCharsets.UTF_8.toString());
+                }else {
+                    decodedValues[i] = codedValues[i];
+                }
+            }
+
+            
+            Map<String,String> map = new HashMap<String,String>();
+            
+            if (decodedValues.length < 2) {
+                return map;
+            }
+
+            String prev = decodedValues[0];
+            for (int i = 1; i < decodedValues.length; i++) {
+                if (i%2 != 0) {
+                    map.put(prev, decodedValues[i]);
+                }else {
+                    prev = decodedValues[i];
+                }
+            }
+            
+            return map;
         }
 
 
         /** 
-         * Generate simple response html page
+         * Genere un json avec les resultats de la verification de code
          * @param httpExchange
          * @param requestParamValue
          */
-        private void handleResponse(HttpExchange httpExchange, String requestParamValue)  throws  IOException {
+        private void handleResponseRendu(HttpExchange httpExchange, String requestParamValue)  throws  IOException {
             OutputStream outputStream = httpExchange.getResponseBody();
 
             String code = requestParamValue;
+
             String htmlResponse = (new VerificateurCodePython(code)).jsonResult();
+
+
+           
+            LOGGER.info(htmlResponse);
+
+            // this line is a must
+            httpExchange.sendResponseHeaders(200, htmlResponse.length());
+            outputStream.write(htmlResponse.getBytes());
+            outputStream.flush();
+            outputStream.close();
+        }
+        
+        /** 
+         * Genere un json avec les resultats du calcul d'occurence dans le code
+         * @param httpExchange
+         * @param requestParamValue
+         */
+        private void handleResponseOccurence(HttpExchange httpExchange, Map<String,String> requestParamValue)  throws  IOException {
+            OutputStream outputStream = httpExchange.getResponseBody();
+
+            String code = requestParamValue.get("src_code");
+            // le format de jsonStringOcc est "["x","y"...]"
+            String jsonStringOcc = requestParamValue.get("occ"); 
+
+            String[] strQuoted = jsonStringOcc.split("\\[")[1].split("\\]")[0].split(",");
+
+            String[] strUnQuoted = Stream.of(strQuoted).map(str -> str.split("\"")[1].split("\"")[0]).toArray(String[]::new);
+
+
+
+            String htmlResponse = (new VerificateurCodePython(code)).jsonOcc(strUnQuoted);
+
+
            
             LOGGER.info(htmlResponse);
 
@@ -82,11 +156,10 @@ public class Serveur {
             outputStream.close();
         }
 
-        // Interface method to be implemented
         @Override
         public void handle(HttpExchange httpExchange) throws IOException {
-            LOGGER.info(" Je réponds");
-            String requestParamValue=null;
+            Map<String,String> requestParamValue=null;
+            
             if("GET".equals(httpExchange.getRequestMethod())) {
                 try {
                     requestParamValue = handleGetRequest(httpExchange);
@@ -96,7 +169,18 @@ public class Serveur {
             }else {
                 return;
             }
-            handleResponse(httpExchange,requestParamValue);
+            
+
+            String endPoint = httpExchange.getRequestURI()
+                    .toString()
+                    .split("\\?")[0];
+
+            // gere les differents end point
+            if (endPoint.equals("/rendu")) {
+                if (requestParamValue.containsKey("src_code")) handleResponseRendu(httpExchange,requestParamValue.get("src_code"));
+            }else if (endPoint.equals("/occurence")){
+                if (requestParamValue.containsKey("src_code") && requestParamValue.containsKey("occ")) handleResponseOccurence(httpExchange,requestParamValue);
+            }
 
         }
     }

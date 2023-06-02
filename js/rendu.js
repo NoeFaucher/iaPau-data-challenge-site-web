@@ -1,7 +1,7 @@
 // recupère l'ensemble des résultats d'un équipe
 const recupData = equipe => {
     
-    fetch ("recupRendus.php?equipe="+equipe,{
+    fetch ("rendu/recupRendus.php?equipe="+equipe,{
         method: "GET"
     })
     .then(response => response.text())
@@ -149,13 +149,14 @@ const envoyerCode = (element,equipe) => {
 
     let codedLink = window.btoa(encodeURIComponent(link));
     
-    fetch ("creerRendu.php?equipe="+equipe+"&lien="+codedLink,{
+    fetch ("rendu/creerRendu.php?equipe="+equipe+"&lien="+codedLink,{
         method: "GET"
     })
     .then(response => response.text())
     .then(result => {
         let pEnvoi = document.getElementById("retour-sur-envoi");
-        if (result === "sucess") {
+
+        if (result === "success") {
             pEnvoi.innerHTML = "Le rendu a bien été envoyé.";
             pEnvoi.style.color = "green";
 
@@ -202,5 +203,83 @@ const envoyerCode = (element,equipe) => {
             pEnvoi.style.color = "red";
         }
     });
+
+}
+
+const calculerOccurence = (equipe) => {
+    let tabOccStr = document.getElementById("occurence-input").value.split(",");
+
+
+    let jsonEncodedStr = window.btoa(encodeURIComponent(JSON.stringify(tabOccStr)));
+
+    fetch("rendu/calculerOccurence.php?equipe="+equipe+"&occ="+jsonEncodedStr)
+        .then(response => response.text())
+        .then(result => {
+            let pCalcul = document.getElementById("retour-sur-calcul");
+
+            if (result === "Connection Failure" || result === "{}") {
+                pCalcul.innerHTML = "Une erreur s'est produite lors du calcule des occurences.";
+                pCalcul.style.color = "red";
+            }
+            
+
+
+            pCalcul.innerHTML = "Le calcule des occurences est un succès.";
+            pCalcul.style.color = "green";
+            afficherOccurence(JSON.parse(result));
+        });
+
+}
+
+const afficherOccurence = data => {
+
+
+    let colors = ['#9966ff','#ff9f40','#ff6384','#36a2eb','#4bc0c0'];
+    let borderColors = colors.map((str) => str + '80');
+
+    let effcolors = new Array();
+    let effbordercolors = new Array();
+
+
+    for (let i = 0; i < Object.keys(data).length; i++) {
+        effcolors.push(colors[i%5]);
+        effbordercolors.push(borderColors[i%5]);
+    }
+
+
+    var chartData1 = {
+        labels: Object.keys(data),
+        datasets: [{
+        backgroundColor: effcolors,
+        borderColor: effbordercolors,
+        data: Object.values(data)
+        }]
+    };
+    const config1 = {
+    type: 'bar',
+    data: chartData1,
+    options: {
+        responsive: true,
+        plugins: {
+        legend: {
+            display: false,
+        },
+        title: {
+            display: true,
+            text: 'Les occurences des differents mots'
+        }
+        }
+    },
+    };
+    let chart = document.getElementById('myChart-occ');
+    if (chart) {
+        document.getElementById('myChart-occ').remove();
+    } 
+
+    document.getElementById('graph-occ').innerHTML = ('<canvas id="myChart-occ"></canvas>');
+            
+    var ctx1 = document.getElementById('myChart-occ').getContext('2d');
+    var myChart1 = new Chart(ctx1, config1);
+
 
 }

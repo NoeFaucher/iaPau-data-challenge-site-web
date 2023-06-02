@@ -35,9 +35,12 @@ if (!empty($email) and !empty($mdp)){
         $_SESSION["typeUtilisateur"] = $verifUtilisateur["typeUtilisateur"];
         $_SESSION["nom"] = $verifUtilisateur["nom"];
         $_SESSION["prenom"] = $verifUtilisateur["prenom"];
-        $_SESSION["nivEtude"] = $verifUtilisateur["nivEtude"];
-        $_SESSION["ecole"] = $verifUtilisateur["ecole"];
-        $_SESSION["ville"] = $verifUtilisateur["ville"];
+
+        if ($_SESSION["typeUtilisateur"] == 'normal')  {
+            $_SESSION["nivEtude"] = $verifUtilisateur["nivEtude"];
+            $_SESSION["ecole"] = $verifUtilisateur["ecole"];
+            $_SESSION["ville"] = $verifUtilisateur["ville"];
+        }
     }
 }
 
@@ -51,5 +54,4 @@ if ($_SESSION["estConnecte"]){
     exit();
 }
 $mysqlClient = deconnexion();
-session_abort()
 ?>

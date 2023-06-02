@@ -7,9 +7,11 @@ include "../bdd.php";
 if ($_SESSION["estConnecte"]) {
     if ($_SESSION["typeUtilisateur"] != 'administrateur'){
         header("Location: profil.php");
+        exit();
     }
 } else {
     header("Location: ../connexion/connexion.php");
+    exit();
 }
 
 
@@ -21,28 +23,50 @@ $entreprise = valid($_POST["entreprise"]);
 $donnees = valid($_POST["donnees"]);
 $consignes = valid($_POST["consignes"]);
 $conseils = valid($_POST["conseils"]);
-$idGestionnaire = valid($_POST["idGestionnaire"]);
+$prenom_nom = valid($_POST["gestionnaire"]);
 
-$idGestionnaire = 1;
+$typeDataEvent = $_POST["typeDataEvent"];
+
+$words = explode(" ", $prenom_nom);
+
+$prenom = $words[0]; // "prenom"
+$nom = $words[1]; // "nom"
+
 
 $mysqlClient = connexion($serveur, $bdd, $user, $pass);
 
-if (!empty($titre) and !empty($debut) and !empty($fin) and !empty($description) and !empty($entreprise) and !empty($donnees) and !empty($consignes) and !empty($conseils) and !empty($idGestionnaire) and !empty($idDataEvent)){
-    addDataEvent($mysqlClient,$debut, $fin, $description ,$entreprise , $titre ,$donnees, $consignes ,$conseils ,$idGestionnaire);
+$idGestionnaire = getIdUtilisateurByNom($mysqlClient, $prenom, $nom);
+
+$idGestionnaire = $idGestionnaire["idUtilisateur"];
+
+$fin = $fin . " 23:59:59";
+if (!empty($titre) and !empty($debut) and !empty($fin) and !empty($description) and !empty($entreprise) and !empty($donnees) and !empty($consignes) and !empty($conseils) and !empty($idGestionnaire)){
+    addDataEvent($mysqlClient, $typeDataEvent, $debut, $fin, $description ,$entreprise , $titre ,$donnees, $consignes ,$conseils ,$idGestionnaire);
 }
 
-header("Location: profil.php");
+$mysqlClient = deconnexion();
+
+if ($typeDataEvent === "DataChallenge") {
+    header("Location: profil.php#challenge");
+    exit();
+} else if ($typeDataEvent === "DataBattle"){
+    header("Location: profil.php#battle");
+    exit();
+} else {
+    header("Location: profil.php");
+    exit();
+}
 
 
-
-function addDataEvent($mysqlClient, $dateDebut, $dateFin, $descript, $entreprise, $titre , $donnees, $consignes, $conseils, $idGestionnaire){
-    $date = date('d-m-y h:i:s');
+function addDataEvent($mysqlClient, $typeDataEvent, $dateDebut, $dateFin, $descript, $entreprise, $titre , $donnees, $consignes, $conseils, $idGestionnaire){
+    $date = date('y-m-d h:i:s');
     try {
 
-        $sqlQuery = 'INSERT INTO DataEvent(dateDebut, dateFin , dateCreation , descript , entreprise ,titre , donnees , consignes , conseils , idGestionnaire)  VALUES  (:dateDebut, :dateFin , :dateCreation , :descript , :entreprise ,:titre , :donnees , :consignes , :conseils , :idGestionnaire)';
+        $sqlQuery = 'INSERT INTO DataEvent(typeDataEvent, dateDebut, dateFin , dateCreation , descript , entreprise ,titre , donnees , consignes , conseils , idGestionnaire)  VALUES  (:typeDataEvent, :dateDebut, :dateFin , :dateCreation , :descript , :entreprise ,:titre , :donnees , :consignes , :conseils , :idGestionnaire)';
 
         $updateDataEvent = $mysqlClient -> prepare($sqlQuery);
         $updateDataEvent ->execute([
+            'typeDataEvent' => $typeDataEvent,
             'dateDebut' => $dateDebut,
             'dateFin' => $dateFin,
             'dateCreation' => $date,

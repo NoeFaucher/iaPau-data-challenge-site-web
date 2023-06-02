@@ -20,10 +20,6 @@
                 NATURAL JOIN ProjetData 
                 NATURAL JOIN DataEvent
                 WHERE idGestionnaire=".$_SESSION["idUtilisateur"].";";
-                
-                echo $_SESSION["idUtilisateur"];
-                echo "<br>";
-                echo $req;
 
             }elseif ($_SESSION["typeUtilisateur"] == 'administrateur') {
 
@@ -57,7 +53,7 @@
                 $tab2 = getAllFromRequest($cnx, $req2);
 
                 $req3 = 
-                "SELECT U.nom, U.prenom
+                "SELECT U.nom, U.prenom, U.idUtilisateur
                 FROM Utilisateur U 
                 INNER JOIN UtilisateurAppartientEquipe UAE
                 ON UAE.idUtilisateur = U.idUtilisateur
@@ -80,7 +76,15 @@
                         <p class='membres'>Membres :</p>
                     ";
                     foreach($tab3 as $util) {
-                        echo "<p>". $util["prenom"]." ".$util["nom"]."</p>";
+                        echo "<p>". $util["prenom"]." ".$util["nom"];
+                        
+
+                        if ($util["idUtilisateur"] == $ligne["idChefEquipe"]) {
+                            echo " (Chef d'équipe)";
+                        }
+                        
+                        
+                        echo "</p>";
                     }
 
                     echo "

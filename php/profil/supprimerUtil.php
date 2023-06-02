@@ -1,5 +1,4 @@
 <?php
-
 include "../varSession.inc.php";
 include "../verification.php";
 include "../bdd.php";
@@ -16,27 +15,33 @@ if ($_SESSION["estConnecte"]) {
 
 $cnx = connexion($serveur, $bdd, $user, $pass);
 
-$idProjetData = $_POST["idDataEvent"];
+$words = explode(" ", $_GET["name"]);
 
+$prenom = $words[0]; // "prenom"
+$nom = $words[1]; // "nom"
 
-modifProjetData($cnx,$_POST["titreProjetData"], $_POST["descriptProjet"], $idProjetData);
+$resultat = getIdUtilisateurByNom($cnx, $prenom, $nom);
 
-function modifProjetData($mysqlClient, $titreProjetData, $descriptProjet, $idProjetData){
+$idUtilisateur = $resultat["idUtilisateur"];
+
+supUtil($cnx, $idUtilisateur);
+
+$cnx = deconnexion();
+
+function supUtil($mysqlClient, $idUtilisateur){
     try {
-
-        $sqlQuery = 'UPDATE ProjetData SET descriptProjet = :descriptProjet, titreProjetData = :titreProjetData WHERE idProjetData = :idProjetData';
+        
+        $sqlQuery = 'DELETE FROM Utilisateur WHERE idUtilisateur = :idUtilisateur';
 
         $updateDataEvent = $mysqlClient -> prepare($sqlQuery);
         $updateDataEvent ->execute([
-            'descriptProjet' => $descriptProjet,
-            'titreProjetData' => $titreProjetData,
-            'idProjetData' => $idProjetData,
+            'idUtilisateur' => $idUtilisateur,
         ]);
     } catch (Exception $e) {
         die('Erreur : ' . $e->getMessage());
     }
 }
 
+header("Location: profil.php#utilAdmin");
 
-header("Location: profil.php#projetdata");
 ?>

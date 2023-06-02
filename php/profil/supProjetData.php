@@ -1,5 +1,4 @@
 <?php
-
 include "../varSession.inc.php";
 include "../verification.php";
 include "../bdd.php";
@@ -16,20 +15,20 @@ if ($_SESSION["estConnecte"]) {
 
 $cnx = connexion($serveur, $bdd, $user, $pass);
 
-$idProjetData = $_POST["idDataEvent"];
+$idProjetData = $_GET["idProjetData"];
 
 
-modifProjetData($cnx,$_POST["titreProjetData"], $_POST["descriptProjet"], $idProjetData);
 
-function modifProjetData($mysqlClient, $titreProjetData, $descriptProjet, $idProjetData){
+supProjetData($cnx, $idProjetData);
+
+
+function supProjetData($mysqlClient, $idProjetData){
     try {
-
-        $sqlQuery = 'UPDATE ProjetData SET descriptProjet = :descriptProjet, titreProjetData = :titreProjetData WHERE idProjetData = :idProjetData';
+        
+        $sqlQuery = 'DELETE FROM ProjetData WHERE idProjetData = :idProjetData';
 
         $updateDataEvent = $mysqlClient -> prepare($sqlQuery);
         $updateDataEvent ->execute([
-            'descriptProjet' => $descriptProjet,
-            'titreProjetData' => $titreProjetData,
             'idProjetData' => $idProjetData,
         ]);
     } catch (Exception $e) {
@@ -37,6 +36,9 @@ function modifProjetData($mysqlClient, $titreProjetData, $descriptProjet, $idPro
     }
 }
 
+$cnx = deconnexion();
 
 header("Location: profil.php#projetdata");
+
+
 ?>

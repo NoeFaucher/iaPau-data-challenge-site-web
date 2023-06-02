@@ -31,7 +31,7 @@ create table DataEvent (
     consignes TEXT,
     conseils TEXT,
     idGestionnaire INTEGER,
-    foreign key fk_Gestionnaire(idGestionnaire) references Utilisateur(idUtilisateur)
+    foreign key fk_Gestionnaire(idGestionnaire) references Utilisateur(idUtilisateur) on delete cascade
 );
 
 create table Ressource (
@@ -63,7 +63,7 @@ create table Equipe (
     nomEquipe VARCHAR(100),
     idProjetData INTEGER,
     idChefEquipe INTEGER,
-    foreign key fk_ChefEquipe(idChefEquipe) references Utilisateur(idUtilisateur),
+    foreign key fk_ChefEquipe(idChefEquipe) references Utilisateur(idUtilisateur) on delete cascade,
     foreign key fk_DataEvent(idProjetData) references ProjetData(idProjetData) on delete cascade
 );
 
@@ -80,7 +80,7 @@ create table  UtilisateurAppartientEquipe (
     idUtilisateur INTEGER,
     idEquipe INTEGER,
     constraint pk_AppartientEquipe primary key (idUtilisateur,idEquipe),
-    foreign key fk_Utilisateur(idUtilisateur) references Utilisateur(idUtilisateur),
+    foreign key fk_Utilisateur(idUtilisateur) references Utilisateur(idUtilisateur) on delete cascade,
     foreign key fk_Equipe(idEquipe) references Equipe(idEquipe) on delete cascade
 );
 
@@ -104,8 +104,9 @@ create table Contact (
 
 create table Questionnaire (
     idQuestionnaire INTEGER primary key unique not null auto_increment,
-    descriptQuestionnaire TEXT,
+    titre TEXT,
     idDataEvent INTEGER,
+    dateCreation DATETIME,
     foreign key fk_DataEvent(idDataEvent) references DataEvent(idDataEvent) ON DELETE CASCADE
 );
 

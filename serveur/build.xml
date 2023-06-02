@@ -6,7 +6,8 @@
     <property name="projet.lib.dir" value="lib"/>
     <property name="projet.bin.dir" value="bin"/>
     <property name="projet.doc.dir" value="doc"/>
-    <property name="projet.nom.jar" value="TP10"/>
+    <property name="projet.dist.dir" value="dist"/>
+    <property name="projet.nom.jar" value="Serveur"/>
     <property name="projet.nom.run" value="Serveur"/>
 
     <!-- Definition du classpath du projet -->
@@ -28,6 +29,7 @@
     <target name="clean" description="Suprime les .class">
         <delete dir="${projet.bin.dir}" />
         <delete dir="${projet.doc.dir}" />
+        <delete dir="${projet.dist.dir}" />
     </target>
 
     <!-- Compilation des classes du projet -->
@@ -47,6 +49,44 @@
     <target name="jar">
         <jar jarfile="${projet.nom.jar}.jar" basedir="${projet.sources.dir}" />
     </target>
+
+    <!-- Distribution -->
+    <target name="dist" depends="compile"
+            description="generate the distribution" >
+
+        <mkdir dir="${projet.dist.dir}"/>
+
+
+        <!-- create a property containing all .jar files, prefix lib/, and seperated with a space -->
+        <pathconvert property="libs.project" pathsep=" ">
+        <mapper>
+            <chainedmapper>
+
+            <!-- remove absolute path -->
+            <flattenmapper />
+
+            <!-- add lib/ prefix -->
+            <globmapper from="*" to="../lib/*" />
+            </chainedmapper>
+        </mapper>
+
+        <path>
+
+            <!-- lib contains all jar files, in several subdirectories -->
+            <fileset dir="lib">
+            <include name="**/*.jar" />
+            </fileset>
+        </path>
+        </pathconvert>
+                    
+        <jar destfile="${projet.dist.dir}/${ant.project.name}.jar" basedir="${projet.bin.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="Serveur"/>
+                <attribute name="Class-Path" value="${libs.project}"/>
+            </manifest>
+        </jar>
+
+  </target>
 
     <!-- Lancement -->
     <target name="run" >

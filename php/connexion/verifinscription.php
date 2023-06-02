@@ -55,7 +55,6 @@ if (preg_match($teleRegExp,$telephone)){
 
     $verifTel = getUtilisateurByTelephone($mysqlClient,$telephone);
     if ((isset($verifTel)) && (count($verifTel)) != 0) {
-        var_dump("test");
         $inscriptionValide = false;
         $_SESSION["indisponible"]["telephone"] = true;
     }
@@ -121,6 +120,8 @@ if ($inscriptionValide) {
 
 }
 
+$mysqlClient = deconnexion();
+
 if ($_SESSION["estConnecte)"]){
     header("Location: ../../index.php");
 } else {
@@ -129,3 +130,4 @@ if ($_SESSION["estConnecte)"]){
     header("Location: inscription.php");
 }
 exit();
+

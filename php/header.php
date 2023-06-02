@@ -1,7 +1,20 @@
 <?php
 include("varSession.inc.php");
 ?>
-<link rel="stylesheet" type="text/css" href="/css/header.css" />
+
+<script>
+    var head = document.head;
+    var link = document.createElement("link");
+
+    link.type = "text/css";
+    link.rel = "stylesheet";
+    link.href = "/css/header.css";
+
+    head.appendChild(link);
+</script>
+<head>
+    <link rel="shortcut icon" href="/img/iapau_round.png" type="image/x-icon">
+</head>
 <header>
     <div class="banniere">
         <a href="/index.php">
