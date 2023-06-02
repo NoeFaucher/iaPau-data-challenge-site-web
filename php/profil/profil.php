@@ -167,8 +167,8 @@
                     <label>Conseils :</label><br>
                     <input type="text" name="conseils">
 
-                    <input type='text' list='destinataires-list' class='searchInp' placeholder='Recherche rapide' require>
-                    <datalist id='destinataires-list' class='dataL'>
+                    <input type='text' list='gestio-list' class='searchInp' placeholder='Recherche rapide' require>
+                    <datalist id='gestio-list' class='dataL'>
                         <?php
                         foreach($tab2 as $util) {
                             $nom_prenom = $util["prenom"].' '.$util["nom"];
